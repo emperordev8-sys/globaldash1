@@ -1,0 +1,403 @@
+﻿@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* ── Sidebar rail indicator glow ── */
+.nav-indicator {
+  box-shadow:
+    0 0 2px 1px var(--t1),
+    0 0 6px 2px var(--border) !important;
+}
+
+/* ══════════════════════════════════════════════
+   CSS DESIGN TOKENS  — Dark (Stakent-style) + Light
+   ══════════════════════════════════════════════ */
+
+:root {
+  /* Background — pure black */
+  --bg: #000000;
+
+  /* Glass surfaces */
+  --glass:        rgba(255, 255, 255, 0.03);
+  --glass-2:      rgba(255, 255, 255, 0.02);
+  --glass-hover:  rgba(255, 255, 255, 0.05);
+  /* Modal glass — more opaque so modals are visible over dark overlays */
+  --modal-glass:  rgba(255, 255, 255, 0.085);
+  --modal-input:  rgba(255, 255, 255, 0.060);
+  --modal-border: rgba(255, 255, 255, 0.130);
+
+  /* Borders */
+  --border:      rgba(255, 255, 255, 0.082);
+  --border-soft: rgba(255, 255, 255, 0.055);
+
+  /* Text */
+  --t1: rgba(255, 255, 255, 0.94);
+  --t2: rgba(255, 255, 255, 0.62);
+  --t3: rgba(255, 255, 255, 0.36);
+  --t4: rgba(255, 255, 255, 0.18);
+
+  /* Accent — Brand Orange (dark mode only; light mode swaps this to black) */
+  --accent:        #f05025;
+  --accent-hover:  #ff6a3d;
+  --accent-press:  #cc4118;
+  --accent-deep:   #7c1500;
+  --accent-dim:    rgba(240, 80, 37, 0.14);
+  --accent-border: rgba(240, 80, 37, 0.28);
+  --accent-grad-1: #ff8a4c;
+  --accent-grad-2: #f05025;
+  --accent-grad-3: #b82e0c;
+  /* channel triplet so rgba(var(--accent-r),var(--accent-g),var(--accent-b),X) calls stay theme-aware */
+  --accent-r: 240;
+  --accent-g: 80;
+  --accent-b: 37;
+
+  /* Success — Bright Green */
+  --green:        #4ade80;
+  --green-dim:    rgba(74, 222, 128, 0.12);
+  --green-border: rgba(74, 222, 128, 0.25);
+
+  /* Danger — Soft Red */
+  --red:        #f87171;
+  --red-dim:    rgba(248, 113, 113, 0.12);
+  --red-border: rgba(248, 113, 113, 0.25);
+
+  /* Warning — Amber */
+  --yellow:        #fbbf24;
+  --yellow-dim:    rgba(251, 191, 36, 0.12);
+  --yellow-border: rgba(251, 191, 36, 0.25);
+
+  /* Chrome surfaces used by hardcoded gradients/backgrounds */
+  --surface:        #000000;
+  --surface-raised: #141414;
+  --surface-sunken: #080808;
+  --icon-stroke:     rgba(255, 255, 255, 0.85);
+  --icon-stroke-soft: rgba(255, 255, 255, 0.62);
+}
+
+:root[data-theme="light"] {
+  /* Background — clean white */
+  --bg: #ffffff;
+
+  /* Glass surfaces */
+  --glass:        rgba(0, 0, 0, 0.03);
+  --glass-2:      rgba(0, 0, 0, 0.02);
+  --glass-hover:  rgba(0, 0, 0, 0.045);
+  --modal-glass:  rgba(0, 0, 0, 0.035);
+  --modal-input:  rgba(0, 0, 0, 0.030);
+  --modal-border: rgba(0, 0, 0, 0.110);
+
+  /* Borders */
+  --border:      rgba(0, 0, 0, 0.10);
+  --border-soft: rgba(0, 0, 0, 0.07);
+
+  /* Text — light-mode opacities run higher than their dark-mode counterparts
+     because low-opacity dark text on a white surface loses legibility much
+     faster than the equivalent light text on a black surface. */
+  --t1: rgba(0, 0, 0, 0.90);
+  --t2: rgba(0, 0, 0, 0.64);
+  --t3: rgba(0, 0, 0, 0.48);
+  --t4: rgba(0, 0, 0, 0.32);
+
+  /* Chrome surfaces used by hardcoded gradients/backgrounds */
+  --surface:        #ffffff;
+  --surface-raised: #f7f7f8;
+  --surface-sunken: #f2f2f4;
+  --icon-stroke:     rgba(0, 0, 0, 0.72);
+  --icon-stroke-soft: rgba(0, 0, 0, 0.55);
+
+  /* Accent — swapped to black in light mode, no orange */
+  --accent:        #000000;
+  --accent-hover:  #333333;
+  --accent-press:  #1a1a1a;
+  --accent-deep:   #000000;
+  --accent-dim:    rgba(0, 0, 0, 0.08);
+  --accent-border: rgba(0, 0, 0, 0.22);
+  --accent-grad-1: #333333;
+  --accent-grad-2: #000000;
+  --accent-grad-3: #000000;
+  --accent-r: 0;
+  --accent-g: 0;
+  --accent-b: 0;
+}
+
+/* ══════════════════════════════════════════════
+   THEME SWITCH TRANSITION
+   Applied only for a brief window while the theme
+   toggles, so ordinary hover/interaction transitions
+   elsewhere aren't slowed down permanently.
+   ══════════════════════════════════════════════ */
+.theme-transitioning,
+.theme-transitioning *,
+.theme-transitioning *::before,
+.theme-transitioning *::after {
+  transition: background-color 0.16s ease-out, border-color 0.16s ease-out,
+    color 0.16s ease-out, fill 0.16s ease-out, stroke 0.16s ease-out,
+    box-shadow 0.16s ease-out !important;
+}
+
+/* ══════════════════════════════════════════════
+   GLOBAL BASE
+   ══════════════════════════════════════════════ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  box-shadow: none !important;
+  text-shadow: none !important;
+}
+
+html {
+  font-size: 15px;
+  background-color: #020203;
+}
+
+:root[data-theme="light"] { background-color: #ffffff; }
+
+/* ── Tablet font boost ── */
+@media (min-width: 769px) and (max-width: 1024px) {
+  html { font-size: 15.5px; }
+}
+
+/* ── Mobile font scale-down ── */
+@media (max-width: 768px) { html { font-size: 14px; } }
+@media (max-width: 430px) { html { font-size: 13.5px; } }
+@media (max-width: 360px) { html { font-size: 13px; } }
+
+/* ── iOS Safari auto-zoom fix ──
+   iOS zooms the page in on focus when a focused form field renders below
+   16px. Root font-size shrinks on mobile above, which drops input text
+   below that threshold, so pin form fields to 16px on touch viewports
+   regardless of any component-level font-size. */
+@media (max-width: 768px) {
+  input, select, textarea { font-size: 16px !important; }
+}
+
+html, body {
+  min-height: 100vh;
+  font-family: 'Plus Jakarta Sans', sans-serif;
+  font-weight: 300;
+  letter-spacing: -0.01em;
+  color: var(--t1);
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+body {
+  background: transparent;
+}
+
+#bg-layer {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
+  background: var(--bg);
+  pointer-events: none;
+}
+
+/* ── Global thin weight overrides ── */
+h1, h2, h3, h4, h5, h6 { font-weight: 400; letter-spacing: 0.04em; }
+button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300; letter-spacing: -0.01em; }
+
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--accent-border); }
+
+/* ═══════════════════════════════════════════════
+   GLOBAL FADE-UP — every page's cards/sections
+   ═══════════════════════════════════════════════ */
+@keyframes fadeUp {
+  from { opacity: 0; transform: translateY(28px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
+.websites-page > *, .bill-page > *, .gen-page > *, .be-page > *,
+.cmp > *, .cc-page > *, .email-page > *, .composer-page > *,
+.help > *, .set-page > *, .sms-page > *, .sc-page > *,
+.tools-page > *, .transactions > *, .tut-page > *,
+.wf-page > *, .wallet-page > * {
+  animation: fadeUp 0.55s cubic-bezier(0.4, 0, 0.2, 1) 0.05s both;
+}
+
+.websites-page > *:nth-child(2), .bill-page > *:nth-child(2), .gen-page > *:nth-child(2),
+.be-page > *:nth-child(2), .cmp > *:nth-child(2), .cc-page > *:nth-child(2),
+.email-page > *:nth-child(2), .composer-page > *:nth-child(2), .help > *:nth-child(2),
+.set-page > *:nth-child(2), .sms-page > *:nth-child(2), .sc-page > *:nth-child(2),
+.tools-page > *:nth-child(2), .transactions > *:nth-child(2), .tut-page > *:nth-child(2),
+.wf-page > *:nth-child(2), .wallet-page > *:nth-child(2) { animation-delay: 0.15s; }
+
+.websites-page > *:nth-child(3), .bill-page > *:nth-child(3), .gen-page > *:nth-child(3),
+.be-page > *:nth-child(3), .cmp > *:nth-child(3), .cc-page > *:nth-child(3),
+.email-page > *:nth-child(3), .composer-page > *:nth-child(3), .help > *:nth-child(3),
+.set-page > *:nth-child(3), .sms-page > *:nth-child(3), .sc-page > *:nth-child(3),
+.tools-page > *:nth-child(3), .transactions > *:nth-child(3), .tut-page > *:nth-child(3),
+.wf-page > *:nth-child(3), .wallet-page > *:nth-child(3) { animation-delay: 0.25s; }
+
+.websites-page > *:nth-child(4), .bill-page > *:nth-child(4), .gen-page > *:nth-child(4),
+.be-page > *:nth-child(4), .cmp > *:nth-child(4), .cc-page > *:nth-child(4),
+.email-page > *:nth-child(4), .composer-page > *:nth-child(4), .help > *:nth-child(4),
+.set-page > *:nth-child(4), .sms-page > *:nth-child(4), .sc-page > *:nth-child(4),
+.tools-page > *:nth-child(4), .transactions > *:nth-child(4), .tut-page > *:nth-child(4),
+.wf-page > *:nth-child(4), .wallet-page > *:nth-child(4) { animation-delay: 0.35s; }
+
+.websites-page > *:nth-child(5), .bill-page > *:nth-child(5), .gen-page > *:nth-child(5),
+.be-page > *:nth-child(5), .cmp > *:nth-child(5), .cc-page > *:nth-child(5),
+.email-page > *:nth-child(5), .composer-page > *:nth-child(5), .help > *:nth-child(5),
+.set-page > *:nth-child(5), .sms-page > *:nth-child(5), .sc-page > *:nth-child(5),
+.tools-page > *:nth-child(5), .transactions > *:nth-child(5), .tut-page > *:nth-child(5),
+.wf-page > *:nth-child(5), .wallet-page > *:nth-child(5) { animation-delay: 0.45s; }
+
+.websites-page > *:nth-child(6), .bill-page > *:nth-child(6), .gen-page > *:nth-child(6),
+.be-page > *:nth-child(6), .cmp > *:nth-child(6), .cc-page > *:nth-child(6),
+.email-page > *:nth-child(6), .composer-page > *:nth-child(6), .help > *:nth-child(6),
+.set-page > *:nth-child(6), .sms-page > *:nth-child(6), .sc-page > *:nth-child(6),
+.tools-page > *:nth-child(6), .transactions > *:nth-child(6), .tut-page > *:nth-child(6),
+.wf-page > *:nth-child(6), .wallet-page > *:nth-child(6) { animation-delay: 0.55s; }
+
+/* ══════════════════════════════════════════════
+   GLOBAL MOBILE RESPONSIVE — 768px breakpoint
+   ══════════════════════════════════════════════ */
+
+@media (max-width: 768px) {
+
+  /* ── Base font scale for mobile ── */
+  html { font-size: 14px; }
+
+  /* ── Global card / box padding reduction (all pages) ── */
+  .tool-card, .service-card, .site-card, .gen-card, .cc-card, .cc-pair-card,
+  .sms-form-card, .sc-form-card, .sc-recent-card, .sms-history,
+  .sms-preview-stats, .sms-tab-bar, .sc-tab-bar,
+  .w-stat, .w-txn-section, .w-auto-row,
+  .set-card, .help-card, .help-cat, .help-faq, .help-right,
+  .tut-card, .bill-plan-card, .bill-stat, .bill-notes,
+  .wf-card, .wf-howto, .wf-plan-card,
+  .cmp-row, .cmp-cat-card, .cmp-tabs,
+  .be-card, .promo-card {
+    padding: 12px 13px !important;
+    border-radius: 14px !important;
+  }
+
+  /* ── Two-column body layouts ── */
+  .help-body                { grid-template-columns: 1fr !important; }
+  .help-cats                { grid-template-columns: repeat(3, 1fr) !important; }
+  .set-layout               { grid-template-columns: 1fr !important; }
+  .set-left                 { display: none !important; }
+  .set-tabs-mobile          { display: flex !important; }
+
+  /* ── Stats / card rows ── */
+  .w-stats                  { grid-template-columns: 1fr 1fr !important; }
+  .billing-plans            { grid-template-columns: 1fr !important; }
+  .billing-header           { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+
+  /* ── Tools grid ── */
+  .tools-grid               { grid-template-columns: 1fr !important; }
+
+  /* ── Transactions / Customers table ── */
+  .txn-table-wrap, .cust-table-wrap { overflow-x: auto !important; }
+
+  /* ── Complaint page ── */
+  .cmp-header               { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+  .cmp-cat-grid             { grid-template-columns: 1fr 1fr !important; }
+  .cmp-detail-grid          { grid-template-columns: 1fr 1fr !important; }
+  .cmp-modal                { border-radius: 16px !important; }
+
+  /* ── SMS Sender ── */
+  .sms-layout               { grid-template-columns: 1fr !important; }
+
+  /* ── Email Composer ── */
+  .composer-layout          { grid-template-columns: 1fr !important; }
+
+  /* ── Wallet ── */
+  .w-hdr                    { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+
+  /* ── Analytics ── */
+  .analytics-grid           { grid-template-columns: 1fr !important; }
+  .analytics-stats          { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Help hero search ── */
+  .help-hero                { padding: 32px 16px !important; }
+  .help-hero-title          { font-size: 1.4rem !important; }
+
+  /* ── Spoof calling ── */
+  .sc-stats                 { grid-template-columns: 1fr 1fr !important; }
+  .sc-form-grid             { grid-template-columns: 1fr !important; }
+
+  /* ── Currency converter ── */
+  .cc-pair-row              { flex-direction: column !important; }
+  .cc-swap-btn              { align-self: center !important; transform: rotate(90deg) !important; }
+
+  /* ── Page headers ── */
+  .cmp-header,
+  .w-hdr,
+  .tut-header               { flex-wrap: wrap !important; }
+
+  /* ── Modal full screen on tiny screens ── */
+  .cmp-overlay              { padding: 12px !important; }
+  .cmp-cat-grid             { grid-template-columns: 1fr 1fr !important; }
+
+  /* ── Settings mobile tabs ── */
+  .set-tabs-mobile          { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 4px; }
+  .set-tabs-mobile::-webkit-scrollbar { display: none; }
+}
+
+@media (max-width: 480px) {
+  html { font-size: 12px; }
+
+  .tool-card, .service-card, .gen-card, .cc-card, .cc-pair-card,
+  .sms-form-card, .sc-form-card, .sc-recent-card,
+  .w-stat, .set-card, .help-card, .tut-card, .bill-plan-card,
+  .wf-card, .cmp-row, .cmp-cat-card, .promo-card {
+    padding: 10px 11px !important;
+    border-radius: 12px !important;
+  }
+
+  .help-cats                { grid-template-columns: 1fr 1fr !important; }
+  .w-stats                  { grid-template-columns: 1fr !important; }
+  .analytics-stats          { grid-template-columns: 1fr !important; }
+  .sc-stats                 { grid-template-columns: 1fr !important; }
+  .cmp-pri-row              { flex-wrap: wrap !important; }
+  .help-contact-btns        { flex-direction: column !important; }
+  .billing-toggle           { flex-direction: column !important; align-items: flex-start !important; }
+}
+
+/* ══════════════════════════════════════════════
+   GLOBAL CARD BACKGROUND — pure black, applies to
+   ALL card class names used across the entire app
+   ══════════════════════════════════════════════ */
+.card,
+.site-card,
+.stat-chip,
+.glass-panel,
+.p-card,
+.kpi-card,
+.txn-panel,
+.bill-stat,
+.bill-plan-card,
+.bm-form-card,
+.br-card,
+.sec-card,
+.auth-card,
+.service-card,
+.set-card,
+.help-card,
+.tut-card,
+.wf-card,
+.w-stat,
+.cc-card,
+.cc-pair-card,
+.sms-form-card,
+.sc-form-card,
+.cmp-row,
+.cmp-cat-card,
+.promo-card,
+.be-card {
+  background: var(--bg) !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  border: 1px solid var(--border) !important;
+  box-shadow: none !important;
+}

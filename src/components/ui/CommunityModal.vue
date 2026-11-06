@@ -1,0 +1,240 @@
+﻿<!-- src/components/ui/CommunityModal.vue -->
+<template>
+  <Teleport to="body">
+    <Transition name="modal">
+      <div v-if="visible" class="modal-backdrop" @click.self="dismiss">
+        <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+
+          <!-- Close -->
+          <button class="modal-close" @click="dismiss" aria-label="Close">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+              <line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/>
+            </svg>
+          </button>
+
+          <!-- Icon -->
+          <div class="modal-icon-wrap">
+            <div class="modal-icon-ring" />
+            <div class="modal-icon">
+              <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
+              </svg>
+            </div>
+          </div>
+
+          <!-- Copy -->
+          <div class="modal-body">
+            <h2 id="modal-title" class="modal-title">Join our community</h2>
+            <p class="modal-sub">Get the latest updates, guides, and support<br/>directly on our channel.</p>
+          </div>
+
+          <!-- Actions -->
+          <div class="modal-actions">
+            <a href="#" class="btn-join" @click.prevent="join">
+              Join channel
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round">
+                <polyline points="9 18 15 12 9 6"/>
+              </svg>
+            </a>
+            <button class="btn-later" @click="dismiss">Maybe later</button>
+          </div>
+
+          <!-- Countdown bar -->
+          <div class="modal-timer">
+            <div class="modal-timer__fill" :style="{ width: timerPct + '%' }" />
+          </div>
+
+        </div>
+      </div>
+    </Transition>
+  </Teleport>
+</template>
+
+<script setup>
+import { ref, onMounted, onBeforeUnmount } from 'vue'
+
+const visible   = ref(false)
+const timerPct  = ref(100)
+
+let showTimer     = null
+let countInterval = null
+let countSeconds  = 0
+const DISPLAY_MS  = 15_000
+
+function show() {
+  if (sessionStorage.getItem('community_modal_seen')) return
+  visible.value  = true
+  timerPct.value = 100
+  countSeconds   = 0
+  clearInterval(countInterval)
+  countInterval = setInterval(() => {
+    countSeconds += 100
+    timerPct.value = Math.max(0, 100 - (countSeconds / DISPLAY_MS) * 100)
+    if (countSeconds >= DISPLAY_MS) dismiss()
+  }, 100)
+}
+
+function dismiss() {
+  visible.value = false
+  clearInterval(countInterval)
+  sessionStorage.setItem('community_modal_seen', '1')
+}
+
+function join() {
+  window.open('https://t.me/globalgle', '_blank', 'noopener,noreferrer')
+  dismiss()
+}
+
+onMounted(() => {
+  if (!sessionStorage.getItem('community_modal_seen')) {
+    showTimer = setTimeout(show, 60_000)
+  }
+})
+
+onBeforeUnmount(() => {
+  clearTimeout(showTimer)
+  clearInterval(countInterval)
+})
+</script>
+
+<style scoped>
+/* Backdrop */
+.modal-backdrop {
+  position: fixed; inset: 0; z-index: 10000;
+  display: flex; align-items: center; justify-content: center;
+  background: rgba(0, 0, 0, 0.5);
+  backdrop-filter: blur(6px);
+ 
+}
+
+/* Card */
+.modal-card {
+  position: relative;
+  background: var(--bg);
+  border: 1px solid var(--modal-border);
+  border-radius: 24px;
+  padding: 36px 32px 28px;
+  width: 100%;
+  max-width: 380px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 20px;
+  overflow: hidden;
+}
+
+/* Ambient glow behind card */
+.modal-card::before {
+  content: '';
+  position: absolute;
+  top: -60px; left: 50%; transform: translateX(-50%);
+  width: 220px; height: 220px;
+  background: radial-gradient(circle, rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+
+/* Close button */
+.modal-close {
+  position: absolute; top: 14px; right: 14px;
+  width: 28px; height: 28px; border-radius: 8px;
+  background: var(--glass-2); border: 1px solid var(--border-soft);
+  color: var(--t3); display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.modal-close:hover { background: var(--glass-hover); color: var(--t1); }
+
+/* Icon */
+.modal-icon-wrap { position: relative; width: 72px; height: 72px; display: flex; align-items: center; justify-content: center; }
+.modal-icon-ring {
+  position: absolute; inset: 0; border-radius: 50%;
+  background: var(--accent-dim);
+  border: 1px solid var(--accent-border);
+  animation: pulse-ring 2s ease-out infinite;
+}
+.modal-icon {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--accent);
+  color: #fff;
+  display: flex; align-items: center; justify-content: center;
+  position: relative; z-index: 1;
+}
+
+@keyframes pulse-ring {
+  0%   { transform: scale(1);   opacity: 0.7; }
+  70%  { transform: scale(1.5); opacity: 0; }
+  100% { transform: scale(1.5); opacity: 0; }
+}
+
+/* Copy */
+.modal-body { text-align: center; }
+.modal-title { font-size: 1.15rem; font-weight: 800; color: var(--t1); margin: 0 0 8px; letter-spacing: -0.02em; }
+.modal-sub { font-size: 0.825rem; color: var(--t1); font-weight: 600; line-height: 1.55; margin: 0; }
+
+/* Buttons */
+.modal-actions { display: flex; flex-direction: column; gap: 10px; width: 100%; }
+
+.btn-join {
+  display: flex; align-items: center; justify-content: center; gap: 8px;
+  width: 100%; padding: 13px 24px;
+  background: var(--accent);
+  border: none; border-radius: 12px;
+  color: #fff; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.9rem; font-weight: 700;
+  text-decoration: none; cursor: pointer;
+  transition: opacity 0.2s ease, transform 0.15s ease;
+}
+.btn-join:hover { opacity: 0.9; transform: translateY(-1px); }
+
+.btn-later {
+  width: 100%; padding: 12px 24px;
+  background: var(--glass-2); border: 1px solid var(--border-soft); border-radius: 12px;
+  color: var(--t1); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.875rem; font-weight: 700;
+  cursor: pointer; transition: all 0.2s ease;
+}
+.btn-later:hover { background: var(--glass-hover); color: var(--t1); border-color: var(--border); }
+
+/* Countdown timer bar */
+.modal-timer {
+  position: absolute; bottom: 0; left: 0; right: 0;
+  height: 3px; background: var(--glass-2);
+}
+.modal-timer__fill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--accent), rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.4));
+  border-radius: 0 2px 2px 0;
+  transition: width 0.1s linear;
+}
+
+/* Transitions */
+.modal-enter-active { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
+.modal-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
+.modal-enter-from   { opacity: 0; transform: scale(0.88) translateY(16px); }
+.modal-leave-to     { opacity: 0; transform: scale(0.95) translateY(8px); }
+
+@media (max-width: 768px) {
+  .modal-backdrop { padding: 0 24px; }
+  .modal-card {
+    max-width: 300px;
+    width: calc(100% - 48px);
+    padding: 26px 18px 20px;
+    gap: 14px;
+    border-radius: 18px;
+  }
+  .modal-title { font-size: 1.05rem; }
+  .modal-sub   { font-size: 0.8rem; }
+  .modal-actions { gap: 8px; }
+  .btn-join  { width: auto; align-self: center; padding: 11px 32px; font-size: 0.85rem; }
+  .btn-later { width: auto; align-self: center; padding: 10px 28px; font-size: 0.82rem; }
+}
+
+@media (max-width: 400px) {
+  .modal-backdrop { padding: 0 16px; }
+  .modal-card {
+    max-width: 100%;
+    width: calc(100% - 32px);
+    padding: 24px 16px 18px;
+    gap: 12px;
+  }
+  .btn-join  { padding: 10px 24px; }
+  .btn-later { padding: 9px 20px; }
+}
+</style>
