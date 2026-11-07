@@ -4,52 +4,58 @@
 
 /* ── Sidebar rail indicator glow ── */
 .nav-indicator {
+  background: var(--accent) !important;
   box-shadow:
-    0 0 2px 1px var(--t1),
-    0 0 6px 2px var(--border) !important;
+    0 0 3px 1px var(--accent),
+    0 0 8px 2px var(--accent-border) !important;
 }
 
 /* ══════════════════════════════════════════════
    CSS DESIGN TOKENS  — Dark (Stakent-style) + Light
    ══════════════════════════════════════════════ */
 
+/* ──────────────────────────────────────────────
+   GLOBALGLE DESIGN SYSTEM v2 — premium fintech
+   Green brand accent · elevated neutral surfaces
+   Card surfaces (var(--bg)) sit ABOVE the page
+   canvas (var(--canvas)) for real depth.
+   ────────────────────────────────────────────── */
 :root {
-  /* Background — pure black */
-  --bg: #000000;
+  /* Page canvas (behind everything) + base/card surface (elevated) */
+  --canvas: #080c0b;
+  --bg:     #0f1513;
 
   /* Glass surfaces */
-  --glass:        rgba(255, 255, 255, 0.03);
-  --glass-2:      rgba(255, 255, 255, 0.02);
-  --glass-hover:  rgba(255, 255, 255, 0.05);
-  /* Modal glass — more opaque so modals are visible over dark overlays */
-  --modal-glass:  rgba(255, 255, 255, 0.085);
-  --modal-input:  rgba(255, 255, 255, 0.060);
-  --modal-border: rgba(255, 255, 255, 0.130);
+  --glass:        rgba(255, 255, 255, 0.035);
+  --glass-2:      rgba(255, 255, 255, 0.022);
+  --glass-hover:  rgba(255, 255, 255, 0.065);
+  --modal-glass:  rgba(255, 255, 255, 0.05);
+  --modal-input:  rgba(255, 255, 255, 0.05);
+  --modal-border: rgba(255, 255, 255, 0.12);
 
   /* Borders */
-  --border:      rgba(255, 255, 255, 0.082);
+  --border:      rgba(255, 255, 255, 0.09);
   --border-soft: rgba(255, 255, 255, 0.055);
 
   /* Text */
-  --t1: rgba(255, 255, 255, 0.94);
-  --t2: rgba(255, 255, 255, 0.62);
-  --t3: rgba(255, 255, 255, 0.36);
-  --t4: rgba(255, 255, 255, 0.18);
+  --t1: rgba(255, 255, 255, 0.95);
+  --t2: rgba(255, 255, 255, 0.66);
+  --t3: rgba(255, 255, 255, 0.44);
+  --t4: rgba(255, 255, 255, 0.14);
 
-  /* Accent — Brand Orange (dark mode only; light mode swaps this to black) */
-  --accent:        #f05025;
-  --accent-hover:  #ff6a3d;
-  --accent-press:  #cc4118;
-  --accent-deep:   #7c1500;
-  --accent-dim:    rgba(240, 80, 37, 0.14);
-  --accent-border: rgba(240, 80, 37, 0.28);
-  --accent-grad-1: #ff8a4c;
-  --accent-grad-2: #f05025;
-  --accent-grad-3: #b82e0c;
-  /* channel triplet so rgba(var(--accent-r),var(--accent-g),var(--accent-b),X) calls stay theme-aware */
-  --accent-r: 240;
-  --accent-g: 80;
-  --accent-b: 37;
+  /* Accent — Globalgle Green (unified across both themes) */
+  --accent:        #22c55e;
+  --accent-hover:  #34d17a;
+  --accent-press:  #16a34a;
+  --accent-deep:   #0f5a2e;
+  --accent-dim:    rgba(34, 197, 94, 0.15);
+  --accent-border: rgba(34, 197, 94, 0.32);
+  --accent-grad-1: #34d17a;
+  --accent-grad-2: #16a34a;
+  --accent-grad-3: #0d7a39;
+  --accent-r: 34;
+  --accent-g: 197;
+  --accent-b: 94;
 
   /* Success — Bright Green */
   --green:        #4ade80;
@@ -67,57 +73,70 @@
   --yellow-border: rgba(251, 191, 36, 0.25);
 
   /* Chrome surfaces used by hardcoded gradients/backgrounds */
-  --surface:        #000000;
-  --surface-raised: #141414;
-  --surface-sunken: #080808;
+  --surface:        #0f1513;
+  --surface-raised: #161d1a;
+  --surface-sunken: #0c1210;
+  --surface-1:      #0f1513;
+  --surface-2:      #19211e;
   --icon-stroke:     rgba(255, 255, 255, 0.85);
   --icon-stroke-soft: rgba(255, 255, 255, 0.62);
+
+  /* Elevation + shape scale */
+  --radius-lg: 18px;
+  --radius:    14px;
+  --radius-sm: 10px;
+  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
+  --shadow-pop:  0 18px 44px rgba(0, 0, 0, 0.5);
 }
 
 :root[data-theme="light"] {
-  /* Background — clean white */
-  --bg: #ffffff;
+  /* Page canvas (soft neutral) + card surface (white) */
+  --canvas: #eef1f0;
+  --bg:     #ffffff;
 
   /* Glass surfaces */
-  --glass:        rgba(0, 0, 0, 0.03);
-  --glass-2:      rgba(0, 0, 0, 0.02);
-  --glass-hover:  rgba(0, 0, 0, 0.045);
-  --modal-glass:  rgba(0, 0, 0, 0.035);
-  --modal-input:  rgba(0, 0, 0, 0.030);
-  --modal-border: rgba(0, 0, 0, 0.110);
+  --glass:        rgba(16, 32, 26, 0.03);
+  --glass-2:      rgba(16, 32, 26, 0.02);
+  --glass-hover:  rgba(16, 32, 26, 0.05);
+  --modal-glass:  rgba(16, 32, 26, 0.035);
+  --modal-input:  rgba(16, 32, 26, 0.03);
+  --modal-border: rgba(16, 32, 26, 0.11);
 
   /* Borders */
-  --border:      rgba(0, 0, 0, 0.10);
-  --border-soft: rgba(0, 0, 0, 0.07);
+  --border:      rgba(16, 24, 32, 0.10);
+  --border-soft: rgba(16, 24, 32, 0.07);
 
-  /* Text — light-mode opacities run higher than their dark-mode counterparts
-     because low-opacity dark text on a white surface loses legibility much
-     faster than the equivalent light text on a black surface. */
-  --t1: rgba(0, 0, 0, 0.90);
-  --t2: rgba(0, 0, 0, 0.64);
-  --t3: rgba(0, 0, 0, 0.48);
-  --t4: rgba(0, 0, 0, 0.32);
+  /* Text */
+  --t1: rgba(17, 24, 28, 0.92);
+  --t2: rgba(17, 24, 28, 0.60);
+  --t3: rgba(17, 24, 28, 0.45);
+  --t4: rgba(17, 24, 28, 0.12);
 
   /* Chrome surfaces used by hardcoded gradients/backgrounds */
   --surface:        #ffffff;
-  --surface-raised: #f7f7f8;
-  --surface-sunken: #f2f2f4;
-  --icon-stroke:     rgba(0, 0, 0, 0.72);
-  --icon-stroke-soft: rgba(0, 0, 0, 0.55);
+  --surface-raised: #ffffff;
+  --surface-sunken: #f1f4f3;
+  --surface-1:      #ffffff;
+  --surface-2:      #f4f7f6;
+  --icon-stroke:     rgba(17, 24, 28, 0.72);
+  --icon-stroke-soft: rgba(17, 24, 28, 0.55);
 
-  /* Accent — swapped to black in light mode, no orange */
-  --accent:        #000000;
-  --accent-hover:  #333333;
-  --accent-press:  #1a1a1a;
-  --accent-deep:   #000000;
-  --accent-dim:    rgba(0, 0, 0, 0.08);
-  --accent-border: rgba(0, 0, 0, 0.22);
-  --accent-grad-1: #333333;
-  --accent-grad-2: #000000;
-  --accent-grad-3: #000000;
-  --accent-r: 0;
-  --accent-g: 0;
-  --accent-b: 0;
+  /* Accent — Globalgle Green in light mode too */
+  --accent:        #16a34a;
+  --accent-hover:  #15803d;
+  --accent-press:  #15803d;
+  --accent-deep:   #14532d;
+  --accent-dim:    rgba(22, 163, 74, 0.10);
+  --accent-border: rgba(22, 163, 74, 0.28);
+  --accent-grad-1: #22c55e;
+  --accent-grad-2: #16a34a;
+  --accent-grad-3: #0f7a39;
+  --accent-r: 22;
+  --accent-g: 163;
+  --accent-b: 74;
+
+  --shadow-card: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
+  --shadow-pop:  0 20px 48px rgba(16, 24, 40, 0.16);
 }
 
 /* ══════════════════════════════════════════════
@@ -149,10 +168,10 @@
 
 html {
   font-size: 15px;
-  background-color: #020203;
+  background-color: var(--canvas);
 }
 
-:root[data-theme="light"] { background-color: #ffffff; }
+:root[data-theme="light"] { background-color: var(--canvas); }
 
 /* ── Tablet font boost ── */
 @media (min-width: 769px) and (max-width: 1024px) {
@@ -176,7 +195,7 @@ html {
 html, body {
   min-height: 100vh;
   font-family: 'Plus Jakarta Sans', sans-serif;
-  font-weight: 300;
+  font-weight: 400;
   letter-spacing: -0.01em;
   color: var(--t1);
   -webkit-font-smoothing: antialiased;
@@ -194,18 +213,30 @@ body {
   right: 0;
   bottom: 0;
   z-index: -1;
-  background: var(--bg);
+  background: var(--canvas);
   pointer-events: none;
 }
 
-/* ── Global thin weight overrides ── */
-h1, h2, h3, h4, h5, h6 { font-weight: 400; letter-spacing: 0.04em; }
-button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 300; letter-spacing: -0.01em; }
+/* ── Premium type weights ── */
+h1, h2, h3, h4, h5, h6 { font-weight: 700; letter-spacing: -0.018em; }
+button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; font-weight: 500; letter-spacing: -0.01em; }
 
 ::-webkit-scrollbar { width: 6px; }
 ::-webkit-scrollbar-track { background: transparent; }
 ::-webkit-scrollbar-thumb { background: var(--border); border-radius: 999px; }
 ::-webkit-scrollbar-thumb:hover { background: var(--accent-border); }
+
+/* ── Premium global micro-details ── */
+/* Brand-tinted text selection */
+::selection { background: var(--accent-dim); color: var(--t1); }
+
+/* Accent focus ring on interactive elements (zero-specificity :where,
+   so any component can still override it cleanly) */
+:where(a, button, input, select, textarea, [tabindex], [role="button"]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 6px;
+}
 
 /* ═══════════════════════════════════════════════
    GLOBAL FADE-UP — every page's cards/sections
@@ -213,6 +244,19 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; 
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
   to   { opacity: 1; transform: translateY(0); }
+}
+
+/* Global hover lift for clickable grid cards (stat/data tiles excluded) */
+.tool-card, .service-card, .gen-card, .be-card,
+.cmp-cat-card, .help-card, .tut-card, .site-card {
+  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.2s ease !important;
+  cursor: pointer;
+}
+.tool-card:hover, .service-card:hover, .gen-card:hover, .be-card:hover,
+.cmp-cat-card:hover, .help-card:hover, .tut-card:hover, .site-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--accent-border) !important;
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14) !important;
 }
 
 .websites-page > *, .bill-page > *, .gen-page > *, .be-page > *,
@@ -395,9 +439,9 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; 
 .cmp-cat-card,
 .promo-card,
 .be-card {
-  background: var(--bg) !important;
+  background: var(--surface-1) !important;
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   border: 1px solid var(--border) !important;
-  box-shadow: none !important;
+  box-shadow: var(--shadow-card) !important;
 }

@@ -232,6 +232,18 @@
         </div>
       </div>
 
+      <!-- Account block -->
+      <button class="sidebar__account" @click="goAccount">
+        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Daniel" alt="Daniel" class="sidebar__account-avatar" />
+        <div class="sidebar__account-info">
+          <span class="sidebar__account-name">Daniel</span>
+          <span class="sidebar__account-mail">globalgle@gmail.com</span>
+        </div>
+        <svg class="sidebar__account-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="9 18 15 12 9 6"/>
+        </svg>
+      </button>
+
       <!-- Logout button -->
       <button class="sidebar__logout" @click="logout">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -318,6 +330,11 @@ onUnmounted(() => {
 function goUpgrade() {
   closeSidebar()
   router.push('/billing')
+}
+
+function goAccount() {
+  closeSidebar()
+  router.push('/settings')
 }
 
 function logout() {
@@ -562,10 +579,12 @@ function logout() {
 }
 
 .nav-item--active {
-  background: var(--glass-hover);
-  border-color: var(--border);
-  box-shadow: inset 0 1px 0 var(--border), 0 2px 8px rgba(0,0,0,0.15);
+  background: var(--accent-dim);
+  border-color: var(--accent-border);
 }
+.nav-item--active .nav-item__icon,
+.nav-item--active .nav-item__label { color: var(--accent); }
+.nav-item--active .nav-item__label { font-weight: 700; }
 
 .nav-indicator {
   position: absolute;
@@ -578,13 +597,23 @@ function logout() {
 }
 
 .nav-item__icon {
-  width: 24px;
-  height: 24px;
+  width: 32px;
+  height: 32px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
-  color: var(--t1);
+  color: var(--t2);
+  background: var(--glass);
+  border: 1px solid var(--border-soft);
+  border-radius: 10px;
+  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+.nav-item:hover .nav-item__icon { color: var(--t1); }
+.nav-item--active .nav-item__icon {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #fff !important;
 }
 
 .nav-item__label {
@@ -662,6 +691,33 @@ function logout() {
 }
 
 /* ── Profile strip ── */
+/* ── Account block ── */
+.sidebar__account {
+  display: flex; align-items: center; gap: 10px;
+  margin: 0 14px 10px;
+  width: calc(100% - 28px);
+  padding: 9px 11px;
+  border-radius: 14px;
+  border: 1px solid var(--border);
+  background: var(--glass);
+  cursor: pointer;
+  transition: background 0.18s ease, border-color 0.18s ease;
+  position: relative; z-index: 1;
+}
+.sidebar__account:hover { background: var(--glass-hover); border-color: var(--accent-border); }
+.sidebar__account-avatar {
+  width: 34px; height: 34px; border-radius: 50%; flex-shrink: 0;
+  object-fit: cover; border: 1px solid var(--border);
+  background: var(--surface-2);
+}
+.sidebar__account-info { display: flex; flex-direction: column; gap: 1px; min-width: 0; flex: 1; text-align: left; }
+.sidebar__account-name { font-size: 0.82rem; font-weight: 700; color: var(--t1); line-height: 1.2; }
+.sidebar__account-mail {
+  font-size: 0.68rem; color: var(--t3); font-weight: 500;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.sidebar__account-chev { color: var(--t3); flex-shrink: 0; }
+
 .sidebar__logout {
   display: flex;
   align-items: center;

@@ -587,7 +587,12 @@ function showToast(type, msg) {
   border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3);
 }
 .bill-plan-card--current { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.5); background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.04); }
-.bill-plan-card--popular { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.04); }
+.bill-plan-card--popular {
+  border: 2px solid var(--accent) !important;
+  background: var(--accent-dim) !important;
+  box-shadow: 0 12px 32px rgba(var(--accent-r),var(--accent-g),var(--accent-b),.22) !important;
+}
+@media (min-width: 769px) { .bill-plan-card--popular { transform: scale(1.03); } }
 
 .bill-plan-popular {
   position: absolute; top: -12px; left: 50%; transform: translateX(-50%);

@@ -27,7 +27,7 @@
          STAT CARDS
          ════════════════════════════════════ -->
     <div class="dash-stats" data-tour="stats">
-      <div v-for="s in stats" :key="s.label" class="stat-card" :class="{ 'cascade-play': cascadeReady }">
+      <div v-for="(s, i) in stats" :key="s.label" class="stat-card" :class="{ 'cascade-play': cascadeReady, 'stat-card--hero': i === 0 }">
         <div class="stat-card__top">
           <span class="stat-card__lbl">{{ s.label }}</span>
           <span class="stat-card__ico">
@@ -61,11 +61,9 @@
             class="qa-tile"
             @click="openAction(tile)"
           >
-            <span class="qa-tile__icon" :class="{ 'qa-tile__icon--img': showImg(tile) }">
-              <img v-if="showImg(tile)" :src="iconSrc(tile)" :alt="tile.title" class="qa-tile__img"
-                loading="lazy" referrerpolicy="no-referrer" @error="onImgError(tile)" />
-              <svg v-else width="20" height="20" viewBox="0 0 24 24" fill="none"
-                stroke="currentColor" stroke-width="1.8"
+            <span class="qa-tile__medal" :style="{ background: group.grad, boxShadow: '0 8px 18px ' + group.glow }">
+              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+                stroke="#fff" stroke-width="1.9"
                 stroke-linecap="round" stroke-linejoin="round"
                 v-html="tile.icon" />
             </span>
@@ -73,6 +71,9 @@
               {{ tile.title }}
               <span v-if="tile.isNew" class="qa-tile__badge">NEW</span>
             </span>
+            <svg class="qa-tile__go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
+            </svg>
           </button>
         </div>
       </div>
@@ -201,6 +202,7 @@ const ICO = {
 const quickGroups = [
   {
     label: 'Website Creator',
+    grad: 'linear-gradient(145deg,#22c55e,#0f7a39)', glow: 'rgba(22,163,74,0.4)',
     tiles: [
       { title: 'Buy Domain',            icon: ICO.domain                        },
       { title: 'Buy Webmail',           icon: ICO.mail                          },
@@ -219,6 +221,7 @@ const quickGroups = [
   },
   {
     label: 'Digital Tools',
+    grad: 'linear-gradient(145deg,#3b82f6,#1e40af)', glow: 'rgba(37,99,235,0.4)',
     tiles: [
       { title: 'Wallet Funding',        icon: ICO.coins,    route: '/tools/wallet-funding' },
       { title: 'SMS Sender',            icon: ICO.sms,      route: '/tools/sms-sender'     },
@@ -230,6 +233,7 @@ const quickGroups = [
   },
   {
     label: 'Call Tools',
+    grad: 'linear-gradient(145deg,#a855f7,#6d28d9)', glow: 'rgba(124,58,237,0.4)',
     tiles: [
       { title: 'Custom Caller',         icon: ICO.phone,    route: '/tools/spoof-calling' },
       { title: 'Voice Notes',           icon: ICO.mic,      isNew: true         },
@@ -237,6 +241,7 @@ const quickGroups = [
   },
   {
     label: 'Mailing Tools',
+    grad: 'linear-gradient(145deg,#fb923c,#ea580c)', glow: 'rgba(234,88,12,0.4)',
     tiles: [
       { title: 'Crypto Mails',          icon: ICO.mail,     route: '/email-services/branded-emails' },
       { title: 'Crypto Bills Mails',    icon: ICO.mail,     route: '/email-services/branded-bills'  },
@@ -245,6 +250,7 @@ const quickGroups = [
   },
   {
     label: 'Generator Tools',
+    grad: 'linear-gradient(145deg,#ec4899,#be185d)', glow: 'rgba(219,39,119,0.4)',
     tiles: [
       { title: 'Crypto Receipts',       icon: ICO.receipt,  route: '/tools/crypto-receipts' },
       { title: 'Bank Receipt',          icon: ICO.receipt,  route: '/tools/bank-receipt'    },
@@ -252,83 +258,6 @@ const quickGroups = [
     ],
   },
 ]
-
-/* ── Tile icon images ──
-   Drop files into src/assets/quick-icons/ named after the tile
-   (lowercase, spaces → hyphens), e.g. "Buy Domain" → buy-domain.png.
-   Supported: .png .jpg .jpeg .webp .svg. Missing files fall back to the drawn icon. */
-const iconFiles = import.meta.glob(
-  '../assets/quick-icons/*.{png,jpg,jpeg,webp,svg}',
-  { eager: true, import: 'default' }
-)
-/* Build a slug -> url map. If a tile has several files (e.g. your broker.png
-   and my placeholder broker.svg), the one earliest in this list wins, so your
-   real images always override the generated placeholders. */
-const EXT_PRIORITY = ['png', 'jpg', 'jpeg', 'webp', 'svg']
-const iconMap = {}
-for (const [path, url] of Object.entries(iconFiles)) {
-  const file = path.split('/').pop().toLowerCase()
-  const slug = file.replace(/\.[^.]+$/, '')
-  const ext  = file.split('.').pop()
-  const existing = iconMap[slug]
-  if (!existing || EXT_PRIORITY.indexOf(ext) < EXT_PRIORITY.indexOf(existing.ext)) {
-    iconMap[slug] = { url, ext }
-  }
-}
-function slugify(title) {
-  return title.toLowerCase().replace(/&/g, 'and').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '')
-}
-
-/* Curated Unsplash photos per tile (free to use / hotlink).
-   Priority: a local file you add in quick-icons/ overrides these; if an
-   Unsplash image fails to load, the tile falls back to its drawn icon. */
-const UNSPLASH_PARAMS = '?auto=format&fit=crop&w=160&h=160&q=70'
-const remoteBase = {
-  'buy-domain':            'photo-1499951360447-b19be8fe80f5',
-  'buy-webmail':           'photo-1596526131083-e8c633c948d2',
-  'broker':                'photo-1611974789855-9c2a0a7236a3',
-  'online-banking':        'photo-1554469384-e58fac16e23a',
-  'tesla-giveaway':        'photo-1549465220-1a8b9238cd48',
-  'tesla-investment':      'photo-1633158829875-e5316a358c6f',
-  'celebrity':             'photo-1614080035039-af24354a6478',
-  'ecommerce-site':        'photo-1664455340023-214c33a9d0bd',
-  'website-widgets':       'photo-1551288049-bebda4e38f71',
-  'support-pages':         'photo-1553775282-20af80779df7',
-  'tracking-pages':        'photo-1619468129361-605ebea04b44',
-  'transactions-trackers': 'photo-1628348068343-c6a848d2b6dd',
-  'wallets':               'photo-1483478550801-ceba5fe50e8e',
-  'wallet-funding':        'photo-1623227413711-25ee4388dae3',
-  'sms-sender':            'photo-1526045612212-70caf35c14df',
-  'sms-verification':      'photo-1603899122634-f086ca5f5ddd',
-  'esim':                  'photo-1613243555988-441166d4d6fd',
-  'buy-account':           'photo-1762340275855-ae8f4c2c144e',
-  'account-verification':  'photo-1667453466805-75bbf36e8707',
-  'custom-caller':         'photo-1523966211575-eb4a01e7dd51',
-  'voice-notes':           'photo-1511671782779-c97d3d27a1d4',
-  'crypto-mails':          'photo-1596526131083-e8c633c948d2',
-  'crypto-bills-mails':    'photo-1772588627488-cd80adbe891d',
-  'bank-mailer':           'photo-1610850356560-b470d0825d2e',
-  'crypto-receipts':       'photo-1623227413711-25ee4388dae3',
-  'bank-receipt':          'photo-1684679674829-fc7b436ec8e8',
-  'store-receipt':         'photo-1545941962-1b6654eb8072',
-}
-const remoteIcons = Object.fromEntries(
-  Object.entries(remoteBase).map(([slug, id]) => [slug, `https://images.unsplash.com/${id}${UNSPLASH_PARAMS}`])
-)
-
-const failedIcons = ref(new Set())
-function onImgError(tile) {
-  const next = new Set(failedIcons.value)
-  next.add(slugify(tile.title))
-  failedIcons.value = next
-}
-function iconSrc(tile) {
-  const slug = slugify(tile.title)
-  return iconMap[slug]?.url ?? remoteIcons[slug] ?? null
-}
-function showImg(tile) {
-  return !!iconSrc(tile) && !failedIcons.value.has(slugify(tile.title))
-}
 
 function openAction(tile) {
   if (tile.route) router.push(tile.route)
@@ -461,20 +390,42 @@ function openAction(tile) {
 /* ══════════════════════════════════
    STAT CARDS
    ══════════════════════════════════ */
-.dash-stats { display: grid; grid-template-columns: repeat(3, minmax(0, 260px)); gap: 14px; }
+/* Bento stat row: wallet-balance hero + two side cards */
+.dash-stats { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; align-items: stretch; }
 
 .stat-card {
-  background: var(--bg);
-  border: 1px solid var(--t4); border-radius: 14px;
-  padding: 16px 18px 18px; display: flex; flex-direction: column; gap: 14px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+  background: var(--surface-1);
+  border: 1px solid var(--border); border-radius: 20px;
+  padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px;
+  box-shadow: var(--shadow-card);
+  min-height: 132px; justify-content: space-between;
 }
+
+/* Hero (Wallet balance) — premium green feature card */
+.stat-card--hero {
+  background: linear-gradient(145deg, #22c55e 0%, #16a34a 55%, #0f7a39 100%);
+  border: 1px solid rgba(255,255,255,0.18);
+  box-shadow: 0 14px 34px rgba(22,163,74,0.32);
+  position: relative; overflow: hidden;
+}
+.stat-card--hero::after {
+  content: ''; position: absolute; top: -45%; right: -12%;
+  width: 240px; height: 240px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.2) 0%, transparent 70%);
+  pointer-events: none;
+}
+.stat-card--hero .stat-card__lbl { color: rgba(255,255,255,0.88); }
+.stat-card--hero .stat-card__val { color: #fff; font-size: 2.3rem; }
+.stat-card--hero .stat-card__ico {
+  background: rgba(255,255,255,0.2); border-color: rgba(255,255,255,0.3); color: #fff;
+}
+
 .stat-card__top { display: flex; align-items: flex-start; justify-content: space-between; gap: 10px; }
-.stat-card__lbl { font-size: 0.8rem; font-weight: 500; color: var(--t3); }
+.stat-card__lbl { font-size: 0.82rem; font-weight: 600; color: var(--t3); }
 .stat-card__ico {
-  width: 28px; height: 28px; flex-shrink: 0;
+  width: 30px; height: 30px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 8px;
+  border-radius: 9px;
   background: rgba(22,163,74,0.12);
   border: 1px solid rgba(22,163,74,0.25);
   color: #16a34a;
@@ -496,40 +447,40 @@ function openAction(tile) {
 .qa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
 .qa-tile {
-  display: flex; flex-direction: column; align-items: flex-start; gap: 18px;
-  padding: 16px; border-radius: 14px;
-  background: var(--bg); border: 1px solid var(--t4);
+  position: relative;
+  display: flex; align-items: center; gap: 14px;
+  padding: 16px 18px; border-radius: 18px;
+  background: var(--surface-1); border: 1px solid var(--border);
+  box-shadow: var(--shadow-card);
   cursor: pointer; text-align: left;
   font-family: inherit;
   transition: border-color 0.2s ease, transform 0.16s ease, box-shadow 0.2s ease;
 }
 .qa-tile:hover {
-  border-color: rgba(22,163,74,0.4);
+  border-color: var(--accent-border);
   transform: translateY(-3px);
-  box-shadow: 0 10px 24px rgba(0,0,0,0.07);
+  box-shadow: 0 14px 30px rgba(0,0,0,0.10);
 }
 .qa-tile:active { transform: translateY(-1px); }
 
-.qa-tile__icon {
+.qa-tile__medal {
   width: 46px; height: 46px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
-  border-radius: 12px;
-  background: linear-gradient(145deg, #1f8f47 0%, #0f5c2c 100%);
-  color: #fff;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.22), 0 3px 8px rgba(15,92,44,0.3);
-  overflow: hidden;
+  border-radius: 14px;
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
 }
-/* When a photo is used, frame it cleanly instead of the green tile */
-.qa-tile__icon--img {
-  background: var(--glass-hover);
-  box-shadow: inset 0 0 0 1px rgba(0,0,0,0.06), 0 3px 8px rgba(0,0,0,0.08);
-}
-.qa-tile__img { width: 100%; height: 100%; object-fit: cover; border-radius: 12px; display: block; }
 
 .qa-tile__title {
+  flex: 1; min-width: 0;
   display: inline-flex; align-items: center; gap: 7px; flex-wrap: wrap;
-  font-size: 0.86rem; font-weight: 600; color: var(--t1); line-height: 1.3;
+  font-size: 0.88rem; font-weight: 700; color: var(--t1); line-height: 1.3;
 }
+.qa-tile__go {
+  color: var(--t4); flex-shrink: 0;
+  opacity: 0; transform: translateX(-4px);
+  transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease;
+}
+.qa-tile:hover .qa-tile__go { opacity: 1; transform: translateX(0); color: var(--accent); }
 .qa-tile__badge {
   font-size: 0.56rem; font-weight: 800; letter-spacing: 0.04em;
   color: #fff; background: #ef4444;
@@ -542,7 +493,8 @@ function openAction(tile) {
 .dash-recent { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px; }
 
 .recent-card {
-  background: var(--bg); border: 1px solid var(--t4); border-radius: 16px;
+  background: var(--surface-1); border: 1px solid var(--border); border-radius: 20px;
+  box-shadow: var(--shadow-card);
   display: flex; flex-direction: column;
 }
 .recent-card__hdr {
@@ -579,7 +531,8 @@ function openAction(tile) {
   .qa-grid { grid-template-columns: repeat(3, 1fr); }
 }
 @media (max-width: 1024px) {
-  .dash-stats { grid-template-columns: repeat(3, 1fr); }
+  .dash-stats { grid-template-columns: 1fr 1fr; }
+  .stat-card--hero { grid-column: 1 / -1; }
 }
 @media (max-width: 760px) {
   .qa-grid { grid-template-columns: repeat(2, 1fr); }

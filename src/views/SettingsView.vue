@@ -550,7 +550,8 @@ function copyText(text) {
 }
 .set-tabbar-item:hover { color: var(--t1); }
 .set-tabbar-item--active {
-  background: var(--glass-hover); color: var(--t1);
+  background: var(--accent-dim); color: var(--accent);
+  font-weight: 700;
 }
 
 /* ── Avatar ── */

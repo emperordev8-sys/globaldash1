@@ -82,8 +82,8 @@ import { useSiteStore } from '../composables/useSiteStore.js'
 
 const router        = useRouter()
 const launching     = ref(null)
-const selectedTheme = ref('#f05025')
-const themes        = ['#f05025','#60a5fa','#a78bfa','#f472b6','#fbbf24','#f87171']
+const selectedTheme = ref('#22c55e')
+const themes        = ['#22c55e','#60a5fa','#a78bfa','#f472b6','#fbbf24','#f87171']
 
 const { totalSites, liveSites, pendingSetup } = useSiteStore()
 

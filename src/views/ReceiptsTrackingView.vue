@@ -105,7 +105,7 @@
                 <label class="color-swatch-wrap" :style="{ background: form.accentColor }">
                   <input type="color" v-model="form.accentColor" class="color-native" />
                 </label>
-                <input v-model="form.accentColor" type="text" class="fi color-hex" @blur="validateHex('accentColor')" placeholder="#f05025" />
+                <input v-model="form.accentColor" type="text" class="fi color-hex" @blur="validateHex('accentColor')" placeholder="#22c55e" />
               </div>
             </div>
             <div class="fg">
@@ -333,21 +333,21 @@
         <div class="receipt-preview-card" :style="{ background: form.bgColor || '#0c0c0a' }">
 
           <!-- Status icon circle -->
-          <div class="rp-circle" :style="{ borderColor: form.accentColor || '#f05025' }">
+          <div class="rp-circle" :style="{ borderColor: form.accentColor || '#22c55e' }">
             <img v-if="statusIconUrl" :src="statusIconUrl" class="rp-circle-img" />
             <svg v-else width="22" height="22" viewBox="0 0 24 24" fill="none"
-              :stroke="form.accentColor || '#f05025'" stroke-width="2.5" stroke-linecap="round">
+              :stroke="form.accentColor || '#22c55e'" stroke-width="2.5" stroke-linecap="round">
               <circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/>
             </svg>
           </div>
 
           <!-- Company name -->
-          <p class="rp-company" :style="{ color: form.accentColor || '#f05025' }">
+          <p class="rp-company" :style="{ color: form.accentColor || '#22c55e' }">
             {{ (form.companyName || 'YOUR COMPANY').toUpperCase() }}
           </p>
 
           <!-- Big status title -->
-          <h2 class="rp-big-title" :style="{ color: form.accentColor || '#f05025' }">
+          <h2 class="rp-big-title" :style="{ color: form.accentColor || '#22c55e' }">
             {{ form.statusTitle || 'Payment Pending' }}
           </h2>
 
@@ -357,17 +357,17 @@
           </p>
 
           <!-- Fee sentence -->
-          <p v-if="form.processingFee || form.feeSentence" class="rp-fee" :style="{ color: form.accentColor || '#f05025' }">
+          <p v-if="form.processingFee || form.feeSentence" class="rp-fee" :style="{ color: form.accentColor || '#22c55e' }">
             {{ form.feeSentence || `A processing fee of ${form.currencySymbol || 'R'} ${form.processingFee} is required before funds can be released.` }}
           </p>
 
           <!-- Tabs -->
           <div class="rp-tabs">
             <button :class="['rp-tab', { 'rp-tab--active': previewTab === 'status' }]"
-              :style="previewTab === 'status' ? { background: form.accentColor || '#f05025', color: '#000' } : {}"
+              :style="previewTab === 'status' ? { background: form.accentColor || '#22c55e', color: '#000' } : {}"
               @click="previewTab = 'status'">Status</button>
             <button :class="['rp-tab', { 'rp-tab--active': previewTab === 'details' }]"
-              :style="previewTab === 'details' ? { background: form.accentColor || '#f05025', color: '#000' } : {}"
+              :style="previewTab === 'details' ? { background: form.accentColor || '#22c55e', color: '#000' } : {}"
               @click="previewTab = 'details'">Details</button>
           </div>
 
@@ -379,22 +379,22 @@
               <div v-for="(step, i) in steps" :key="i" class="rp-step">
                 <div class="rp-step__track">
                   <div class="rp-step__icon"
-                    :style="i === 0 ? { borderColor: form.accentColor || '#f05025' }
-                          : i < steps.length - 1 ? { borderColor: form.accentColor || '#f05025' }
+                    :style="i === 0 ? { borderColor: form.accentColor || '#22c55e' }
+                          : i < steps.length - 1 ? { borderColor: form.accentColor || '#22c55e' }
                           : { borderColor: 'rgba(255,255,255,0.25)' }">
                     <svg v-if="i === 0" width="10" height="10" viewBox="0 0 24 24" fill="none"
-                      :stroke="form.accentColor || '#f05025'" stroke-width="3.5" stroke-linecap="round">
+                      :stroke="form.accentColor || '#22c55e'" stroke-width="3.5" stroke-linecap="round">
                       <polyline points="20 6 9 17 4 12"/>
                     </svg>
                     <div v-else-if="i < steps.length - 1" class="rp-step__dot"
-                      :style="{ background: form.accentColor || '#f05025' }" />
+                      :style="{ background: form.accentColor || '#22c55e' }" />
                   </div>
                   <div v-if="i < steps.length - 1" class="rp-step__line"
-                    :style="{ background: i === 0 ? (form.accentColor || '#f05025') : 'rgba(255,255,255,0.12)' }" />
+                    :style="{ background: i === 0 ? (form.accentColor || '#22c55e') : 'rgba(255,255,255,0.12)' }" />
                 </div>
                 <div class="rp-step__body">
                   <span class="rp-step__title">{{ step.title }}</span>
-                  <span v-if="step.subtitle" class="rp-step__sub" :style="{ color: form.accentColor || '#f05025' }">{{ step.subtitle }}</span>
+                  <span v-if="step.subtitle" class="rp-step__sub" :style="{ color: form.accentColor || '#22c55e' }">{{ step.subtitle }}</span>
                 </div>
               </div>
             </div>
@@ -416,23 +416,23 @@
           <template v-else>
             <div class="rp-details-list">
               <div class="rp-details-row">
-                <span class="rp-details-key" :style="{ color: form.accentColor || '#f05025' }">Recipient</span>
+                <span class="rp-details-key" :style="{ color: form.accentColor || '#22c55e' }">Recipient</span>
                 <span class="rp-details-val">{{ form.recipientName || 'Ben' }}</span>
               </div>
               <div class="rp-details-row">
-                <span class="rp-details-key" :style="{ color: form.accentColor || '#f05025' }">Profit Amount</span>
-                <span class="rp-details-val" :style="{ color: form.accentColor || '#f05025' }">{{ form.currencySymbol || 'R' }} {{ form.profitAmount || '12,432.00' }}</span>
+                <span class="rp-details-key" :style="{ color: form.accentColor || '#22c55e' }">Profit Amount</span>
+                <span class="rp-details-val" :style="{ color: form.accentColor || '#22c55e' }">{{ form.currencySymbol || 'R' }} {{ form.profitAmount || '12,432.00' }}</span>
               </div>
               <div v-if="form.processingFee" class="rp-details-row">
-                <span class="rp-details-key" :style="{ color: form.accentColor || '#f05025' }">Processing Fee</span>
+                <span class="rp-details-key" :style="{ color: form.accentColor || '#22c55e' }">Processing Fee</span>
                 <span class="rp-details-val rp-fee-val">{{ form.currencySymbol || 'R' }} {{ form.processingFee }}</span>
               </div>
               <div class="rp-details-row">
-                <span class="rp-details-key" :style="{ color: form.accentColor || '#f05025' }">Issuer</span>
+                <span class="rp-details-key" :style="{ color: form.accentColor || '#22c55e' }">Issuer</span>
                 <span class="rp-details-val">{{ form.issuer || form.companyName || 'Your Company' }}</span>
               </div>
               <div class="rp-details-row">
-                <span class="rp-details-key" :style="{ color: form.accentColor || '#f05025' }">Date &amp; time</span>
+                <span class="rp-details-key" :style="{ color: form.accentColor || '#22c55e' }">Date &amp; time</span>
                 <span class="rp-details-val">{{ receiptDate }}</span>
               </div>
             </div>
@@ -454,7 +454,7 @@
 
           <!-- Action button -->
           <button v-if="form.actionBtnText" class="rp-action-btn"
-            :style="{ background: form.accentColor || '#f05025' }">
+            :style="{ background: form.accentColor || '#22c55e' }">
             {{ form.actionBtnText }}
           </button>
 
@@ -512,7 +512,7 @@ const form = reactive({
   companyName:        '',
   receiptSlug:        '',
   domain:             '.qst1x.com',
-  accentColor:        '#f05025',
+  accentColor:        '#22c55e',
   bgColor:            '#0c0c0a',
   receiptMode:        'dark',
   recipientName:      '',
@@ -553,7 +553,7 @@ function handleDrop(e, type) {
 
 function validateHex(field) {
   if (!/^#[0-9a-fA-F]{6}$/.test(form[field])) {
-    form[field] = field === 'accentColor' ? '#f05025' : '#0c0c0a'
+    form[field] = field === 'accentColor' ? '#22c55e' : '#0c0c0a'
   }
 }
 

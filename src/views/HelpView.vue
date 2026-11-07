@@ -276,7 +276,12 @@ function showToast(type, msg) {
 }
 .help-hero-bg {
   position: absolute; inset: 0;
-  background: linear-gradient(160deg, #232323 0%, #0a0a0a 100%);
+  background: linear-gradient(135deg, #16a34a 0%, #0f5a2e 55%, #072016 100%);
+}
+.help-hero-bg::after {
+  content: ''; position: absolute; top: -30%; right: -10%;
+  width: 320px; height: 320px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.15) 0%, transparent 70%);
 }
 .help-hero-grid { display: none; }
 .help-hero::after { display: none; }

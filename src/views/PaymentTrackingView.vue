@@ -38,7 +38,7 @@
                 <label class="color-swatch-wrap" :style="{ background: form.primaryColor }">
                   <input type="color" v-model="form.primaryColor" class="color-native" />
                 </label>
-                <input v-model="form.primaryColor" type="text" class="fi color-hex" @blur="validateHex" placeholder="#f05025" />
+                <input v-model="form.primaryColor" type="text" class="fi color-hex" @blur="validateHex" placeholder="#22c55e" />
               </div>
             </div>
           </div>
@@ -505,7 +505,7 @@ const defaultDateTime = new Date().toLocaleDateString('en-US', { month:'long', d
 
 const form = reactive({
   serviceName:          '',
-  primaryColor:         '#f05025',
+  primaryColor:         '#22c55e',
   receiptMode:          'dark',
   receiptSlug:          '',
   domain:               '.qst1x.com',
@@ -576,7 +576,7 @@ function handleDrop(e, type) {
 
 function validateHex() {
   if (!/^#[0-9a-fA-F]{6}$/.test(form.primaryColor)) {
-    form.primaryColor = '#f05025'
+    form.primaryColor = '#22c55e'
   }
 }
 

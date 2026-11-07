@@ -567,7 +567,26 @@ function showToast(type, msg) {
   border-radius: 14px; padding: 12px 14px;
   display: flex; flex-direction: column; gap: 6px;
 }
-.w-stat--balance { border-color: rgba(245,158,11,.2); }
+/* Premium balance hero — stands out from the other stat tiles */
+.w-stat--balance {
+  background: linear-gradient(145deg, #22c55e 0%, #16a34a 55%, #0f7a39 100%) !important;
+  border: 1px solid rgba(255,255,255,0.18) !important;
+  box-shadow: 0 10px 28px rgba(22,163,74,0.32) !important;
+  position: relative; overflow: hidden;
+}
+.w-stat--balance::after {
+  content: ''; position: absolute; top: -40%; right: -15%;
+  width: 180px; height: 180px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(255,255,255,0.18) 0%, transparent 70%);
+  pointer-events: none;
+}
+.w-stat--balance .w-stat__label { color: rgba(255,255,255,0.85); }
+.w-stat--balance .w-stat__val   { color: #fff; }
+.w-stat--balance .w-stat__sub   { color: rgba(255,255,255,0.85); }
+.w-stat--balance .w-stat-icon--orange {
+  background: rgba(255,255,255,0.2) !important; border-color: rgba(255,255,255,0.3) !important;
+}
+.w-stat--balance .w-stat-icon--orange svg { stroke: #fff !important; }
 
 .w-stat__top {
   display: flex; justify-content: space-between; align-items: center;
