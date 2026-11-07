@@ -55,7 +55,7 @@
       <span class="sidebar__group-label">Tools</span>
       <nav class="sidebar__nav">
         <!-- Website Creator -->
-        <router-link to="/analytics" class="nav-item" :class="{ 'nav-item--active': $route.path === '/analytics' }" @click="closeSidebar">
+        <router-link to="/website-creator" class="nav-item" :class="{ 'nav-item--active': $route.path === '/website-creator' }" @click="closeSidebar">
           <div class="nav-item__icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="2"/><line x1="2" y1="9" x2="22" y2="9"/><line x1="5" y1="6.5" x2="5.01" y2="6.5"/><line x1="8" y1="6.5" x2="8.01" y2="6.5"/>
@@ -164,14 +164,14 @@
       <nav class="sidebar__nav">
 
         <!-- Start Reselling -->
-        <button class="nav-item nav-item--plain" @click="openSoon('Start Reselling')">
+        <router-link to="/reselling" class="nav-item" :class="{ 'nav-item--active': $route.path === '/reselling' }" @click="closeSidebar">
           <div class="nav-item__icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M12 2l8 4v6c0 5-3.5 8-8 10-4.5-2-8-5-8-10V6l8-4z"/><polyline points="9 12 11 14 15 10"/>
             </svg>
           </div>
           <span class="nav-item__label">Start Reselling</span>
-        </button>
+        </router-link>
 
         <!-- Terms -->
         <button class="nav-item nav-item--plain" @click="openSoon('Terms')">

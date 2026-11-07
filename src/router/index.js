@@ -32,6 +32,14 @@ import SupportPagesView        from '../views/SupportPagesView.vue'
 import OnlineBankingView       from '../views/OnlineBankingView.vue'
 import BrokerView              from '../views/BrokerView.vue'
 import TrackingPagesView       from '../views/TrackingPagesView.vue'
+import ResellingView           from '../views/ResellingView.vue'
+import WebsiteCreatorView      from '../views/WebsiteCreatorView.vue'
+import TeslaGiveawayView       from '../views/TeslaGiveawayView.vue'
+import TeslaInvestmentView     from '../views/TeslaInvestmentView.vue'
+import CelebrityView           from '../views/CelebrityView.vue'
+import EcommerceView           from '../views/EcommerceView.vue'
+import WebsiteWidgetsView      from '../views/WebsiteWidgetsView.vue'
+import WalletsView             from '../views/WalletsView.vue'
 
 const routes = [
   { path: '/auth',                         name: 'Auth',           component: AuthView,  meta: { public: true } },
@@ -64,6 +72,14 @@ const routes = [
   { path: '/broker',          name: 'Broker',         component: BrokerView         },
   { path: '/tracking-pages', name: 'TrackingPages', component: TrackingPagesView  },
   { path: '/complaint',     name: 'Complaint',    component: ComplaintView    },
+  { path: '/reselling',     name: 'Reselling',    component: ResellingView    },
+  { path: '/website-creator', name: 'WebsiteCreator', component: WebsiteCreatorView },
+  { path: '/tesla-giveaway',   name: 'TeslaGiveaway',   component: TeslaGiveawayView   },
+  { path: '/tesla-investment', name: 'TeslaInvestment', component: TeslaInvestmentView },
+  { path: '/celebrity',        name: 'Celebrity',       component: CelebrityView      },
+  { path: '/ecommerce',        name: 'Ecommerce',       component: EcommerceView      },
+  { path: '/website-widgets',  name: 'WebsiteWidgets',  component: WebsiteWidgetsView },
+  { path: '/wallets',          name: 'Wallets2',        component: WalletsView        },
   { path: '/:pathMatch(.*)*', redirect: '/' },
 ]
 

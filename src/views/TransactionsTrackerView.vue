@@ -1,145 +1,109 @@
 ﻿<!-- src/views/TransactionsTrackerView.vue -->
 <template>
-  <div class="tt-page">
+  <div class="site-page">
 
-    <!-- Page Header -->
-    <div class="page-header">
-      <h1 class="page-header__title">Transactions Trackers</h1>
-      <p class="page-header__sub">Choose a receipt style, fill in the details, and share it with a link.</p>
+    <!-- Mock-up disclaimer -->
+    <div class="sp-disclaimer">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/>
+      </svg>
+      <p>Everything this tool produces is a mock-up — a template generated from the values you type. It is not a real record, and it is not issued or verified by any bank, carrier, retailer or other organisation it may resemble. Use it for design, demos, testing and your own genuine records. Presenting it to anyone as real breaks our terms and, in most places, the law.</p>
     </div>
 
-    <!-- Cards -->
-    <div class="service-grid">
-      <div
-        v-for="s in services"
-        :key="s.title"
-        class="service-card"
-        @click="$router.push(s.route)"
-      >
-        <div class="service-card__icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-            stroke="var(--accent)" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round"
-            v-html="s.icon"
-          />
-        </div>
-        <h2 class="service-card__title">{{ s.title }}</h2>
-        <p class="service-card__desc" v-html="s.desc" />
+    <!-- Header -->
+    <div class="sp-head">
+      <div class="sp-head__text">
+        <h1 class="sp-title">Transactions Trackers</h1>
+        <p class="sp-sub">Choose a receipt style, fill in the details, and share it with a link. Each receipt gets its own link and admin panel.</p>
       </div>
+    </div>
+
+    <!-- Pick a style -->
+    <span class="sp-section-label">PICK A STYLE</span>
+    <div class="look-grid look-grid--2">
+      <div v-for="s in styles" :key="s.key" class="look-card">
+        <span class="look-badge" :class="s.badgeClass">{{ s.name }}</span>
+        <div class="look-preview" :style="{ background: s.preview }">
+          <span class="rc-word">TRACKING</span>
+        </div>
+        <p class="look-desc">{{ s.desc }}</p>
+        <div class="look-actions">
+          <button class="look-btn look-btn--ghost" @click="$router.push(s.route)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"/><polyline points="15 3 21 3 21 9"/><line x1="10" y1="14" x2="21" y2="3"/>
+            </svg>
+            View sample
+          </button>
+          <button class="look-btn look-btn--create" @click="$router.push(s.route)">
+            <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/>
+            </svg>
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- My receipts -->
+    <h2 class="rc-heading">My receipts</h2>
+    <div v-if="receipts.length === 0" class="sp-empty">
+      <span class="sp-empty__icon">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="22 12 16 12 14 15 10 15 8 12 2 12"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/>
+        </svg>
+      </span>
+      <p class="sp-empty__title">No receipts yet</p>
+      <p class="sp-empty__desc">Pick a style above to create your first receipt — it takes seconds and you get a shareable link.</p>
+    </div>
+
+    <div v-else class="sp-table-wrap">
+      <table class="sp-table">
+        <thead><tr><th>RECEIPT</th><th>STYLE</th><th>STATUS</th><th></th></tr></thead>
+        <tbody>
+          <tr v-for="r in receipts" :key="r.id">
+            <td><div class="bk-name">{{ r.title }}</div></td>
+            <td><span class="bk-look">{{ r.style }}</span></td>
+            <td><span class="bk-status bk-status--on">Active</span></td>
+            <td class="bk-action-cell">
+              <a :href="r.url" target="_blank" rel="noopener noreferrer" class="bk-link bk-link--green">Open</a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
 
   </div>
 </template>
 
 <script setup>
-const services = [
+import { useRouter } from 'vue-router'
+import { useSiteStore } from '../composables/useSiteStore.js'
+
+const router = useRouter()
+const { store } = useSiteStore()
+const receipts = store.receipts
+
+const styles = [
   {
-    title: 'Receipts Tracking',
-    desc:  'A step-by-step receipt with <span class="hl">a status icon</span>, <span class="hl">a progress timeline</span> and <span class="hl">an action button</span> â€" share it with a link.',
+    key: 'receipts', name: 'RECEIPTS TRACKING', badgeClass: 'look-badge--green',
+    preview: 'linear-gradient(135deg, #14532d 0%, #16a34a 55%, #22c55e 100%)',
+    desc: 'A step-by-step receipt with a status icon, a progress timeline and an action button — share it with a link.',
     route: '/tools/transactions-tracker/receipts',
-    icon:  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
   },
   {
-    title: 'Payment Tracking',
-    desc:  'A live receipt with <span class="hl">a spinning status</span>, <span class="hl">amounts</span> and <span class="hl">copyable details</span> â€" share it with a link.',
+    key: 'payment', name: 'PAYMENT TRACKING', badgeClass: 'look-badge--red',
+    preview: 'linear-gradient(135deg, #0f5132 0%, #15803d 55%, #16a34a 100%)',
+    desc: 'A live receipt with a spinning status, amounts and copyable details — share it with a link.',
     route: '/tools/transactions-tracker/payment',
-    icon:  '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
   },
 ]
 </script>
 
+<style scoped src="./site-template.css"></style>
 <style scoped>
-.tt-page {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
-
-/* Header */
-.page-header        { display: flex; flex-direction: column; gap: 6px; }
-.page-header__title {
-  font-size: 1.5rem; font-weight: 800; color: var(--t1);
-  letter-spacing: -0.025em; margin: 0;
-}
-.page-header__sub { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
-
-/* Grid */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 18px;
-}
-
-/* Card */
-.service-card {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  padding: 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  cursor: pointer;
-  transition: border-color 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
-}
-.service-card:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.08);
-}
-
-.service-card__icon {
-  width: 46px; height: 46px; border-radius: 13px;
-  background: rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.12);
-  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.18);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
-}
-
-.service-card__title {
-  font-size: 1rem; font-weight: 700; color: var(--t1); margin: 0;
-}
-
-.service-card__desc {
-  font-size: 0.82rem; color: var(--t2); line-height: 1.6; margin: 0;
-}
-.service-card__desc :deep(.hl) { color: var(--accent); font-weight: 500; }
-
-/* â"€â"€ Responsive â"€â"€ */
-
-/* Tablet (601px â€" 768px): side-by-side still works */
-@media (max-width: 768px) and (min-width: 601px) {
-  .tt-page       { gap: 22px; }
-  .service-grid  { gap: 14px; }
-  .service-card  { padding: 14px 14px; gap: 8px; }
-  .page-header__title { font-size: 1.3rem; }
-}
-
-/* Mobile (â‰¤ 600px): single column */
-@media (max-width: 600px) {
-  .tt-page       { gap: 18px; }
-  .service-grid  { grid-template-columns: 1fr; gap: 12px; }
-  .service-card  { padding: 13px 13px; gap: 8px; border-radius: 14px; }
-  .page-header__title { font-size: 1.2rem; }
-  .page-header__sub   { font-size: 0.78rem; }
-  .service-card__title { font-size: 0.95rem; }
-  .service-card__desc  { font-size: 0.8rem; }
-  .service-card__icon  { width: 42px; height: 42px; border-radius: 11px; }
-}
-
-/* Small phones (â‰¤ 430px) */
-@media (max-width: 430px) {
-  .service-card  { padding: 12px 12px; gap: 7px; border-radius: 13px; }
-  .page-header__title { font-size: 1.1rem; }
-  .service-card__icon  { width: 38px; height: 38px; border-radius: 10px; }
-  .service-card__title { font-size: 0.9rem; }
-  .service-card__desc  { font-size: 0.76rem; line-height: 1.55; }
-}
-
-/* Tiny phones (â‰¤ 360px) */
-@media (max-width: 360px) {
-  .service-card  { padding: 16px 14px; }
-  .page-header__title { font-size: 1rem; }
-  .service-card__desc  { font-size: 0.72rem; }
-}
-
+.look-grid--2 { grid-template-columns: repeat(2, 1fr); }
+@media (max-width: 760px) { .look-grid--2 { grid-template-columns: 1fr; } }
+.look-preview { height: 120px; display: flex; align-items: center; justify-content: center; }
+.rc-word { font-size: 1.6rem; font-weight: 900; letter-spacing: 0.06em; color: rgba(255,255,255,0.95); text-shadow: 0 2px 10px rgba(0,0,0,0.35); }
+.rc-heading { margin: 6px 0 0; font-size: 1.1rem; font-weight: 800; color: var(--t1); }
 </style>

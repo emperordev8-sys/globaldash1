@@ -65,8 +65,9 @@
         Support
       </button>
 
-      <!-- Theme toggle -->
-      <button class="navbar__icon-btn" @click.stop="toggleTheme" :aria-label="theme === 'dark' ? 'Switch to light mode' : 'Switch to dark mode'">
+      <!-- Theme toggle (dropdown: Light / Dark / Auto) -->
+      <div class="navbar__icon-btn navbar__theme" ref="themeRef" @click.stop="themeOpen = !themeOpen"
+        :aria-label="'Appearance: ' + themePref" role="button">
         <svg v-if="theme !== 'dark'" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
           stroke-linecap="round" stroke-linejoin="round">
           <circle cx="12" cy="12" r="4"/>
@@ -76,7 +77,23 @@
           stroke-linecap="round" stroke-linejoin="round">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
-      </button>
+
+        <Transition name="profile-chip-drop">
+          <div v-if="themeOpen" class="navbar__theme-dropdown" @click.stop>
+            <span class="navbar__theme-label">Appearance</span>
+            <button
+              v-for="opt in themeOptions" :key="opt.value"
+              class="theme-opt" :class="{ 'theme-opt--active': themePref === opt.value }"
+              @click="setThemePref(opt.value); themeOpen = false">
+              <span class="theme-opt__ico" v-html="opt.icon" />
+              <span class="theme-opt__label">{{ opt.label }}</span>
+              <svg v-if="themePref === opt.value" class="theme-opt__check" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="20 6 9 17 4 12"/>
+              </svg>
+            </button>
+          </div>
+        </Transition>
+      </div>
 
       <!-- Currency selector -->
       <div class="navbar__pill navbar__pill--currency" ref="currencyRef" @click.stop="currencyOpen = !currencyOpen">
@@ -264,7 +281,16 @@ import { useTheme } from '../../composables/useTheme.js'
 const route  = useRoute()
 const router = useRouter()
 const { sidebarOpen, desktopOpen, toggleSidebar, toggleDesktopSidebar } = useSidebar()
-const { theme, toggleTheme } = useTheme()
+const { theme, themePref, setThemePref, toggleTheme } = useTheme()
+
+/* ── Appearance dropdown ── */
+const themeOpen = ref(false)
+const themeRef  = ref(null)
+const themeOptions = [
+  { value: 'light', label: 'Light', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>' },
+  { value: 'dark',  label: 'Dark',  icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' },
+  { value: 'auto',  label: 'Auto (match device)', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' },
+]
 
 
 /* ── Page meta ── */
@@ -281,6 +307,14 @@ const pages = {
   '/tutorials':                           { title: 'Tutorials',            subtitle: 'Learn how to use every feature' },
   '/help':                                { title: 'Support',              subtitle: 'Get help and find answers' },
   '/complaint':                           { title: 'Make a Complaint',     subtitle: 'Submit and track your reports' },
+  '/reselling':                           { title: 'Start Reselling',      subtitle: 'Sell our services under your own brand' },
+  '/website-creator':                     { title: 'Website Creator',      subtitle: 'Launch and manage the sites you offer your customers' },
+  '/tesla-giveaway':                      { title: 'Tesla Giveaway',       subtitle: 'Spawn a Tesla giveaway / participate site' },
+  '/tesla-investment':                    { title: 'Tesla Investment',     subtitle: 'Launch a Tesla Investment site' },
+  '/celebrity':                           { title: 'Celebrity',            subtitle: 'Spawn a celebrity talent-booking site' },
+  '/ecommerce':                           { title: 'Ecommerce Sites',      subtitle: 'Spawn your own online store' },
+  '/website-widgets':                     { title: 'Website Widgets',      subtitle: 'Paste a chat or contact widget on your site' },
+  '/wallets':                             { title: 'Wallets',              subtitle: 'Spawn a white-label wallet site' },
   '/wallet':                              { title: 'My Wallet',            subtitle: 'Your balance and transactions' },
   '/billing':                             { title: 'Billing & Plans',      subtitle: 'Subscriptions and invoices' },
   '/tools/transactions-tracker':          { title: 'Transactions Trackers',subtitle: 'Choose a style and share a receipt link' },
@@ -358,6 +392,7 @@ const handleOutsideClick = (e) => {
   if (!profileChipRef.value?.contains(e.target)) profileDropOpen.value = false
   if (!currencyRef.value?.contains(e.target))    currencyOpen.value    = false
   if (!searchRef.value?.contains(e.target))      searchOpen.value      = false
+  if (!themeRef.value?.contains(e.target))       themeOpen.value       = false
 }
 onMounted(()       => document.addEventListener('click', handleOutsideClick))
 onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
@@ -508,6 +543,39 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 .navbar__chev--open { transform: rotate(180deg); }
 .navbar__currency-sym { color: var(--t3); font-weight: 600; }
 .npd-item--active { background: var(--glass-hover); }
+
+/* Appearance (theme) dropdown */
+.navbar__theme { position: relative; }
+.navbar__theme-dropdown {
+  position: absolute;
+  top: calc(100% + 10px); right: 0;
+  min-width: 210px;
+  background: linear-gradient(160deg, var(--surface-raised) 0%, var(--surface-sunken) 100%);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 6px;
+  box-shadow: 0 16px 48px rgba(0,0,0,0.18); z-index: 200;
+  transform-origin: top right;
+  cursor: default;
+}
+.navbar__theme-label {
+  display: block;
+  font-size: 0.64rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--t3); padding: 8px 10px 6px;
+}
+.theme-opt {
+  display: flex; align-items: center; gap: 10px;
+  width: 100%; padding: 9px 10px;
+  border-radius: 10px; border: none;
+  background: transparent; color: var(--t1);
+  font-family: inherit; font-size: 0.82rem; font-weight: 600;
+  cursor: pointer; text-align: left;
+  transition: background 0.16s ease;
+}
+.theme-opt:hover { background: var(--glass-hover); }
+.theme-opt--active { background: var(--glass); }
+.theme-opt__ico { display: flex; align-items: center; color: var(--t2); flex-shrink: 0; }
+.theme-opt__label { flex: 1; }
+.theme-opt__check { color: #16a34a; flex-shrink: 0; }
 
 /* Profile circle */
 .navbar__icon-btn--profile {
