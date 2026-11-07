@@ -74,11 +74,8 @@ const router = createRouter({
 
 const { loading } = useLoader()
 
-router.beforeEach((to) => {
+router.beforeEach(() => {
   loading.value = true
-  const authed = localStorage.getItem('globalgle_auth') === 'true'
-  if (!authed && !to.meta.public) return '/auth'
-  if (authed && to.path === '/auth') return '/'
 })
 router.afterEach(() => { loading.value = false })
 
