@@ -777,10 +777,11 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
    ══════════════════════════════ */
 @media (max-width: 1366px) and (min-width: 769px) {
   .navbar { padding: 0 18px; left: 245px; }
+  .navbar--collapsed { left: 74px; }
 }
 
 @media (min-width: 769px) {
-  .navbar--collapsed { left: 0; }
+  .navbar--collapsed { left: 74px; }
 }
 
 @media (max-width: 768px) {

@@ -362,14 +362,50 @@ function logout() {
   top: 0;
   left: 0;
   z-index: 100;
-  transition: border-color 0.35s ease, transform 0.32s cubic-bezier(0.4,0,0.2,1);
+  transition: border-color 0.35s ease, transform 0.32s cubic-bezier(0.4,0,0.2,1), width 0.3s cubic-bezier(0.4,0,0.2,1);
   overflow: visible;
 }
 
-/* ── Desktop/tablet slide toggle ── */
+/* ═══════════════════════════════════════════════
+   DESKTOP COLLAPSE → slim ICON RAIL (Macro-style)
+   ═══════════════════════════════════════════════ */
 @media (min-width: 769px) {
-  .sidebar--desktop-closed {
-    transform: translateX(-100%);
+  .sidebar--desktop-closed { width: 74px; }
+
+  /* Hide every piece of text / meta — icon rail only */
+  .sidebar--desktop-closed .sidebar__logo-name,
+  .sidebar--desktop-closed .vaulto-badge,
+  .sidebar--desktop-closed .sidebar__group-label,
+  .sidebar--desktop-closed .nav-item__label,
+  .sidebar--desktop-closed .nav-item__meta,
+  .sidebar--desktop-closed .sidebar__upgrade,
+  .sidebar--desktop-closed .sidebar__account-info,
+  .sidebar--desktop-closed .sidebar__account-chev {
+    display: none;
+  }
+
+  /* Center the logo */
+  .sidebar--desktop-closed .sidebar__logo {
+    justify-content: center;
+    padding: 18px 0 16px;
+  }
+
+  /* Center nav rows → rounded icon buttons */
+  .sidebar--desktop-closed .sidebar__nav { gap: 6px; align-items: center; }
+  .sidebar--desktop-closed .sidebar__group { padding: 12px 0 2px; }
+  .sidebar--desktop-closed .nav-item {
+    justify-content: center;
+    width: 44px; height: 44px; padding: 0;
+    margin: 0 auto; border-radius: 12px;
+  }
+
+  /* Account → avatar only, centered */
+  .sidebar--desktop-closed .sidebar__account {
+    justify-content: center; width: 44px; margin: 0 auto 10px; padding: 5px;
+  }
+  /* Logout → icon only (font-size:0 hides the text node, icon keeps its size) */
+  .sidebar--desktop-closed .sidebar__logout {
+    width: 44px; margin: 0 auto 16px; padding: 11px 0; font-size: 0; gap: 0;
   }
 }
 
@@ -562,21 +598,18 @@ function logout() {
 .nav-item {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 7px 12px;
-  border-radius: 8px;
+  gap: 12px;
+  padding: 9px 12px;
+  border-radius: 10px;
   text-decoration: none;
-  transition: all 0.22s ease;
+  transition: background 0.18s ease, color 0.18s ease;
   position: relative;
   border: 1px solid transparent;
   width: calc(100% - 28px);
   margin: 0 14px;
 }
 
-.nav-item:hover {
-  background: var(--glass);
-  border-color: var(--border-soft);
-}
+.nav-item:hover { background: var(--glass-hover); }
 
 .nav-item--active {
   background: var(--accent-dim);
@@ -597,24 +630,17 @@ function logout() {
 }
 
 .nav-item__icon {
-  width: 32px;
-  height: 32px;
+  width: 22px;
+  height: 22px;
   display: flex;
   align-items: center;
   justify-content: center;
   flex-shrink: 0;
   color: var(--t2);
-  background: var(--glass);
-  border: 1px solid var(--border-soft);
-  border-radius: 10px;
-  transition: background 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+  transition: color 0.18s ease;
 }
 .nav-item:hover .nav-item__icon { color: var(--t1); }
-.nav-item--active .nav-item__icon {
-  background: var(--accent);
-  border-color: var(--accent);
-  color: #fff !important;
-}
+.nav-item--active .nav-item__icon { color: var(--accent); }
 
 .nav-item__label {
   font-size: 0.845rem;

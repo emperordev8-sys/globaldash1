@@ -48,7 +48,7 @@ const { desktopOpen } = useSidebar()
 }
 
 @media (min-width: 769px) {
-  .app-layout__main--collapsed { margin-left: 0; }
+  .app-layout__main--collapsed { margin-left: 74px; }
 }
 
 .app-layout__content {
@@ -59,6 +59,7 @@ const { desktopOpen } = useSidebar()
 
 @media (max-width: 1366px) and (min-width: 769px) {
   .app-layout__main  { margin-left: 245px; }
+  .app-layout__main--collapsed { margin-left: 74px; }
   .app-layout__content { padding: 76px 18px 24px; }
 }
 @media (max-width: 768px) {
