@@ -62,13 +62,6 @@
             </svg>
           </div>
           <span class="nav-item__label">Website Creator</span>
-          <span class="nav-item__meta">
-            <span class="nav-item__check" aria-label="Available">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="8 12 11 15 16 9"/></svg>
-            </span>
-            <span class="nav-item__badge nav-item__badge--new">NEW</span>
-            <svg class="nav-item__lock" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </span>
         </router-link>
 
         <!-- Digital -->
@@ -79,11 +72,6 @@
             </svg>
           </div>
           <span class="nav-item__label">Digital</span>
-          <span class="nav-item__meta">
-            <span class="nav-item__badge nav-item__badge--tools">TOOLS</span>
-            <span class="nav-item__badge nav-item__badge--new">NEW</span>
-            <svg class="nav-item__lock" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </span>
         </router-link>
 
         <!-- Call -->
@@ -94,11 +82,6 @@
             </svg>
           </div>
           <span class="nav-item__label">Call</span>
-          <span class="nav-item__meta">
-            <span class="nav-item__badge nav-item__badge--tools">TOOLS</span>
-            <span class="nav-item__badge nav-item__badge--new">NEW</span>
-            <svg class="nav-item__lock" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </span>
         </router-link>
 
         <!-- Mailing -->
@@ -109,10 +92,6 @@
             </svg>
           </div>
           <span class="nav-item__label">Mailing</span>
-          <span class="nav-item__meta">
-            <span class="nav-item__badge nav-item__badge--tools">TOOLS</span>
-            <svg class="nav-item__lock" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </span>
         </router-link>
 
         <!-- Generator -->
@@ -123,10 +102,6 @@
             </svg>
           </div>
           <span class="nav-item__label">Generator</span>
-          <span class="nav-item__meta">
-            <span class="nav-item__badge nav-item__badge--tools">TOOLS</span>
-            <svg class="nav-item__lock" width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
-          </span>
         </router-link>
       </nav>
     </div>
