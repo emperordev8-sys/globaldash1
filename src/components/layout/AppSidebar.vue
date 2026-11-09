@@ -207,18 +207,6 @@
         </div>
       </div>
 
-      <!-- Account block -->
-      <button class="sidebar__account" @click="goAccount">
-        <img src="https://api.dicebear.com/7.x/notionists/svg?seed=Daniel" alt="Daniel" class="sidebar__account-avatar" />
-        <div class="sidebar__account-info">
-          <span class="sidebar__account-name">Daniel</span>
-          <span class="sidebar__account-mail">globalgle@gmail.com</span>
-        </div>
-        <svg class="sidebar__account-chev" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-          <polyline points="9 18 15 12 9 6"/>
-        </svg>
-      </button>
-
       <!-- Logout button -->
       <button class="sidebar__logout" @click="logout">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -231,8 +219,6 @@
 
     </div><!-- end sidebar__scroll -->
 
-    <!-- Scrollbar-rail active indicator -->
-    <div class="nav-indicator" :style="indicatorStyle"></div>
 
   </aside>
 </template>
@@ -584,14 +570,15 @@ function logout() {
   margin: 0 14px;
 }
 
-.nav-item:hover { background: var(--glass-hover); }
+.nav-item:hover { background: var(--accent-dim); }
 
 .nav-item--active {
-  background: var(--accent-dim);
-  border-color: var(--accent-border);
+  background: var(--accent);
+  border-color: var(--accent);
 }
+.nav-item--active:hover { background: var(--accent-press); }
 .nav-item--active .nav-item__icon,
-.nav-item--active .nav-item__label { color: var(--accent); }
+.nav-item--active .nav-item__label { color: #fff; }
 .nav-item--active .nav-item__label { font-weight: 700; }
 
 .nav-indicator {
@@ -753,9 +740,16 @@ function logout() {
   margin: 0 14px 18px;
   padding: 16px 16px 14px;
   border-radius: 14px;
-  background: var(--bg);
+  background:
+    radial-gradient(90% 130% at 0% 100%, rgba(34,197,94,0.12) 0%, transparent 60%),
+    var(--bg);
   border: 1px solid var(--border);
   flex-shrink: 0;
+}
+:root:not([data-theme="light"]) .sidebar__upgrade {
+  background:
+    radial-gradient(90% 130% at 0% 100%, rgba(34,197,94,0.26) 0%, transparent 62%),
+    var(--bg);
 }
 
 .upgrade__header {

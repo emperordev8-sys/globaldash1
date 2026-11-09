@@ -61,8 +61,10 @@
             class="qa-tile"
             @click="openAction(tile)"
           >
-            <span class="qa-tile__medal" :style="{ background: group.grad, boxShadow: '0 8px 18px ' + group.glow }">
-              <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
+            <span class="qa-tile__medal" :class="{ 'qa-tile__medal--img': tile.img }"
+              :style="tile.img ? {} : { background: group.grad, boxShadow: '0 8px 18px ' + group.glow }">
+              <img v-if="tile.img" :src="tile.img" :alt="tile.title" class="qa-tile__pic" />
+              <svg v-else width="22" height="22" viewBox="0 0 24 24" fill="none"
                 stroke="#fff" stroke-width="1.9"
                 stroke-linecap="round" stroke-linejoin="round"
                 v-html="tile.icon" />
@@ -71,9 +73,6 @@
               {{ tile.title }}
               <span v-if="tile.isNew" class="qa-tile__badge">NEW</span>
             </span>
-            <svg class="qa-tile__go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-              <line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/>
-            </svg>
           </button>
         </div>
       </div>
@@ -199,62 +198,69 @@ const ICO = {
   receipt:  '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/>',
 }
 
+/* 4D icon images (user-supplied in src/assets) */
+import tileSupportPages from '../assets/tile-support-pages.png'
+import tileTransactionsTrackers from '../assets/tile-transactions-trackers.png'
+import tileWebsiteWidgets from '../assets/tile-website-widgets.png'
+const PIC = import.meta.glob('../assets/1000880*.png', { eager: true, import: 'default' })
+const pic = (n) => PIC[`../assets/1000880${n}.png`]
+
 const quickGroups = [
   {
     label: 'Website Creator',
     grad: 'linear-gradient(145deg,#22c55e,#0f7a39)', glow: 'rgba(22,163,74,0.4)',
     tiles: [
-      { title: 'Buy Domain',            icon: ICO.domain                        },
-      { title: 'Buy Webmail',           icon: ICO.mail                          },
-      { title: 'Broker',                icon: ICO.broker,  route: '/broker'         },
-      { title: 'Online Banking',        icon: ICO.bank,    route: '/online-banking' },
-      { title: 'Tesla Giveaway',        icon: ICO.gift                          },
-      { title: 'Tesla Investment',      icon: ICO.chart                         },
-      { title: 'Celebrity',             icon: ICO.star                          },
-      { title: 'Ecommerce Site',        icon: ICO.cart                          },
-      { title: 'Website Widgets',       icon: ICO.widgets, isNew: true          },
-      { title: 'Support Pages',         icon: ICO.file,    route: '/support-pages'  },
-      { title: 'Tracking Pages',        icon: ICO.pin,     route: '/tracking-pages' },
-      { title: 'Transactions Trackers', icon: ICO.activity, route: '/tools/transactions-tracker' },
-      { title: 'Wallets',               icon: ICO.wallet,  route: '/wallet'         },
+      { title: 'Buy Domain',            icon: ICO.domain,  img: pic('289')          },
+      { title: 'Buy Webmail',           icon: ICO.mail,    img: pic('311')          },
+      { title: 'Broker',                icon: ICO.broker,  route: '/broker',        img: pic('290') },
+      { title: 'Online Banking',        icon: ICO.bank,    route: '/online-banking', img: pic('291') },
+      { title: 'Tesla Giveaway',        icon: ICO.gift,    img: pic('294')          },
+      { title: 'Tesla Investment',      icon: ICO.chart,   img: pic('293')          },
+      { title: 'Celebrity',             icon: ICO.star,    img: pic('292')          },
+      { title: 'Ecommerce Site',        icon: ICO.cart,    img: pic('295')          },
+      { title: 'Website Widgets',       icon: ICO.widgets, isNew: true, img: tileWebsiteWidgets },
+      { title: 'Support Pages',         icon: ICO.file,    route: '/support-pages',  img: tileSupportPages },
+      { title: 'Tracking Pages',        icon: ICO.pin,     route: '/tracking-pages', img: pic('299') },
+      { title: 'Transactions Trackers', icon: ICO.activity, route: '/tools/transactions-tracker', img: tileTransactionsTrackers },
+      { title: 'Wallets',               icon: ICO.wallet,  route: '/wallet',        img: pic('300') },
     ],
   },
   {
     label: 'Digital Tools',
     grad: 'linear-gradient(145deg,#3b82f6,#1e40af)', glow: 'rgba(37,99,235,0.4)',
     tiles: [
-      { title: 'Wallet Funding',        icon: ICO.coins,    route: '/tools/wallet-funding' },
-      { title: 'SMS Sender',            icon: ICO.sms,      route: '/tools/sms-sender'     },
-      { title: 'SMS Verification',      icon: ICO.smsCheck                      },
-      { title: 'eSIM',                  icon: ICO.sim                           },
-      { title: 'Buy Account',           icon: ICO.userPlus, isNew: true         },
-      { title: 'Account Verification',  icon: ICO.userChk                       },
+      { title: 'Wallet Funding',        icon: ICO.coins,    route: '/tools/wallet-funding', img: pic('301') },
+      { title: 'SMS Sender',            icon: ICO.sms,      route: '/tools/sms-sender',     img: pic('302') },
+      { title: 'SMS Verification',      icon: ICO.smsCheck, img: pic('303')         },
+      { title: 'eSIM',                  icon: ICO.sim,      img: pic('304')         },
+      { title: 'Buy Account',           icon: ICO.userPlus, isNew: true, img: pic('305') },
+      { title: 'Account Verification',  icon: ICO.userChk,  img: pic('306')         },
     ],
   },
   {
     label: 'Call Tools',
     grad: 'linear-gradient(145deg,#a855f7,#6d28d9)', glow: 'rgba(124,58,237,0.4)',
     tiles: [
-      { title: 'Custom Caller',         icon: ICO.phone,    route: '/tools/spoof-calling' },
-      { title: 'Voice Notes',           icon: ICO.mic,      isNew: true         },
+      { title: 'Custom Caller',         icon: ICO.phone,    route: '/tools/spoof-calling', img: pic('307') },
+      { title: 'Voice Notes',           icon: ICO.mic,      isNew: true, img: pic('308') },
     ],
   },
   {
     label: 'Mailing Tools',
     grad: 'linear-gradient(145deg,#fb923c,#ea580c)', glow: 'rgba(234,88,12,0.4)',
     tiles: [
-      { title: 'Crypto Mails',          icon: ICO.mail,     route: '/email-services/branded-emails' },
-      { title: 'Crypto Bills Mails',    icon: ICO.mail,     route: '/email-services/branded-bills'  },
-      { title: 'Bank Mailer',           icon: ICO.mail,     route: '/email-services/bank-mailer'    },
+      { title: 'Crypto Mails',          icon: ICO.mail,     route: '/email-services/branded-emails', img: pic('310') },
+      { title: 'Crypto Bills Mails',    icon: ICO.mail,     route: '/email-services/branded-bills',  img: pic('309') },
+      { title: 'Bank Mailer',           icon: ICO.mail,     route: '/email-services/bank-mailer',    img: pic('312') },
     ],
   },
   {
     label: 'Generator Tools',
     grad: 'linear-gradient(145deg,#ec4899,#be185d)', glow: 'rgba(219,39,119,0.4)',
     tiles: [
-      { title: 'Crypto Receipts',       icon: ICO.receipt,  route: '/tools/crypto-receipts' },
-      { title: 'Bank Receipt',          icon: ICO.receipt,  route: '/tools/bank-receipt'    },
-      { title: 'Store Receipt',         icon: ICO.receipt                       },
+      { title: 'Crypto Receipts',       icon: ICO.receipt,  route: '/tools/crypto-receipts', img: pic('314') },
+      { title: 'Bank Receipt',          icon: ICO.receipt,  route: '/tools/bank-receipt',    img: pic('313') },
+      { title: 'Store Receipt',         icon: ICO.receipt,  img: pic('315')         },
     ],
   },
 ]
@@ -394,7 +400,9 @@ function openAction(tile) {
 .dash-stats { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 16px; align-items: stretch; }
 
 .stat-card {
-  background: var(--surface-1);
+  background:
+    radial-gradient(80% 120% at 0% 100%, rgba(34,197,94,0.1) 0%, transparent 58%),
+    var(--surface-1);
   border: 1px solid var(--border); border-radius: 20px;
   padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px;
   box-shadow: var(--shadow-card);
@@ -450,7 +458,10 @@ function openAction(tile) {
   position: relative;
   display: flex; align-items: center; gap: 14px;
   padding: 16px 18px; border-radius: 18px;
-  background: var(--surface-1); border: 1px solid var(--border);
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.03) 38%, transparent 62%),
+    var(--surface-1);
+  border: 1px solid var(--border);
   box-shadow: var(--shadow-card);
   cursor: pointer; text-align: left;
   font-family: inherit;
@@ -463,24 +474,42 @@ function openAction(tile) {
 }
 .qa-tile:active { transform: translateY(-1px); }
 
+/* Stronger green glow on dark mode (low-opacity green is invisible on a dark card) */
+:root:not([data-theme="light"]) .qa-tile {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 40%, transparent 64%),
+    var(--surface-1);
+}
+:root:not([data-theme="light"]) .stat-card {
+  background:
+    radial-gradient(80% 120% at 0% 100%, rgba(34,197,94,0.24) 0%, transparent 60%),
+    var(--surface-1);
+}
+:root:not([data-theme="light"]) .recent-card {
+  background:
+    radial-gradient(55% 90% at 0% 100%, rgba(34,197,94,0.18) 0%, transparent 58%),
+    var(--surface-1);
+}
+
 .qa-tile__medal {
   width: 46px; height: 46px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   border-radius: 14px;
   box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
 }
+/* 4D image icon — dark app-tile look, image fills the medallion */
+.qa-tile__medal--img {
+  background: #0b0f0e;
+  box-shadow: var(--shadow-card);
+  overflow: hidden;
+}
+.qa-tile__pic { width: 100%; height: 100%; object-fit: cover; display: block; }
 
 .qa-tile__title {
   flex: 1; min-width: 0;
   display: inline-flex; align-items: center; gap: 7px; flex-wrap: wrap;
   font-size: 0.88rem; font-weight: 700; color: var(--t1); line-height: 1.3;
 }
-.qa-tile__go {
-  color: var(--t4); flex-shrink: 0;
-  opacity: 0; transform: translateX(-4px);
-  transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease;
-}
-.qa-tile:hover .qa-tile__go { opacity: 1; transform: translateX(0); color: var(--accent); }
 .qa-tile__badge {
   font-size: 0.56rem; font-weight: 800; letter-spacing: 0.04em;
   color: #fff; background: #ef4444;
@@ -493,7 +522,10 @@ function openAction(tile) {
 .dash-recent { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 4px; }
 
 .recent-card {
-  background: var(--surface-1); border: 1px solid var(--border); border-radius: 20px;
+  background:
+    radial-gradient(55% 90% at 0% 100%, rgba(34,197,94,0.08) 0%, transparent 55%),
+    var(--surface-1);
+  border: 1px solid var(--border); border-radius: 20px;
   box-shadow: var(--shadow-card);
   display: flex; flex-direction: column;
 }

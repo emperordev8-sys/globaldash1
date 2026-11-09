@@ -149,9 +149,10 @@
 .theme-transitioning *,
 .theme-transitioning *::before,
 .theme-transitioning *::after {
-  transition: background-color 0.16s ease-out, border-color 0.16s ease-out,
-    color 0.16s ease-out, fill 0.16s ease-out, stroke 0.16s ease-out,
-    box-shadow 0.16s ease-out !important;
+  /* Only the cheap paint properties — box-shadow/fill/stroke animations
+     across the whole DOM are what caused the lag, so they swap instantly. */
+  transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
+  transition-delay: 0s !important;
 }
 
 /* ══════════════════════════════════════════════
