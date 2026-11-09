@@ -444,12 +444,9 @@ function logout() {
   /* Compact upgrade card */
   .sidebar__upgrade {
     min-height: auto;
-    padding: 12px 13px;
+    padding: 14px 14px 12px;
     margin: 0 10px 12px;
-    border-radius: 14px;
-    background: transparent !important;
-    backdrop-filter: none;
-    -webkit-backdrop-filter: none;
+    border-radius: 16px;
   }
   .sidebar__logout { background: transparent !important; }
   .upgrade__body   { padding-right: 76px; }
@@ -738,19 +735,25 @@ function logout() {
   position: relative;
   z-index: 1;
   margin: 0 14px 18px;
-  padding: 16px 16px 14px;
-  border-radius: 14px;
+  padding: 18px 16px 16px;
+  border-radius: 18px;
+  overflow: hidden;
   background:
-    radial-gradient(90% 130% at 0% 100%, rgba(34,197,94,0.12) 0%, transparent 60%),
-    var(--bg);
-  border: 1px solid var(--border);
+    radial-gradient(130% 90% at 100% 0%, rgba(34,197,94,0.30) 0%, transparent 55%),
+    linear-gradient(165deg, #0f2017 0%, #0a140f 55%, #06110c 100%);
+  border: 1px solid rgba(34,197,94,0.24);
+  box-shadow: 0 12px 30px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.06);
   flex-shrink: 0;
 }
-:root:not([data-theme="light"]) .sidebar__upgrade {
-  background:
-    radial-gradient(90% 130% at 0% 100%, rgba(34,197,94,0.26) 0%, transparent 62%),
-    var(--bg);
+/* Soft blurred green orb — premium depth */
+.sidebar__upgrade::before {
+  content: '';
+  position: absolute; top: -40px; right: -26px;
+  width: 120px; height: 120px; border-radius: 50%;
+  background: radial-gradient(circle, rgba(34,197,94,0.55) 0%, transparent 70%);
+  filter: blur(16px); pointer-events: none; z-index: 0;
 }
+.upgrade__header, .upgrade__desc, .upgrade__actions { position: relative; z-index: 1; }
 
 .upgrade__header {
   display: flex;
@@ -774,9 +777,9 @@ function logout() {
 }
 
 .upgrade__title {
-  font-size: 0.92rem;
+  font-size: 0.95rem;
   font-weight: 800;
-  color: var(--t1);
+  color: #fff;
   margin: 0;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -784,7 +787,7 @@ function logout() {
 
 .upgrade__desc {
   font-size: 0.76rem;
-  color: var(--t2);
+  color: rgba(255,255,255,0.64);
   font-weight: 500;
   line-height: 1.45;
   margin: 0 0 14px;
@@ -797,38 +800,50 @@ function logout() {
 }
 
 .upgrade__btn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
   display: flex;
   align-items: center;
   gap: 5px;
-  padding: 7px 16px;
+  padding: 8px 18px;
   border-radius: 999px;
-  background: linear-gradient(180deg, var(--accent-grad-1) 0%, var(--accent) 50%, var(--accent-grad-3) 100%);
-  box-shadow: 0 4px 16px rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
+  background: linear-gradient(135deg, #34d17a 0%, #16a34a 55%, #0d7a39 100%);
+  box-shadow: 0 6px 18px rgba(34,197,94,0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   border: none;
   color: #fff;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.76rem;
   font-weight: 700;
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.2s ease;
+  transition: box-shadow 0.2s ease, transform 0.18s ease;
 }
-
 .upgrade__btn:hover {
-  box-shadow: 0 6px 20px rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.55);
+  box-shadow: 0 9px 24px rgba(34,197,94,0.55);
   transform: translateY(-1px);
 }
+.upgrade__btn:active { transform: translateY(0); }
+/* Moving glass shine */
+.upgrade__btn::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: -80%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.22) 40%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0.22) 60%, transparent 100%);
+  transform: skewX(-22deg); pointer-events: none; z-index: 2;
+  animation: upg-shine 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+@keyframes upg-shine { 0% { left: -80%; } 35% { left: 130%; } 100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) { .upgrade__btn::after { animation: none; display: none; } }
 
 .upgrade__learn {
   font-size: 0.76rem;
   font-weight: 700;
-  color: var(--accent);
+  color: #34d17a;
   cursor: pointer;
   text-decoration: none;
 }
-
-.upgrade__learn:hover {
-  text-decoration: underline;
-}
+.upgrade__learn:hover { text-decoration: underline; }
 
 
 /* ── Safari / older iPadOS fallback — -webkit-fill-available ── */
