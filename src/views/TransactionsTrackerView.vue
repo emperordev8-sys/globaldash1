@@ -104,6 +104,6 @@ const styles = [
 .look-grid--2 { grid-template-columns: repeat(2, 1fr); }
 @media (max-width: 760px) { .look-grid--2 { grid-template-columns: 1fr; } }
 .look-preview { height: 120px; display: flex; align-items: center; justify-content: center; }
-.rc-word { font-size: 1.6rem; font-weight: 900; letter-spacing: 0.06em; color: rgba(255,255,255,0.95); text-shadow: 0 2px 10px rgba(0,0,0,0.35); }
+.rc-word { font-size: 1.6rem; font-weight: 900; letter-spacing: 0.06em; color: rgba(255,255,255,0.95); }
 .rc-heading { margin: 6px 0 0; font-size: 1.1rem; font-weight: 800; color: var(--t1); }
 </style>

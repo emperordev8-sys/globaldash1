@@ -75,7 +75,7 @@
         </router-link>
 
         <!-- Call -->
-        <router-link to="/tools/spoof-calling" class="nav-item" :class="{ 'nav-item--active': $route.path === '/tools/spoof-calling' }" @click="closeSidebar">
+        <router-link to="/tools/voice-notes" class="nav-item" :class="{ 'nav-item--active': $route.path === '/tools/voice-notes' }" @click="closeSidebar">
           <div class="nav-item__icon">
             <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>
@@ -191,8 +191,8 @@
       <div class="sidebar__upgrade" data-tour="upgrade">
         <div class="upgrade__header">
           <span class="upgrade__icon">
-            <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor">
-              <path d="M13 2 3 14h7l-1 8 10-12h-7l1-8z"/>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
+              <path d="M2 7l4.8 3.6L12 3.5l5.2 7.1L22 7l-1.8 11.5a1 1 0 0 1-1 .85H4.8a1 1 0 0 1-1-.85L2 7z"/>
             </svg>
           </span>
           <p class="upgrade__title">Upgrade Pro!</p>
@@ -224,12 +224,10 @@
 </template>
 
 <script setup>
-import { ref, computed, watch, nextTick, onMounted, onUnmounted } from 'vue'
+import { ref, watch, nextTick, onMounted, onUnmounted } from 'vue'
 import { useRouter, useRoute } from 'vue-router'
-import darkLogo from '../../assets/orgimg.jpeg'
-import lightLogo from '../../assets/whitelogo.png'
+import logo1 from '../../assets/logo1.jpg'
 import { useSidebar } from '../../composables/useSidebar.js'
-import { useTheme } from '../../composables/useTheme.js'
 import { useToast } from '../../composables/useToast.js'
 
 const { sidebarOpen, desktopOpen, closeSidebar, toggleDesktopSidebar } = useSidebar()
@@ -239,10 +237,9 @@ function openSoon(name) {
   closeSidebar()
   info(`${name} coming soon`, 'This section is not available yet — check back shortly.')
 }
-const { theme } = useTheme()
-const logoSrc = computed(() => theme.value === 'light' ? lightLogo : darkLogo)
+const logoSrc = logo1
 const router = useRouter()
-const route  = useRoute()
+const route = useRoute()
 
 function handleBadgeClick() {
   if (window.innerWidth >= 769) {
@@ -318,7 +315,6 @@ function logout() {
   flex-direction: column;
   background: var(--bg);
   border-right: 1px solid var(--border-soft);
-  box-shadow: none;
   position: fixed;
   top: 0;
   left: 0;
@@ -376,23 +372,23 @@ function logout() {
   background: rgba(0,0,0,.55);
 }
 .backdrop-fade-enter-active, .backdrop-fade-leave-active { transition: opacity 0.28s ease; }
-.backdrop-fade-enter-from,   .backdrop-fade-leave-to     { opacity: 0; }
+.backdrop-fade-enter-from, .backdrop-fade-leave-to { opacity: 0; }
 
 
 /* ── Tablet — 769px–1366px (iPad Mini → iPad Pro 13") ── */
 @media (min-width: 769px) and (max-width: 1366px) {
-  .sidebar        { width: 245px; }
+  .sidebar { width: 245px; }
   .sidebar__group { padding: 18px 14px 4px; }
-  .nav-item       { padding: 10px 11px; }
+  .nav-item { padding: 10px 11px; }
   .nav-item__label { font-size: 0.84rem; }
-  .sidebar__nav   { gap: 3px; }
+  .sidebar__nav { gap: 3px; }
 }
 
 /* ── iPad landscape short viewport (height ≤ 900px, width ≥ 769px) ── */
 @media (max-height: 900px) and (min-width: 769px) {
-  .sidebar__logo  { padding: 12px 16px 10px; }
+  .sidebar__logo { padding: 12px 16px 10px; }
   .sidebar__group { padding: 10px 12px 3px; }
-  .nav-item       { padding: 6px 9px; }
+  .nav-item { padding: 6px 9px; }
   .nav-item__icon { width: 28px; height: 28px; border-radius: 8px; }
 
   .sidebar__upgrade {
@@ -400,9 +396,9 @@ function logout() {
     padding: 12px 13px;
     margin: 0 12px 10px;
   }
-  .upgrade__body  { padding-right: 78px; }
+  .upgrade__body { padding-right: 78px; }
   .upgrade__title { font-size: 1rem; }
-  .upgrade__btn   { margin-top: 8px; padding: 5px 14px; font-size: 0.73rem; }
+  .upgrade__btn { margin-top: 8px; padding: 5px 14px; font-size: 0.73rem; }
   .upgrade__deco-img { width: 76px; height: 76px; }
 
   .sidebar__logout {
@@ -427,16 +423,16 @@ function logout() {
     border-right: 1px solid var(--border-soft);
   }
   .sidebar--open { transform: translateX(0); }
-  .vaulto-badge  { display: none; }
+  .vaulto-badge { display: none; }
 
   /* Compact nav on mobile */
-  .sidebar__logo  { padding: 14px 16px 12px; background: transparent; }
+  .sidebar__logo { padding: 14px 16px 12px; background: transparent; }
   .sidebar__group { padding: 12px 10px 4px; background: transparent; }
-  .nav-item       { padding: 9px 8px; background: transparent !important; }
+  .nav-item { padding: 9px 8px; background: transparent !important; }
   .nav-item:hover { background: transparent !important; }
   .nav-item--active { background: transparent !important; }
   .nav-item__label { font-size: 1.1rem !important; font-weight: 700 !important; }
-  .nav-item__icon  { width: 28px; height: 28px; border-radius: 7px; background: transparent !important; }
+  .nav-item__icon { width: 28px; height: 28px; border-radius: 7px; background: transparent !important; }
   .sidebar__group-label { font-size: 0.82rem !important; letter-spacing: 0.08em; }
   .nav-item__badge { background: transparent; backdrop-filter: none; -webkit-backdrop-filter: none; }
   .sidebar__scroll { background: transparent; }
@@ -449,10 +445,10 @@ function logout() {
     border-radius: 16px;
   }
   .sidebar__logout { background: transparent !important; }
-  .upgrade__body   { padding-right: 76px; }
-  .upgrade__label  { font-size: 0.68rem; }
-  .upgrade__title  { font-size: 0.95rem; }
-  .upgrade__btn    { margin-top: 7px; padding: 5px 13px; font-size: 0.7rem; }
+  .upgrade__body { padding-right: 76px; }
+  .upgrade__label { font-size: 0.68rem; }
+  .upgrade__title { font-size: 0.95rem; }
+  .upgrade__btn { margin-top: 7px; padding: 5px 13px; font-size: 0.7rem; }
   .upgrade__deco-img { width: 72px; height: 72px; }
 
 }
@@ -569,23 +565,26 @@ function logout() {
 
 .nav-item:hover { background: var(--accent-dim); }
 
+/* Active item uses the same green radial-glow styling as the dashboard boxes */
 .nav-item--active {
-  background: var(--accent);
-  border-color: var(--accent);
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.14) 0%, rgba(34,197,94,0.04) 40%, transparent 64%),
+    var(--glass-hover);
+  border-color: var(--accent-border);
 }
-.nav-item--active:hover { background: var(--accent-press); }
-.nav-item--active .nav-item__icon,
-.nav-item--active .nav-item__label { color: #fff; }
-.nav-item--active .nav-item__label { font-weight: 700; }
+.nav-item--active:hover {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.18) 0%, rgba(34,197,94,0.05) 40%, transparent 64%),
+    var(--glass-hover);
+}
+.nav-item--active .nav-item__icon { color: var(--accent); }
+.nav-item--active .nav-item__label { color: var(--t1); font-weight: 700; }
 
-.nav-indicator {
-  position: absolute;
-  right: 1px;
-  width: 2px;
-  border-radius: 999px;
-  background: var(--t1);
-  pointer-events: none;
-  z-index: 200;
+/* Stronger glow on dark mode (matches the boxes) */
+:root:not([data-theme="light"]) .nav-item--active {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.30) 0%, rgba(34,197,94,0.09) 42%, transparent 66%),
+    var(--glass-hover);
 }
 
 .nav-item__icon {
@@ -742,7 +741,6 @@ function logout() {
     radial-gradient(130% 90% at 100% 0%, rgba(34,197,94,0.30) 0%, transparent 55%),
     linear-gradient(165deg, #0f2017 0%, #0a140f 55%, #06110c 100%);
   border: 1px solid rgba(34,197,94,0.24);
-  box-shadow: 0 12px 30px rgba(0,0,0,0.38), inset 0 1px 0 rgba(255,255,255,0.06);
   flex-shrink: 0;
 }
 /* Soft blurred green orb — premium depth */
@@ -772,7 +770,6 @@ function logout() {
   border-radius: 8px;
   color: #fff;
   background: linear-gradient(135deg, var(--accent-grad-1) 0%, var(--accent) 55%, var(--accent-grad-3) 100%);
-  box-shadow: 0 3px 10px rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.45), inset 0 1px 0 rgba(255, 255, 255, 0.25);
   flex-shrink: 0;
 }
 
@@ -809,17 +806,15 @@ function logout() {
   padding: 8px 18px;
   border-radius: 999px;
   background: linear-gradient(135deg, #34d17a 0%, #16a34a 55%, #0d7a39 100%);
-  box-shadow: 0 6px 18px rgba(34,197,94,0.4), inset 0 1px 0 rgba(255, 255, 255, 0.3);
   border: none;
   color: #fff;
   font-family: 'Plus Jakarta Sans', sans-serif;
   font-size: 0.76rem;
   font-weight: 700;
   cursor: pointer;
-  transition: box-shadow 0.2s ease, transform 0.18s ease;
+  transition: transform 0.18s ease;
 }
 .upgrade__btn:hover {
-  box-shadow: 0 9px 24px rgba(34,197,94,0.55);
   transform: translateY(-1px);
 }
 .upgrade__btn:active { transform: translateY(0); }

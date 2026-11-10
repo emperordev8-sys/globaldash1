@@ -149,18 +149,18 @@ import { useRouter } from 'vue-router'
 const router = useRouter()
 
 const currencies = [
-  { code: 'USD', name: 'US Dollar',         flag: '🇺🇸' },
-  { code: 'EUR', name: 'Euro',              flag: '🇪🇺' },
-  { code: 'GBP', name: 'British Pound',     flag: '🇬🇧' },
-  { code: 'NGN', name: 'Nigerian Naira',    flag: '🇳🇬' },
-  { code: 'GHS', name: 'Ghanaian Cedi',     flag: '🇬🇭' },
-  { code: 'KES', name: 'Kenyan Shilling',   flag: '🇰🇪' },
+  { code: 'USD', name: 'US Dollar', flag: '🇺🇸' },
+  { code: 'EUR', name: 'Euro', flag: '🇪🇺' },
+  { code: 'GBP', name: 'British Pound', flag: '🇬🇧' },
+  { code: 'NGN', name: 'Nigerian Naira', flag: '🇳🇬' },
+  { code: 'GHS', name: 'Ghanaian Cedi', flag: '🇬🇭' },
+  { code: 'KES', name: 'Kenyan Shilling', flag: '🇰🇪' },
   { code: 'ZAR', name: 'South African Rand',flag: '🇿🇦' },
-  { code: 'JPY', name: 'Japanese Yen',      flag: '🇯🇵' },
-  { code: 'CAD', name: 'Canadian Dollar',   flag: '🇨🇦' },
+  { code: 'JPY', name: 'Japanese Yen', flag: '🇯🇵' },
+  { code: 'CAD', name: 'Canadian Dollar', flag: '🇨🇦' },
   { code: 'AUD', name: 'Australian Dollar', flag: '🇦🇺' },
-  { code: 'INR', name: 'Indian Rupee',      flag: '🇮🇳' },
-  { code: 'AED', name: 'UAE Dirham',        flag: '🇦🇪' },
+  { code: 'INR', name: 'Indian Rupee', flag: '🇮🇳' },
+  { code: 'AED', name: 'UAE Dirham', flag: '🇦🇪' },
 ]
 
 const FALLBACK = {
@@ -168,15 +168,15 @@ const FALLBACK = {
   ZAR:18.7,JPY:157,CAD:1.37,AUD:1.55,INR:83.4,AED:3.67,
 }
 
-const rates      = ref(null)
-const apiOnline  = ref(false)
+const rates = ref(null)
+const apiOnline = ref(false)
 const fromAmount = ref(100)
 const selectedFrom = ref(currencies[0])
-const selectedTo   = ref(currencies[3])
+const selectedTo = ref(currencies[3])
 const showFromDrop = ref(false)
-const showToDrop   = ref(false)
-const fromSearch   = ref('')
-const toSearch     = ref('')
+const showToDrop = ref(false)
+const fromSearch = ref('')
+const toSearch = ref('')
 
 const quickAmounts = [10, 50, 100, 500, 1000, 5000]
 
@@ -193,7 +193,7 @@ const currentRate = computed(() => {
   if (!rates.value) return null
   const r = rates.value
   const from = selectedFrom.value.code
-  const to   = selectedTo.value.code
+  const to = selectedTo.value.code
   if (!r[from] || !r[to]) return null
   return r[to] / r[from]
 })
@@ -221,28 +221,28 @@ const filteredTo = computed(() =>
 )
 
 function toggleFromDrop() { showFromDrop.value = !showFromDrop.value; showToDrop.value = false }
-function toggleToDrop()   { showToDrop.value = !showToDrop.value; showFromDrop.value = false  }
+function toggleToDrop() { showToDrop.value = !showToDrop.value; showFromDrop.value = false }
 
 function selectFrom(c) {
   selectedFrom.value = c
   showFromDrop.value = false
-  fromSearch.value   = ''
+  fromSearch.value = ''
 }
 function selectTo(c) {
   selectedTo.value = c
   showToDrop.value = false
-  toSearch.value   = ''
+  toSearch.value = ''
 }
 
 function swapCurrencies() {
   const tmp = selectedFrom.value
   selectedFrom.value = selectedTo.value
-  selectedTo.value   = tmp
+  selectedTo.value = tmp
 }
 
 function setPair(pair) {
   selectedFrom.value = currencies.find(c => c.code === pair.from)
-  selectedTo.value   = currencies.find(c => c.code === pair.to)
+  selectedTo.value = currencies.find(c => c.code === pair.to)
 }
 
 function getPairRate(pair) {
@@ -254,10 +254,10 @@ function getPairRate(pair) {
 
 onMounted(async () => {
   try {
-    const res  = await fetch('https://open.er-api.com/v6/latest/USD')
+    const res = await fetch('https://open.er-api.com/v6/latest/USD')
     const data = await res.json()
     if (data?.rates) {
-      rates.value    = data.rates
+      rates.value = data.rates
       apiOnline.value = true
     } else {
       rates.value = FALLBACK
@@ -306,7 +306,7 @@ onMounted(async () => {
   font-size: 0.72rem; font-weight: 600; text-transform: uppercase;
   letter-spacing: 0.06em; padding: 4px 12px; border-radius: 999px;
 }
-.cc-status--live    { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.cc-status--live { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
 .cc-status--offline { background: rgba(251,191,36,.12); color: #fbbf24; border: 1px solid rgba(251,191,36,.2); }
 .cc-dot {
   width: 6px; height: 6px; border-radius: 50%; background: currentColor;
@@ -428,7 +428,7 @@ onMounted(async () => {
 .cc-pair-card:hover { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.35); transform: translateY(-2px); }
 .cc-pair-flags { font-size: 1.05rem; margin-bottom: 6px; }
 .cc-pair-codes { font-size: 0.82rem; font-weight: 700; color: var(--t1); margin-bottom: 4px; }
-.cc-pair-rate  { font-size: 0.78rem; color: var(--accent); }
+.cc-pair-rate { font-size: 0.78rem; color: var(--accent); }
 
 /* ── Tablet ── */
 @media (max-width: 1024px) and (min-width: 769px) {
@@ -440,50 +440,50 @@ onMounted(async () => {
   .cc-page { gap: 16px; }
 
   /* header: single compact row — [icon] [title flex:1] [badge] */
-  .cc-header      { flex-wrap: nowrap; align-items: center; gap: 10px; }
+  .cc-header { flex-wrap: nowrap; align-items: center; gap: 10px; }
   .cc-header-icon { width: 40px; height: 40px; border-radius: 12px; flex-shrink: 0; }
   .cc-header > div:not(.cc-header-icon) { flex: 1; min-width: 0; }
-  .cc-title       { font-size: 1.15rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-  .cc-sub         { display: none; }
-  .cc-status      { margin-left: 0; flex-shrink: 0; white-space: nowrap; font-size: 0.65rem; padding: 3px 9px; }
+  .cc-title { font-size: 1.15rem; margin: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+  .cc-sub { display: none; }
+  .cc-status { margin-left: 0; flex-shrink: 0; white-space: nowrap; font-size: 0.65rem; padding: 3px 9px; }
 
   /* converter card */
-  .cc-card        { padding: 18px 16px; gap: 14px; }
+  .cc-card { padding: 18px 16px; gap: 14px; }
 
   /* input + selector stay side-by-side (stacking looks broken) */
-  .cc-input-row   { flex-direction: row; gap: 8px; align-items: stretch; }
+  .cc-input-row { flex-direction: row; gap: 8px; align-items: stretch; }
   .cc-input,
-  .cc-result-val  { flex: 1; min-width: 0; font-size: 1.05rem; padding: 12px; }
+  .cc-result-val { flex: 1; min-width: 0; font-size: 1.05rem; padding: 12px; }
   .cc-select-wrap { padding: 10px; gap: 5px; }
-  .cc-code        { min-width: unset; font-size: 0.82rem; }
-  .cc-flag        { font-size: 1rem; }
+  .cc-code { min-width: unset; font-size: 0.82rem; }
+  .cc-flag { font-size: 1rem; }
 
   /* swap */
-  .cc-swap        { width: 36px; height: 36px; }
+  .cc-swap { width: 36px; height: 36px; }
 
   /* dropdowns: right-align to prevent screen-edge overflow */
-  .cc-drop        { left: auto; right: 0; min-width: 200px; }
+  .cc-drop { left: auto; right: 0; min-width: 200px; }
 
   /* quick amounts */
-  .cc-quick       { gap: 8px; }
-  .cc-quick-btn   { padding: 8px 12px; font-size: 0.8rem; }
+  .cc-quick { gap: 8px; }
+  .cc-quick-btn { padding: 8px 12px; font-size: 0.8rem; }
 
   /* popular pairs */
-  .cc-pairs       { grid-template-columns: 1fr 1fr; gap: 8px; }
-  .cc-pair-card   { padding: 14px 12px; }
+  .cc-pairs { grid-template-columns: 1fr 1fr; gap: 8px; }
+  .cc-pair-card { padding: 14px 12px; }
 }
 
 /* ── Small Mobile ── */
 @media (max-width: 480px) {
   .cc-input, .cc-result-val { font-size: 0.95rem; padding: 11px 10px; }
   .cc-select-wrap { padding: 9px 8px; gap: 4px; }
-  .cc-flag        { font-size: 0.9rem; }
+  .cc-flag { font-size: 0.9rem; }
 
   /* quick amounts: even 3-column grid */
-  .cc-quick       { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
-  .cc-quick-btn   { text-align: center; padding: 8px 6px; }
+  .cc-quick { display: grid; grid-template-columns: repeat(3, 1fr); gap: 6px; }
+  .cc-quick-btn { text-align: center; padding: 8px 6px; }
 
-  .cc-pairs       { gap: 6px; }
+  .cc-pairs { gap: 6px; }
 }
 
 </style>

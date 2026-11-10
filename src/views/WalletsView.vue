@@ -140,7 +140,7 @@ const sites = store.wallets
 const wallets = [
   { key: 'cashapp', name: 'CASH APP WALLET', badge: '#0d9488', color: '#16a34a', logo: 'Cash App',
     desc: 'White-label wallet with P2P payments and withdrawals.', sample: 'https://cash.app' },
-  { key: 'paypal',  name: 'PAYPAL WALLET',   badge: '#6d28d9', color: '#2563eb', logo: 'PayPal',
+  { key: 'paypal', name: 'PAYPAL WALLET', badge: '#6d28d9', color: '#2563eb', logo: 'PayPal',
     desc: 'White-label wallet with admin-managed balances.', sample: 'https://www.paypal.com' },
 ]
 

@@ -1,4 +1,4 @@
-﻿<!-- src/views/AnalyticsView.vue  →  Websites -->
+﻿<!-- src/views/AnalyticsView.vue → Websites -->
 <template>
   <div class="websites-page">
 
@@ -80,10 +80,10 @@ import { ref, computed } from 'vue'
 import { useRouter } from 'vue-router'
 import { useSiteStore } from '../composables/useSiteStore.js'
 
-const router        = useRouter()
-const launching     = ref(null)
+const router = useRouter()
+const launching = ref(null)
 const selectedTheme = ref('#22c55e')
-const themes        = ['#22c55e','#60a5fa','#a78bfa','#f472b6','#fbbf24','#f87171']
+const themes = ['#22c55e','#60a5fa','#a78bfa','#f472b6','#fbbf24','#f87171']
 
 const { totalSites, liveSites, pendingSetup } = useSiteStore()
 
@@ -93,17 +93,17 @@ function openLaunch(s) {
 }
 
 const sites = [
-  { title:'Support Pages',  desc:'Create a branded help & support page.',    badge:'Ready',  badgeColor:'var(--accent)', badgeBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)',  badgeBorder:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.25)',  iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)',  iconColor:'var(--accent)', icon:'<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="var(--accent)"/>', route: '/support-pages' },
-  { title:'Online Banking',  desc:'Spin up your own online banking site.',    badge:'Popular',badgeColor:'#60a5fa', badgeBg:'rgba(96,165,250,0.12)', badgeBorder:'rgba(96,165,250,0.25)', iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)',  iconColor:'var(--accent)', icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>', route: '/online-banking' },
-  { title:'Broker',          desc:'Launch your own trading / broker platform.',badge:'New',   badgeColor:'#fbbf24', badgeBg:'rgba(251,191,36,0.12)', badgeBorder:'rgba(251,191,36,0.25)', iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)',  iconColor:'var(--accent)', icon:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>', route: '/broker' },
-  { title:'Tracking Pages',  desc:'Create package tracking pages.',           badge:'Beta',   badgeColor:'#a78bfa', badgeBg:'rgba(167,139,250,0.12)',badgeBorder:'rgba(167,139,250,0.25)',iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)',  iconColor:'var(--accent)', icon:'<rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>', route: '/tracking-pages' },
+  { title:'Support Pages', desc:'Create a branded help & support page.', badge:'Ready', badgeColor:'var(--accent)', badgeBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)', badgeBorder:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.25)', iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)', iconColor:'var(--accent)', icon:'<circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><circle cx="12" cy="17" r="0.5" fill="var(--accent)"/>', route: '/support-pages' },
+  { title:'Online Banking', desc:'Spin up your own online banking site.', badge:'Popular',badgeColor:'#60a5fa', badgeBg:'rgba(96,165,250,0.12)', badgeBorder:'rgba(96,165,250,0.25)', iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)', iconColor:'var(--accent)', icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18"/><path d="M9 21V9"/>', route: '/online-banking' },
+  { title:'Broker', desc:'Launch your own trading / broker platform.',badge:'New', badgeColor:'#fbbf24', badgeBg:'rgba(251,191,36,0.12)', badgeBorder:'rgba(251,191,36,0.25)', iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)', iconColor:'var(--accent)', icon:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>', route: '/broker' },
+  { title:'Tracking Pages', desc:'Create package tracking pages.', badge:'Beta', badgeColor:'#a78bfa', badgeBg:'rgba(167,139,250,0.12)',badgeBorder:'rgba(167,139,250,0.25)',iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)', iconColor:'var(--accent)', icon:'<rect x="1" y="3" width="15" height="13" rx="2"/><path d="M16 8h4l3 3v5h-7V8z"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/>', route: '/tracking-pages' },
 ]
 
 const stats = computed(() => [
-  { label:'Total Sites',     value: totalSites.value,   color:'var(--accent)', dimColor:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)',   icon:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>' },
-  { label:'Live Sites',      value: liveSites.value,    color:'#60a5fa', dimColor:'rgba(96,165,250,0.12)',  icon:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
-  { label:'Pending Setup',   value: pendingSetup.value, color:'#fbbf24', dimColor:'rgba(251,191,36,0.12)', icon:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
-  { label:'Monthly Visitors',value:'24.3K',             color:'#a78bfa', dimColor:'rgba(167,139,250,0.12)',icon:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { label:'Total Sites', value: totalSites.value, color:'var(--accent)', dimColor:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12)', icon:'<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>' },
+  { label:'Live Sites', value: liveSites.value, color:'#60a5fa', dimColor:'rgba(96,165,250,0.12)', icon:'<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
+  { label:'Pending Setup', value: pendingSetup.value, color:'#fbbf24', dimColor:'rgba(251,191,36,0.12)', icon:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+  { label:'Monthly Visitors',value:'24.3K', color:'#a78bfa', dimColor:'rgba(167,139,250,0.12)',icon:'<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
 ])
 
 </script>
@@ -113,7 +113,7 @@ const stats = computed(() => [
 
 .page-header { display:flex; flex-direction:column; gap:5px; }
 .page-title { font-size:1.5rem; font-weight:800; color:var(--t1); letter-spacing:-0.025em; margin:0; }
-.page-sub   { font-size:0.82rem; color: var(--t1); font-weight: 600; margin:0; }
+.page-sub { font-size:0.82rem; color: var(--t1); font-weight: 600; margin:0; }
 
 /* Service cards */
 .sites-grid { display:grid; grid-template-columns:repeat(3,1fr); gap:20px; }
@@ -129,7 +129,7 @@ const stats = computed(() => [
 .site-card:hover { border-color: var(--t4); transform: translateY(-3px); }
 .site-card__icon { width:44px; height:44px; border-radius:12px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .site-card__title { font-size:1rem; font-weight:700; color:var(--t1); margin:0; }
-.site-card__desc  { font-size:0.8rem; color:var(--accent); line-height:1.55; margin:0; flex:1; }
+.site-card__desc { font-size:0.8rem; color:var(--accent); line-height:1.55; margin:0; flex:1; }
 .site-card__badge { align-self:flex-start; font-size:0.62rem; font-weight:700; padding:3px 9px; border-radius:999px; }
 
 /* Stats row */
@@ -137,7 +137,7 @@ const stats = computed(() => [
 .stat-chip { border-radius:14px; padding:18px 20px; display:flex; align-items:center; gap:14px; }
 .stat-chip__icon { width:38px; height:38px; border-radius:10px; display:flex; align-items:center; justify-content:center; flex-shrink:0; }
 .stat-chip__body { display:flex; flex-direction:column; gap:3px; }
-.stat-chip__val   { font-size:1.1rem; font-weight:800; }
+.stat-chip__val { font-size:1.1rem; font-weight:800; }
 .stat-chip__label { font-size:0.72rem; font-weight:600; color:var(--t2); }
 
 /* Deployed panel */
@@ -203,15 +203,15 @@ const stats = computed(() => [
 .modal-leave-to { opacity:0; transform:scale(0.96); }
 
 @media (max-width: 1024px) and (min-width: 769px) {
-  .sites-grid  { grid-template-columns: 1fr 1fr; gap: 14px; }
-  .stats-row   { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .panel-head  { flex-wrap: wrap; gap: 10px; }
+  .sites-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .stats-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .panel-head { flex-wrap: wrap; gap: 10px; }
 }
 @media (max-width: 768px) {
-  .sites-grid  { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .stats-row   { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .stat-chip   { padding: 12px 14px; }
-  .panel-head  { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .sites-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
+  .stats-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .stat-chip { padding: 12px 14px; }
+  .panel-head { flex-direction: column; align-items: flex-start; gap: 10px; }
   .btn-new-site { width: 100%; justify-content: center; }
   .deployed-item { flex-wrap: wrap; gap: 10px; }
   .deployed-item__meta { align-items: flex-start; }
@@ -220,7 +220,7 @@ const stats = computed(() => [
 }
 @media (max-width: 480px) {
   .sites-grid { grid-template-columns: 1fr; }
-  .stats-row  { grid-template-columns: 1fr; }
+  .stats-row { grid-template-columns: 1fr; }
 }
 </style>
 

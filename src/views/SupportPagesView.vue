@@ -129,26 +129,26 @@ const { store } = useSiteStore()
 const pages = store.support
 
 const brands = [
-  { key: 'apple',       name: 'APPLE',          color: '#111827', sample: 'https://support.apple.com' },
-  { key: 'binance',     name: 'BINANCE',        color: '#f3ba2f', text: '#111', sample: 'https://www.binance.com/en/support' },
-  { key: 'bitcoin',     name: 'BITCOIN',        color: '#f7931a', sample: 'https://bitcoin.org' },
-  { key: 'bitso',       name: 'BITSO',          color: '#16a34a', sample: 'https://bitso.com' },
-  { key: 'blockchain',  name: 'BLOCKCHAIN.COM', color: '#1a6dff', sample: 'https://www.blockchain.com' },
-  { key: 'bybit',       name: 'BYBIT',          color: '#f7a600', text: '#111', sample: 'https://www.bybit.com' },
-  { key: 'byd',         name: 'BYD',            color: '#dc2626', sample: 'https://www.byd.com' },
-  { key: 'cashapp',     name: 'CASH APP',       color: '#00d632', text: '#063', sample: 'https://cash.app/help' },
-  { key: 'changelly',   name: 'CHANGELLY',      color: '#0fae96', sample: 'https://changelly.com' },
-  { key: 'chime',       name: 'CHIME',          color: '#1ec677', text: '#063', sample: 'https://www.chime.com' },
-  { key: 'coinbase',    name: 'COINBASE',       color: '#1652f0', sample: 'https://help.coinbase.com' },
-  { key: 'crypto',      name: 'CRYPTO.COM',     color: '#103f98', sample: 'https://crypto.com' },
-  { key: 'facebook',    name: 'FACEBOOK',       color: '#1877f2', sample: 'https://www.facebook.com/help' },
-  { key: 'gcash',       name: 'GCASH',          color: '#007dfe', sample: 'https://www.gcash.com' },
-  { key: 'instagram',   name: 'INSTAGRAM',      color: '#e1306c', sample: 'https://help.instagram.com' },
-  { key: 'kraken',      name: 'KRAKEN',         color: '#5741d9', sample: 'https://www.kraken.com' },
-  { key: 'metamask',    name: 'METAMASK',       color: '#f6851b', sample: 'https://metamask.io' },
-  { key: 'opensea',     name: 'OPENSEA',        color: '#2081e2', sample: 'https://opensea.io' },
-  { key: 'paypal',      name: 'PAYPAL',         color: '#003087', sample: 'https://www.paypal.com/us/smarthelp/home' },
-  { key: 'zelle',       name: 'ZELLE',          color: '#6d1ed4', sample: 'https://www.zellepay.com' },
+  { key: 'apple', name: 'APPLE', color: '#111827', sample: 'https://support.apple.com' },
+  { key: 'binance', name: 'BINANCE', color: '#f3ba2f', text: '#111', sample: 'https://www.binance.com/en/support' },
+  { key: 'bitcoin', name: 'BITCOIN', color: '#f7931a', sample: 'https://bitcoin.org' },
+  { key: 'bitso', name: 'BITSO', color: '#16a34a', sample: 'https://bitso.com' },
+  { key: 'blockchain', name: 'BLOCKCHAIN.COM', color: '#1a6dff', sample: 'https://www.blockchain.com' },
+  { key: 'bybit', name: 'BYBIT', color: '#f7a600', text: '#111', sample: 'https://www.bybit.com' },
+  { key: 'byd', name: 'BYD', color: '#dc2626', sample: 'https://www.byd.com' },
+  { key: 'cashapp', name: 'CASH APP', color: '#00d632', text: '#063', sample: 'https://cash.app/help' },
+  { key: 'changelly', name: 'CHANGELLY', color: '#0fae96', sample: 'https://changelly.com' },
+  { key: 'chime', name: 'CHIME', color: '#1ec677', text: '#063', sample: 'https://www.chime.com' },
+  { key: 'coinbase', name: 'COINBASE', color: '#1652f0', sample: 'https://help.coinbase.com' },
+  { key: 'crypto', name: 'CRYPTO.COM', color: '#103f98', sample: 'https://crypto.com' },
+  { key: 'facebook', name: 'FACEBOOK', color: '#1877f2', sample: 'https://www.facebook.com/help' },
+  { key: 'gcash', name: 'GCASH', color: '#007dfe', sample: 'https://www.gcash.com' },
+  { key: 'instagram', name: 'INSTAGRAM', color: '#e1306c', sample: 'https://help.instagram.com' },
+  { key: 'kraken', name: 'KRAKEN', color: '#5741d9', sample: 'https://www.kraken.com' },
+  { key: 'metamask', name: 'METAMASK', color: '#f6851b', sample: 'https://metamask.io' },
+  { key: 'opensea', name: 'OPENSEA', color: '#2081e2', sample: 'https://opensea.io' },
+  { key: 'paypal', name: 'PAYPAL', color: '#003087', sample: 'https://www.paypal.com/us/smarthelp/home' },
+  { key: 'zelle', name: 'ZELLE', color: '#6d1ed4', sample: 'https://www.zellepay.com' },
 ].map(b => ({ ...b, preview: `linear-gradient(135deg, ${b.color} 0%, ${b.color}cc 100%)` }))
 
 const search = ref('')
@@ -181,10 +181,9 @@ function createPage(brand) {
   background: linear-gradient(135deg, #22c55e 0%, #16a34a 55%, #0f7a37 100%);
   color: #fff; border: none; cursor: pointer;
   font-family: inherit; font-size: 0.82rem; font-weight: 700;
-  box-shadow: 0 7px 18px rgba(22,163,74,0.32), inset 0 1px 0 rgba(255,255,255,0.28);
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  transition: transform 0.15s ease;
 }
-.sp-watch:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22,163,74,0.42); }
+.sp-watch:hover { transform: translateY(-2px); }
 .sp-watch::after {
   content: ''; position: absolute; top: 0; bottom: 0; left: -75%; width: 45%;
   background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.18) 35%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.18) 65%, transparent 100%);
@@ -199,7 +198,6 @@ function createPage(brand) {
   position: relative;
   background: var(--bg); border: 1px solid var(--t4); border-radius: 16px;
   padding: 16px; display: flex; flex-direction: column; gap: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .brand-badge {
   align-self: flex-start;
@@ -214,12 +212,11 @@ function createPage(brand) {
 .brand-preview__word {
   font-size: 1rem; font-weight: 800; letter-spacing: 0.04em;
   color: rgba(255,255,255,0.92); text-transform: uppercase;
-  text-shadow: 0 1px 6px rgba(0,0,0,0.3);
 }
 .bk-look { font-size: 0.8rem; font-weight: 600; color: var(--t2); text-transform: capitalize; }
 .bk-link--green { color: #16a34a; font-weight: 700; }
 
 @media (max-width: 1100px) { .brand-grid { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 760px)  { .brand-grid { grid-template-columns: repeat(2, 1fr); } .sp-head { flex-direction: column; align-items: stretch; } .sp-head__right { justify-content: space-between; } }
-@media (max-width: 440px)  { .brand-grid { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .brand-grid { grid-template-columns: repeat(2, 1fr); } .sp-head { flex-direction: column; align-items: stretch; } .sp-head__right { justify-content: space-between; } }
+@media (max-width: 440px) { .brand-grid { grid-template-columns: 1fr; } }
 </style>

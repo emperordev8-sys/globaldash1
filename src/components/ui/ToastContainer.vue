@@ -63,7 +63,6 @@ const { toasts, remove } = useToast()
   border: 1px solid var(--border);
   pointer-events: all;
   background: linear-gradient(160deg, var(--surface-raised) 0%, var(--surface-sunken) 100%);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.65), 0 2px 8px rgba(0,0,0,0.4);
   position: relative;
   overflow: hidden;
   backdrop-filter: blur(20px);
@@ -148,9 +147,9 @@ const { toasts, remove } = useToast()
 /* Animations */
 .toast-enter-active { transition: all 0.28s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .toast-leave-active { transition: all 0.22s ease; }
-.toast-enter-from   { opacity: 0; transform: translateX(60px) scale(0.9); }
-.toast-leave-to     { opacity: 0; transform: translateX(60px) scale(0.95); }
-.toast-move         { transition: transform 0.22s ease; }
+.toast-enter-from { opacity: 0; transform: translateX(60px) scale(0.9); }
+.toast-leave-to { opacity: 0; transform: translateX(60px) scale(0.95); }
+.toast-move { transition: transform 0.22s ease; }
 
 /* Mobile — bottom centre */
 @media (max-width: 600px) {

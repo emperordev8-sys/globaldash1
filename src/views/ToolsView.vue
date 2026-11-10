@@ -37,21 +37,21 @@
 const services = [
   {
     title: 'Crypto Receipts',
-    desc:  'Fill in the details and generate a <span class="hl">branded</span> transaction receipt.',
+    desc: 'Fill in the details and generate a <span class="hl">branded</span> transaction receipt.',
     route: '/tools/crypto-receipts',
-    icon:  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
   },
   {
     title: 'Transactions Trackers',
-    desc:  'Generate a <span class="hl">transaction</span> or <span class="hl">tracking receipt</span> with a <span class="hl">shareable link</span>.',
+    desc: 'Generate a <span class="hl">transaction</span> or <span class="hl">tracking receipt</span> with a <span class="hl">shareable link</span>.',
     route: '/tools/transactions-tracker',
-    icon:  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
   },
   {
     title: 'Bank Receipt',
-    desc:  '<span class="hl">Bank-app-styled</span> receipts as <span class="hl">PDF</span> or <span class="hl">image</span>.',
+    desc: '<span class="hl">Bank-app-styled</span> receipts as <span class="hl">PDF</span> or <span class="hl">image</span>.',
     route: '/tools/bank-receipt',
-    icon:  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
   },
 ]
 </script>
@@ -108,12 +108,11 @@ const services = [
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
-  transition: border-color 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+  transition: border-color 0.22s ease, transform 0.18s ease;
 }
 .service-card:hover {
   border-color: var(--accent-border);
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.08);
 }
 
 .service-card__icon {

@@ -491,42 +491,42 @@ const receiptDate = computed(() => {
          ' • ' + d.toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' })
 })
 
-const logoRef        = ref(null)
-const statusIconRef  = ref(null)
-const logoUrl        = ref(null)
-const statusIconUrl  = ref(null)
-const generating     = ref(false)
-const showSuccess    = ref(false)
-const formError      = ref('')
-const previewTab     = ref('status')
+const logoRef = ref(null)
+const statusIconRef = ref(null)
+const logoUrl = ref(null)
+const statusIconUrl = ref(null)
+const generating = ref(false)
+const showSuccess = ref(false)
+const formError = ref('')
+const previewTab = ref('status')
 const steps = ref([
-  { title: 'Payment initiated',   subtitle: 'Funds are on their way' },
-  { title: 'Processing',          subtitle: 'Awaiting release fee clearance' },
+  { title: 'Payment initiated', subtitle: 'Funds are on their way' },
+  { title: 'Processing', subtitle: 'Awaiting release fee clearance' },
   { title: 'Released to account', subtitle: 'Funds transferred' },
 ])
-const copyFields     = ref([{ label: 'Reference No.', value: 'TXN-20260524-9821' }])
-const socialLinks    = ref([])
+const copyFields = ref([{ label: 'Reference No.', value: 'TXN-20260524-9821' }])
+const socialLinks = ref([])
 const generatedReceipts = ref([])
 
 const form = reactive({
-  companyName:        '',
-  receiptSlug:        '',
-  domain:             '.qst1x.com',
-  accentColor:        '#22c55e',
-  bgColor:            '#0c0c0a',
-  receiptMode:        'dark',
-  recipientName:      '',
-  issuer:             '',
-  currencySymbol:     'R',
-  profitAmount:       '',
-  processingFee:      '',
-  statusTitle:        'Payment Pending',
-  headline:           '',
-  feeSentence:        '',
-  billingWarning:     '',
-  actionBtnText:      'Pay Release Fee Now',
-  actionBtnUrl:       '',
-  liveChatEnabled:    true,
+  companyName: '',
+  receiptSlug: '',
+  domain: '.qst1x.com',
+  accentColor: '#22c55e',
+  bgColor: '#0c0c0a',
+  receiptMode: 'dark',
+  recipientName: '',
+  issuer: '',
+  currencySymbol: 'R',
+  profitAmount: '',
+  processingFee: '',
+  statusTitle: 'Payment Pending',
+  headline: '',
+  feeSentence: '',
+  billingWarning: '',
+  actionBtnText: 'Pay Release Fee Now',
+  actionBtnUrl: '',
+  liveChatEnabled: true,
   externalChatEnabled:false,
 })
 
@@ -559,7 +559,7 @@ function validateHex(field) {
 
 function generate() {
   formError.value = ''
-  if (!form.companyName.trim())  { formError.value = 'Company name is required.'; return }
+  if (!form.companyName.trim()) { formError.value = 'Company name is required.'; return }
   if (!form.recipientName.trim()){ formError.value = 'Recipient name is required.'; return }
   if (!form.profitAmount.trim()) { formError.value = 'Profit amount is required.'; return }
 
@@ -568,12 +568,12 @@ function generate() {
     generating.value = false
     showSuccess.value = true
     generatedReceipts.value.unshift({
-      id:      Date.now(),
+      id: Date.now(),
       company: form.companyName,
-      slug:    form.receiptSlug || 'receipt-' + Date.now().toString(36),
-      domain:  form.domain,
-      accent:  form.accentColor,
-      time:    new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      slug: form.receiptSlug || 'receipt-' + Date.now().toString(36),
+      domain: form.domain,
+      accent: form.accentColor,
+      time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
     })
     setTimeout(() => { showSuccess.value = false }, 3500)
   }, 1800)
@@ -591,7 +591,7 @@ function generate() {
   display: flex; align-items: center; justify-content: center;
 }
 .rt-title { font-size: 1.45rem; font-weight: 800; color: var(--t1); margin: 0; letter-spacing: -0.025em; }
-.rt-sub   { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
+.rt-sub { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
 .rt-sub-hl { color: var(--accent); font-weight: 500; }
 
 /* Layout */
@@ -679,7 +679,7 @@ function generate() {
 .subdomain-hint { font-size: 0.75rem; color: var(--t2); margin: 0; }
 .subdomain-hint .hl { color: var(--accent); font-weight: 500; }
 .slug-row { display: flex; gap: 8px; }
-.slug-input  { flex: 1; }
+.slug-input { flex: 1; }
 .slug-domain { width: 140px; padding: 9px 10px; border-radius: 9px; border: 1px solid var(--border-soft); background: var(--glass-hover); color: var(--t1); font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.82rem; cursor: pointer; flex-shrink: 0; }
 .slug-domain:focus { outline: none; border-color: var(--accent); }
 .slug-note { font-size: 0.72rem; color: var(--t2); margin: 0; }
@@ -720,7 +720,7 @@ function generate() {
 .toggle-switch::after {
   content: ''; position: absolute; width: 18px; height: 18px;
   border-radius: 50%; background: #fff; top: 3px; left: 3px;
-  transition: transform 0.2s; box-shadow: 0 1px 3px rgba(0,0,0,0.2);
+  transition: transform 0.2s; 
 }
 .toggle-switch--on { background: var(--accent); }
 .toggle-switch--on::after { transform: translateX(20px); }
@@ -799,7 +799,6 @@ function generate() {
   border-radius: 20px; padding: 32px 24px 24px;
   display: flex; flex-direction: column; align-items: center;
   gap: 14px; min-height: 280px;
-  box-shadow: 0 20px 60px rgba(0,0,0,0.35);
 }
 .rp-circle {
   width: 72px; height: 72px; border-radius: 50%;
@@ -817,7 +816,7 @@ function generate() {
 
 /* Headline & fee */
 .rp-headline { font-size: 0.76rem; color: rgba(255,255,255,0.82); text-align: center; margin: 0; line-height: 1.55; }
-.rp-fee      { font-size: 0.72rem; text-align: center; margin: 0; line-height: 1.5; opacity: 0.9; }
+.rp-fee { font-size: 0.72rem; text-align: center; margin: 0; line-height: 1.5; opacity: 0.9; }
 
 /* Tabs */
 .rp-tabs { display: flex; gap: 4px; background: rgba(255,255,255,0.07); border-radius: 999px; padding: 4px; width: 100%; }
@@ -830,9 +829,9 @@ function generate() {
 
 /* Steps timeline */
 .rp-steps { display: flex; flex-direction: column; gap: 0; width: 100%; }
-.rp-step  { display: flex; gap: 12px; align-items: flex-start; }
+.rp-step { display: flex; gap: 12px; align-items: flex-start; }
 .rp-step__track { display: flex; flex-direction: column; align-items: center; width: 24px; flex-shrink: 0; }
-.rp-step__icon  {
+.rp-step__icon {
   width: 24px; height: 24px; border-radius: 50%; border: 2px solid rgba(255,255,255,0.2);
   display: flex; align-items: center; justify-content: center; flex-shrink: 0; background: transparent;
 }
@@ -843,7 +842,7 @@ function generate() {
 }
 .rp-step:last-child .rp-step__body { padding-bottom: 0; }
 .rp-step__title { font-size: 0.8rem; font-weight: 700; color: rgba(255,255,255,0.9); }
-.rp-step__sub   { font-size: 0.7rem; }
+.rp-step__sub { font-size: 0.7rem; }
 
 /* Copyable fields */
 .rp-copy-box {
@@ -851,9 +850,9 @@ function generate() {
   border-radius: 10px; padding: 10px 12px; display: flex; flex-direction: column; gap: 6px;
 }
 .rp-copy-label { font-size: 0.6rem; font-weight: 700; letter-spacing: 0.1em; color: rgba(255,255,255,0.4); }
-.rp-copy-row   { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
+.rp-copy-row { display: flex; align-items: center; justify-content: space-between; gap: 8px; }
 .rp-copy-value { font-size: 0.8rem; font-weight: 600; color: rgba(255,255,255,0.85); flex: 1; }
-.rp-copy-btn   {
+.rp-copy-btn {
   width: 28px; height: 28px; border-radius: 8px; border: 1px solid rgba(255,255,255,0.15);
   background: rgba(255,255,255,0.08); color: rgba(255,255,255,0.6);
   display: flex; align-items: center; justify-content: center; cursor: pointer; flex-shrink: 0;
@@ -863,12 +862,12 @@ function generate() {
 
 /* Details tab */
 .rp-details-list { display: flex; flex-direction: column; gap: 0; width: 100%; }
-.rp-details-row  { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
+.rp-details-row { display: flex; justify-content: space-between; align-items: center; padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.07); }
 .rp-details-row:last-child { border-bottom: none; }
-.rp-details-key  { font-size: 0.75rem; font-weight: 500; }
-.rp-details-val  { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.92); }
-.rp-fee-val      { color: #f87171; }
-.rp-warning-box  {
+.rp-details-key { font-size: 0.75rem; font-weight: 500; }
+.rp-details-val { font-size: 0.78rem; font-weight: 700; color: rgba(255,255,255,0.92); }
+.rp-fee-val { color: #f87171; }
+.rp-warning-box {
   background: rgba(255,180,0,0.08); border: 1px solid rgba(255,180,0,0.2);
   border-radius: 9px; padding: 10px 12px; display: flex; align-items: flex-start; gap: 8px;
   color: rgba(255,220,80,0.9); font-size: 0.72rem; line-height: 1.5; width: 100%;
@@ -901,12 +900,12 @@ function generate() {
   position: fixed; bottom: 28px; right: 28px; z-index: 400;
   display: flex; align-items: center; gap: 10px; padding: 14px 20px; border-radius: 14px;
   background: var(--accent); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.85rem; font-weight: 600; box-shadow: 0 8px 28px rgba(22,163,74,0.45);
+  font-size: 0.85rem; font-weight: 600; 
 }
 .toast-pop-enter-active { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
 .toast-pop-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
 .toast-pop-enter-from,
-.toast-pop-leave-to     { opacity: 0; transform: translateY(12px) scale(0.95); }
+.toast-pop-leave-to { opacity: 0; transform: translateY(12px) scale(0.95); }
 
 /* â"€â"€ Responsive â"€â"€ */
 
@@ -917,62 +916,62 @@ function generate() {
 
 /* Tablet portrait (601px â€" 900px): stack preview above form */
 @media (max-width: 900px) {
-  .rt-page        { gap: 20px; }
-  .rt-layout      { grid-template-columns: 1fr; gap: 18px; }
+  .rt-page { gap: 20px; }
+  .rt-layout { grid-template-columns: 1fr; gap: 18px; }
   .rt-preview-col { position: static; order: -1; }
   .receipt-preview-card { min-height: 220px; padding: 28px 20px 20px; }
-  .two-col        { grid-template-columns: 1fr 1fr; }
+  .two-col { grid-template-columns: 1fr 1fr; }
 }
 
 /* Mobile (â‰¤ 600px) */
 @media (max-width: 600px) {
-  .rt-page        { gap: 16px; }
-  .rt-layout      { gap: 14px; }
-  .rt-header      { gap: 10px; }
-  .rt-icon-box    { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; }
-  .rt-title       { font-size: 1.2rem; }
-  .rt-sub         { font-size: 0.76rem; }
+  .rt-page { gap: 16px; }
+  .rt-layout { gap: 14px; }
+  .rt-header { gap: 10px; }
+  .rt-icon-box { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0; }
+  .rt-title { font-size: 1.2rem; }
+  .rt-sub { font-size: 0.76rem; }
 
-  .rt-form-col    { gap: 12px; }
-  .sec-card       { padding: 16px 14px; gap: 12px; border-radius: 12px; }
-  .sec-title      { font-size: 0.84rem; }
-  .two-col        { grid-template-columns: 1fr; }
-  .slug-row       { flex-direction: column; }
-  .slug-domain    { width: 100%; }
-  .logo-row       { gap: 6px; }
+  .rt-form-col { gap: 12px; }
+  .sec-card { padding: 16px 14px; gap: 12px; border-radius: 12px; }
+  .sec-title { font-size: 0.84rem; }
+  .two-col { grid-template-columns: 1fr; }
+  .slug-row { flex-direction: column; }
+  .slug-domain { width: 100%; }
+  .logo-row { gap: 6px; }
   .logo-preview-box { width: 50px; height: 50px; }
 
   .receipt-preview-card { padding: 24px 16px 18px; border-radius: 16px; gap: 12px; }
-  .rp-circle      { width: 56px; height: 56px; }
-  .rp-company     { font-size: 0.72rem; }
-  .rp-tab         { padding: 6px 14px; font-size: 0.72rem; }
-  .rp-chat        { padding: 8px 20px; font-size: 0.74rem; }
-  .rp-footer      { font-size: 0.62rem; }
+  .rp-circle { width: 56px; height: 56px; }
+  .rp-company { font-size: 0.72rem; }
+  .rp-tab { padding: 6px 14px; font-size: 0.72rem; }
+  .rp-chat { padding: 8px 20px; font-size: 0.74rem; }
+  .rp-footer { font-size: 0.62rem; }
 
-  .generate-btn   { padding: 13px; font-size: 0.86rem; border-radius: 11px; }
-  .success-toast  { bottom: 90px; right: 14px; left: 14px; font-size: 0.8rem; padding: 12px 16px; }
+  .generate-btn { padding: 13px; font-size: 0.86rem; border-radius: 11px; }
+  .success-toast { bottom: 90px; right: 14px; left: 14px; font-size: 0.8rem; padding: 12px 16px; }
 }
 
 /* Small phones (â‰¤ 430px) */
 @media (max-width: 430px) {
-  .rt-title       { font-size: 1.1rem; }
-  .sec-card       { padding: 14px 12px; gap: 10px; }
-  .sec-title      { font-size: 0.8rem; }
+  .rt-title { font-size: 1.1rem; }
+  .sec-card { padding: 14px 12px; gap: 10px; }
+  .sec-title { font-size: 0.8rem; }
   .fi, .fi-area, .fs, .slug-domain { font-size: 0.78rem; padding: 8px 10px; }
-  .fl             { font-size: 0.72rem; }
+  .fl { font-size: 0.72rem; }
   .receipt-preview-card { padding: 20px 14px 16px; }
-  .rp-circle      { width: 50px; height: 50px; }
-  .rp-tab         { padding: 5px 12px; font-size: 0.68rem; }
-  .generate-btn   { padding: 12px; font-size: 0.82rem; }
+  .rp-circle { width: 50px; height: 50px; }
+  .rp-tab { padding: 5px 12px; font-size: 0.68rem; }
+  .generate-btn { padding: 12px; font-size: 0.82rem; }
 }
 
 /* Tiny phones (â‰¤ 360px) */
 @media (max-width: 360px) {
-  .rt-title       { font-size: 1rem; }
-  .sec-card       { padding: 12px 10px; }
-  .fi, .fi-area   { font-size: 0.74rem; padding: 7px 9px; }
+  .rt-title { font-size: 1rem; }
+  .sec-card { padding: 12px 10px; }
+  .fi, .fi-area { font-size: 0.74rem; padding: 7px 9px; }
   .receipt-preview-card { padding: 18px 12px 14px; gap: 10px; }
-  .rp-circle      { width: 44px; height: 44px; }
-  .generate-btn   { padding: 11px; font-size: 0.78rem; }
+  .rp-circle { width: 44px; height: 44px; }
+  .generate-btn { padding: 11px; font-size: 0.78rem; }
 }
 </style>

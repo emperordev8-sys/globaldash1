@@ -19,8 +19,8 @@ export function useToast() {
     toasts,
     remove,
     success: (title, message) => add('success', title, message),
-    error:   (title, message) => add('error',   title, message),
+    error: (title, message) => add('error', title, message),
     warning: (title, message) => add('warning', title, message),
-    info:    (title, message) => add('info',    title, message),
+    info: (title, message) => add('info', title, message),
   }
 }

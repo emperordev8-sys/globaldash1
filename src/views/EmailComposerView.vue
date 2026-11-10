@@ -22,7 +22,7 @@
           <h2 class="compose-heading">New Email</h2>
           <div class="mode-toggle">
             <button :class="['mtab', { 'mtab--active': mode === 'single' }]" @click="mode = 'single'">Single</button>
-            <button :class="['mtab', { 'mtab--active': mode === 'bulk' }]"   @click="mode = 'bulk'">Bulk</button>
+            <button :class="['mtab', { 'mtab--active': mode === 'bulk' }]" @click="mode = 'bulk'">Bulk</button>
           </div>
         </div>
 
@@ -150,14 +150,14 @@ import { ref } from 'vue'
 import { useToast } from '../composables/useToast.js'
 const { success: toastSuccess, error: toastError, info: toastInfo } = useToast()
 
-const mode        = ref('single')
-const toInput     = ref('')
-const toChips     = ref([])
-const subject     = ref('')
-const body        = ref('')
+const mode = ref('single')
+const toInput = ref('')
+const toChips = ref([])
+const subject = ref('')
+const body = ref('')
 const showPreview = ref(false)
-const bulkCount   = 94210
-const bodyRef     = ref(null)
+const bulkCount = 94210
+const bodyRef = ref(null)
 
 function addChip() {
   const v = toInput.value.trim().replace(/,$/, '')
@@ -168,8 +168,8 @@ function applyFormat(type) {
   const el = bodyRef.value
   if (!el) return
   const start = el.selectionStart
-  const end   = el.selectionEnd
-  const sel   = body.value.slice(start, end) || 'text'
+  const end = el.selectionEnd
+  const sel = body.value.slice(start, end) || 'text'
   const wrapMap = { Bold: `**${sel}**`, Italic: `*${sel}*`, Underline: `__${sel}__`, Link: `[${sel}](https://)`, List: `\nâ€¢ ${sel}`, Image: null }
   if (type === 'Image') { toastInfo('Image Upload', 'Image attachment is coming soon. Use Attach File for now.'); return }
   const wrapped = wrapMap[type]
@@ -204,18 +204,18 @@ function saveDraft() {
 }
 
 const toolbar = [
-  { label:'Bold',        icon:'<path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/>' },
-  { label:'Italic',      icon:'<line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/>' },
-  { label:'Underline',   icon:'<path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/>' },
-  { label:'Link',        icon:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>' },
-  { label:'List',        icon:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
-  { label:'Image',       icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>' },
+  { label:'Bold', icon:'<path d="M6 4h8a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/><path d="M6 12h9a4 4 0 0 1 4 4 4 4 0 0 1-4 4H6z"/>' },
+  { label:'Italic', icon:'<line x1="19" y1="4" x2="10" y2="4"/><line x1="14" y1="20" x2="5" y2="20"/><line x1="15" y1="4" x2="9" y2="20"/>' },
+  { label:'Underline', icon:'<path d="M6 3v7a6 6 0 0 0 6 6 6 6 0 0 0 6-6V3"/><line x1="4" y1="21" x2="20" y2="21"/>' },
+  { label:'Link', icon:'<path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>' },
+  { label:'List', icon:'<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
+  { label:'Image', icon:'<rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><polyline points="21 15 16 10 5 21"/>' },
 ]
 
 const drafts = ref([
-  { id:1, subject:'June Savings Offer â€" Earn More',    time:'2h ago',    recipients:'Bulk Â· 94K' },
-  { id:2, subject:'Your April Statement is Ready',     time:'Yesterday', recipients:'Bulk Â· 48K' },
-  { id:3, subject:'Upgrade Your Plan Today',           time:'Jun 3',     recipients:'Single'     },
+  { id:1, subject:'June Savings Offer â€" Earn More', time:'2h ago', recipients:'Bulk Â· 94K' },
+  { id:2, subject:'Your April Statement is Ready', time:'Yesterday', recipients:'Bulk Â· 48K' },
+  { id:3, subject:'Upgrade Your Plan Today', time:'Jun 3', recipients:'Single' },
 ])
 
 function loadDraft(d) { subject.value = d.subject }
@@ -238,14 +238,14 @@ function sendEmail() {
   toChips.value = []
   toInput.value = ''
   subject.value = ''
-  body.value    = ''
+  body.value = ''
 }
 
 const quickStats = [
-  { label:'Emails Sent',   value:'12,480', color:'var(--t1)'  },
-  { label:'Open Rate',     value:'38.6%',  color:'var(--accent)' },
-  { label:'Click Rate',    value:'14.2%',  color:'#60a5fa'    },
-  { label:'Unsubscribed',  value:'214',    color:'#f87171'    },
+  { label:'Emails Sent', value:'12,480', color:'var(--t1)' },
+  { label:'Open Rate', value:'38.6%', color:'var(--accent)' },
+  { label:'Click Rate', value:'14.2%', color:'#60a5fa' },
+  { label:'Unsubscribed', value:'214', color:'#f87171' },
 ]
 </script>
 
@@ -295,7 +295,6 @@ const quickStats = [
 .tool-btn:hover { background:var(--glass-hover); color:var(--t1); }
 .toolbar-div { width:1px; height:16px; background:var(--border-soft); margin:0 4px; }
 
-.body-group { }
 .body-input { background:var(--glass-2); border:1px solid var(--border-soft); border-top:none; border-radius:0 0 10px 10px; padding:14px; color:var(--t1); font-family:'Plus Jakarta Sans',sans-serif; font-size:0.84rem; line-height:1.6; outline:none; resize:none; transition:border-color 0.2s ease; width:100%; }
 .body-input::placeholder { color:var(--t4); }
 .body-input:focus { border-color:var(--accent-border); }
@@ -355,9 +354,9 @@ const quickStats = [
 
 @media (max-width: 768px) {
   .ec-header { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .ec-split  { grid-template-columns: 1fr; gap: 12px; }
+  .ec-split { grid-template-columns: 1fr; gap: 12px; }
   .ec-overlay { padding: 12px; align-items: flex-end; }
-  .ec-modal  { max-width: 100%; border-radius: 22px 22px 0 0; }
+  .ec-modal { max-width: 100%; border-radius: 22px 22px 0 0; }
   .composer-layout { grid-template-columns: 1fr; }
 }
 

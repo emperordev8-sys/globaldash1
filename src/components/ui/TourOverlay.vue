@@ -12,9 +12,9 @@
           v-else-if="box"
           class="tour-spot"
           :style="{
-            top:    box.top + 'px',
-            left:   box.left + 'px',
-            width:  box.width + 'px',
+            top: box.top + 'px',
+            left: box.left + 'px',
+            width: box.width + 'px',
             height: box.height + 'px',
           }"
         />
@@ -66,14 +66,14 @@ import { useTour } from '../../composables/useTour.js'
 
 const { active, stepIndex, steps, stop, next, prev } = useTour()
 
-const box     = ref(null)        // spotlight rect {top,left,width,height}
-const mode    = ref('center')    // 'center' | 'spot'
-const cardEl  = ref(null)
+const box = ref(null) // spotlight rect {top,left,width,height}
+const mode = ref('center') // 'center' | 'spot'
+const cardEl = ref(null)
 const cardPos = ref({ top: 0, left: 0 })
 
 const current = computed(() => steps.value[stepIndex.value] ?? { title: '', body: '' })
 
-const PAD = 8  // spotlight padding around target
+const PAD = 8 // spotlight padding around target
 
 function findEl() {
   const step = steps.value[stepIndex.value]
@@ -109,9 +109,9 @@ function measure() {
   if (!el) { resolve(); return }
   const r = el.getBoundingClientRect()
   box.value = {
-    top:    Math.max(r.top - PAD, 6),
-    left:   Math.max(r.left - PAD, 6),
-    width:  Math.min(r.width + PAD * 2, window.innerWidth - 12),
+    top: Math.max(r.top - PAD, 6),
+    left: Math.max(r.left - PAD, 6),
+    width: Math.min(r.width + PAD * 2, window.innerWidth - 12),
     height: r.height + PAD * 2,
   }
   nextTick(placeCard)
@@ -123,12 +123,12 @@ function placeCard() {
   const vw = window.innerWidth
   const vh = window.innerHeight
   const card = cardEl.value
-  const cw = card?.offsetWidth  || 320
+  const cw = card?.offsetWidth || 320
   const ch = card?.offsetHeight || 180
   const gap = 14
 
   let top = b.top + b.height + gap
-  if (top + ch > vh - 10) top = b.top - ch - gap   // flip above
+  if (top + ch > vh - 10) top = b.top - ch - gap // flip above
   if (top < 10) top = 10
   if (top + ch > vh - 10) top = Math.max(10, vh - ch - 10)
 
@@ -139,7 +139,7 @@ function placeCard() {
 }
 
 const cardStyle = computed(() => ({
-  top:  cardPos.value.top + 'px',
+  top: cardPos.value.top + 'px',
   left: cardPos.value.left + 'px',
 }))
 
@@ -196,7 +196,6 @@ onBeforeUnmount(() => {
 .tour-spot {
   position: fixed;
   border-radius: 14px;
-  box-shadow: 0 0 0 9999px rgba(8, 15, 12, 0.62);
   outline: 2.5px solid #22c55e;
   outline-offset: 3px;
   transition: top 0.28s cubic-bezier(0.4,0,0.2,1), left 0.28s cubic-bezier(0.4,0,0.2,1),
@@ -211,7 +210,6 @@ onBeforeUnmount(() => {
   border: 1px solid var(--border, rgba(0,0,0,0.08));
   border-radius: 18px;
   padding: 20px 20px 16px;
-  box-shadow: 0 24px 60px rgba(0, 0, 0, 0.3);
   animation: tour-pop 0.26s cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 .tour-card--center {
@@ -220,12 +218,12 @@ onBeforeUnmount(() => {
 }
 @keyframes tour-pop {
   from { opacity: 0; transform: scale(0.94) translateY(6px); }
-  to   { opacity: 1; transform: scale(1) translateY(0); }
+  to { opacity: 1; transform: scale(1) translateY(0); }
 }
 .tour-card--center { animation: tour-pop-center 0.26s cubic-bezier(0.34, 1.56, 0.64, 1); }
 @keyframes tour-pop-center {
   from { opacity: 0; transform: translate(-50%, -50%) scale(0.94); }
-  to   { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+  to { opacity: 1; transform: translate(-50%, -50%) scale(1); }
 }
 
 .tour-card__close {
@@ -252,13 +250,13 @@ onBeforeUnmount(() => {
   gap: 12px; margin-top: 18px;
 }
 .tour-card__step { font-size: 0.78rem; font-weight: 600; color: var(--t3, #9aa0a6); }
-.tour-card__nav  { display: flex; align-items: center; gap: 8px; }
+.tour-card__nav { display: flex; align-items: center; gap: 8px; }
 
 .tour-btn {
   display: inline-flex; align-items: center; gap: 6px;
   height: 36px; padding: 0 16px; border-radius: 10px;
   font-family: inherit; font-size: 0.82rem; font-weight: 700; cursor: pointer;
-  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease, color 0.18s ease;
+  transition: background 0.18s ease, transform 0.12s ease, color 0.18s ease;
 }
 .tour-btn:active { transform: scale(0.96); }
 .tour-btn--ghost {
@@ -267,9 +265,8 @@ onBeforeUnmount(() => {
 .tour-btn--ghost:hover { color: var(--t1, #111); }
 .tour-btn--primary {
   background: #16a34a; border: none; color: #fff;
-  box-shadow: 0 8px 18px rgba(22, 163, 74, 0.32);
 }
-.tour-btn--primary:hover { background: #15803d; box-shadow: 0 10px 22px rgba(22, 163, 74, 0.4); }
+.tour-btn--primary:hover { background: #15803d; }
 
 .tour-fade-enter-active, .tour-fade-leave-active { transition: opacity 0.24s ease; }
 .tour-fade-enter-from, .tour-fade-leave-to { opacity: 0; }

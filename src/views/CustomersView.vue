@@ -1,4 +1,4 @@
-﻿<!-- src/views/CustomersView.vue  â†'  Mailing Tools -->
+﻿<!-- src/views/CustomersView.vue â†' Mailing Tools -->
 <template>
   <div class="email-page">
 
@@ -30,27 +30,27 @@
 const services = [
   {
     title: 'Crypto Mails',
-    desc:  'Send branded wallet &amp; transaction <span class="hl">emails</span>.',
+    desc: 'Send branded wallet &amp; transaction <span class="hl">emails</span>.',
     route: '/email-services/branded-emails',
-    icon:  '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
+    icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
   },
   {
     title: 'Crypto Bills Mails',
-    desc:  'Generate branded <span class="hl">bills</span> and <span class="hl">invoices</span>.',
+    desc: 'Generate branded <span class="hl">bills</span> and <span class="hl">invoices</span>.',
     route: '/email-services/branded-bills',
-    icon:  '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
+    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
   },
   {
     title: 'Email Composer',
-    desc:  'Write and send <span class="hl">single</span> or <span class="hl">bulk</span> email.',
+    desc: 'Write and send <span class="hl">single</span> or <span class="hl">bulk</span> email.',
     route: '/email-services/composer',
-    icon:  '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
+    icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
   },
   {
     title: 'Bank Mailer',
-    desc:  'Send a bank transfer alert to both the <span class="hl">sender</span> and the <span class="hl">receiver</span>.',
+    desc: 'Send a bank transfer alert to both the <span class="hl">sender</span> and the <span class="hl">receiver</span>.',
     route: '/email-services/bank-mailer',
-    icon:  '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="12" y1="13" x2="12" y2="19"/><line x1="9" y1="16" x2="15" y2="16"/>',
+    icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="12" y1="13" x2="12" y2="19"/><line x1="9" y1="16" x2="15" y2="16"/>',
   },
 ]
 </script>
@@ -107,12 +107,11 @@ const services = [
   flex-direction: column;
   gap: 12px;
   cursor: pointer;
-  transition: border-color 0.22s ease, transform 0.18s ease, box-shadow 0.22s ease;
+  transition: border-color 0.22s ease, transform 0.18s ease;
 }
 .service-card:hover {
   border-color: var(--accent-border);
   transform: translateY(-3px);
-  box-shadow: 0 8px 28px rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.08);
 }
 
 .service-card__icon {

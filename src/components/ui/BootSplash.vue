@@ -1,27 +1,29 @@
 <!-- src/components/ui/BootSplash.vue -->
 <template>
   <Transition name="boot-fade">
-    <div v-if="visible" class="boot-splash">
-      <div class="boot-splash__wrap">
-        <div class="boot-splash__ring"></div>
-        <img :src="logoSrc" alt="Globalgle" class="boot-splash__mark" />
+    <div v-if="visible" class="boot">
+      <div class="boot__center">
+        <div class="boot__logo-wrap">
+          <img :src="logoSrc" alt="Globalgle" class="boot__logo" />
+        </div>
+        <span class="boot__name">Globalgle</span>
+
+        <div class="boot__bar">
+          <div class="boot__fill" :style="{ width: pct + '%' }"></div>
+        </div>
+        <span class="boot__pct">{{ pct }}%</span>
       </div>
-      <span class="boot-splash__name">Globalgle</span>
-      <span class="boot-splash__pct">{{ pct }}%</span>
     </div>
   </Transition>
 </template>
 
 <script setup>
-import { ref, computed, onMounted } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useBootSplash } from '../../composables/useBootSplash.js'
-import { useTheme } from '../../composables/useTheme.js'
-import darkLogo from '../../assets/orgimg.jpeg'
-import lightLogo from '../../assets/whitelogo.png'
+import logo1 from '../../assets/logo1.jpg'
 
 const { finishBooting } = useBootSplash()
-const { theme } = useTheme()
-const logoSrc = computed(() => theme.value === 'light' ? lightLogo : darkLogo)
+const logoSrc = logo1
 
 const visible = ref(true)
 const pct = ref(0)
@@ -32,14 +34,16 @@ onMounted(() => {
 
   function tick(now) {
     const linear = Math.min((now - start) / duration, 1)
-    pct.value = Math.round(linear * 100)
+    // ease-out so it feels fast then settles — more premium than linear
+    const eased = 1 - Math.pow(1 - linear, 2)
+    pct.value = Math.round(eased * 100)
     if (linear < 1) {
       requestAnimationFrame(tick)
     } else {
       setTimeout(() => {
         visible.value = false
         finishBooting()
-      }, 300)
+      }, 320)
     }
   }
   requestAnimationFrame(tick)
@@ -47,84 +51,101 @@ onMounted(() => {
 </script>
 
 <style scoped>
-.boot-splash {
+.boot {
   position: fixed;
   inset: 0;
   z-index: 100000;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 16px;
-  background: var(--bg);
+  background:
+    radial-gradient(60% 50% at 50% 42%, rgba(34,197,94,0.14) 0%, transparent 70%),
+    var(--bg);
 }
 
-.boot-splash__wrap {
+.boot__center {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 18px;
+}
+
+/* ── Logo ── */
+.boot__logo-wrap {
   position: relative;
-  width: 76px;
-  height: 76px;
+  width: 84px;
+  height: 84px;
   display: flex;
   align-items: center;
   justify-content: center;
+  animation: boot-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
-
-.boot-splash__ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 50%;
-  border: 2.5px solid var(--border-soft);
-  border-top-color: var(--accent);
-  animation: boot-spin 1s linear infinite;
-}
-
-.boot-splash__mark {
+.boot__logo {
   position: relative;
   z-index: 1;
-  width: 44px;
-  height: 44px;
-  border-radius: 50%;
+  width: 72px;
+  height: 72px;
+  border-radius: 20px;
   object-fit: cover;
-  animation: boot-breathe 1.8s ease-in-out infinite;
 }
 
-.boot-splash__name {
-  font-size: 0.9rem;
+/* ── Brand name with sheen ── */
+.boot__name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  letter-spacing: 0.01em;
+  color: var(--t1);
+  animation: boot-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.1s both;
+}
+
+/* ── Slim progress bar ── */
+.boot__bar {
+  position: relative;
+  width: 180px;
+  height: 4px;
+  border-radius: 999px;
+  background: var(--glass-hover);
+  overflow: hidden;
+  animation: boot-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.18s both;
+}
+.boot__fill {
+  position: relative;
+  height: 100%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #16a34a 0%, #22c55e 50%, #34d17a 100%);
+  transition: width 0.18s ease-out;
+}
+.boot__fill::after {
+  content: '';
+  position: absolute; inset: 0;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.6) 50%, transparent 100%);
+  transform: translateX(-100%);
+  animation: boot-sheen 1.1s ease-in-out infinite;
+}
+.boot__pct {
+  font-size: 0.74rem;
   font-weight: 700;
-  letter-spacing: 0.02em;
-  color: #000000;
-  animation: boot-name-in 0.6s ease 0.15s both;
-}
-
-:root[data-theme="dark"] .boot-splash__name {
-  color: #ffffff;
-}
-
-.boot-splash__pct {
-  margin-top: -8px;
-  font-size: 0.78rem;
-  font-weight: 700;
-  color: var(--accent);
-  letter-spacing: 0.03em;
+  color: var(--t3);
+  letter-spacing: 0.04em;
   font-variant-numeric: tabular-nums;
-  animation: boot-name-in 0.6s ease 0.25s both;
+  animation: boot-rise 0.6s cubic-bezier(0.16, 1, 0.3, 1) 0.24s both;
 }
 
-@keyframes boot-spin {
-  to { transform: rotate(360deg); }
+@keyframes boot-rise {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+@keyframes boot-sheen {
+  0% { transform: translateX(-100%); }
+  60%, 100% { transform: translateX(100%); }
 }
 
-@keyframes boot-name-in {
-  from { opacity: 0; transform: translateY(4px); }
-  to   { opacity: 1; transform: translateY(0); }
-}
-
-@keyframes boot-breathe {
-  0%, 100% { transform: scale(1); opacity: 1; }
-  50%      { transform: scale(0.92); opacity: 0.8; }
+@media (prefers-reduced-motion: reduce) {
+  .boot__fill::after { animation: none; }
 }
 
 .boot-fade-enter-active { transition: opacity 0.2s ease; }
-.boot-fade-leave-active { transition: opacity 0.4s ease; }
+.boot-fade-leave-active { transition: opacity 0.45s ease; }
 .boot-fade-enter-from,
 .boot-fade-leave-to { opacity: 0; }
 </style>

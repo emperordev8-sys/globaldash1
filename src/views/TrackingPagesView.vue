@@ -165,11 +165,11 @@ const { store } = useSiteStore()
 const sites = store.tracking
 
 const looks = [
-  { key: 'express',   name: 'EXPRESS',        badge: '#8f962a', bar: '#f97316', dark: false },
-  { key: 'business',  name: 'BUSINESS',       badge: '#16a34a', bar: '#2563eb', dark: true  },
-  { key: 'returns',   name: 'RETURNS',        badge: '#6d28d9', bar: '#16a34a', dark: false },
-  { key: 'freight',   name: 'FREIGHT',        badge: '#2563eb', bar: '#f97316', dark: false },
-  { key: 'cinematic', name: 'CINEMATIC DARK', badge: '#0d9488', bar: '#6d28d9', dark: true  },
+  { key: 'express', name: 'EXPRESS', badge: '#8f962a', bar: '#f97316', dark: false },
+  { key: 'business', name: 'BUSINESS', badge: '#16a34a', bar: '#2563eb', dark: true },
+  { key: 'returns', name: 'RETURNS', badge: '#6d28d9', bar: '#16a34a', dark: false },
+  { key: 'freight', name: 'FREIGHT', badge: '#2563eb', bar: '#f97316', dark: false },
+  { key: 'cinematic', name: 'CINEMATIC DARK', badge: '#0d9488', bar: '#6d28d9', dark: true },
 ]
 
 const activeCount = computed(() => sites.filter(s => s.status === 'active').length)
@@ -200,8 +200,8 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
 .sp-head__right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .look-grid--4 { grid-template-columns: repeat(4, 1fr); }
 @media (max-width: 1100px) { .look-grid--4 { grid-template-columns: repeat(3, 1fr); } }
-@media (max-width: 760px)  { .look-grid--4 { grid-template-columns: repeat(2, 1fr); } }
-@media (max-width: 440px)  { .look-grid--4 { grid-template-columns: 1fr; } }
+@media (max-width: 760px) { .look-grid--4 { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 440px) { .look-grid--4 { grid-template-columns: 1fr; } }
 .sp-watch {
   position: relative; overflow: hidden; isolation: isolate;
   display: inline-flex; align-items: center; gap: 8px;
@@ -209,10 +209,9 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
   background: linear-gradient(135deg, #22c55e 0%, #16a34a 55%, #0f7a37 100%);
   color: #fff; border: none; cursor: pointer;
   font-family: inherit; font-size: 0.82rem; font-weight: 700;
-  box-shadow: 0 7px 18px rgba(22,163,74,0.32), inset 0 1px 0 rgba(255,255,255,0.28);
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  transition: transform 0.15s ease;
 }
-.sp-watch:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22,163,74,0.42); }
+.sp-watch:hover { transform: translateY(-2px); }
 .sp-watch::after {
   content: ''; position: absolute; top: 0; bottom: 0; left: -75%; width: 45%;
   background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.18) 35%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.18) 65%, transparent 100%);

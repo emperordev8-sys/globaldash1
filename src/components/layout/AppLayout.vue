@@ -58,12 +58,12 @@ const { desktopOpen } = useSidebar()
 }
 
 @media (max-width: 1366px) and (min-width: 769px) {
-  .app-layout__main  { margin-left: 245px; }
+  .app-layout__main { margin-left: 245px; }
   .app-layout__main--collapsed { margin-left: 74px; }
   .app-layout__content { padding: 76px 18px 24px; }
 }
 @media (max-width: 768px) {
-  .app-layout__main  { margin-left: 0; }
+  .app-layout__main { margin-left: 0; }
   .app-layout__content { padding: 84px 14px 90px; }
 }
 @media (max-width: 600px) {
@@ -78,6 +78,6 @@ const { desktopOpen } = useSidebar()
 
 .page-enter-active,
 .page-leave-active { transition: all 0.3s ease; }
-.page-enter-from   { opacity: 0; transform: translateY(12px); }
-.page-leave-to     { opacity: 0; transform: translateY(-12px); }
+.page-enter-from { opacity: 0; transform: translateY(12px); }
+.page-leave-to { opacity: 0; transform: translateY(-12px); }
 </style>

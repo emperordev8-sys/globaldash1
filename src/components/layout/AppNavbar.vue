@@ -2,7 +2,7 @@
 <template>
 
   <!-- ═══════════════════════════════════
-       DESKTOP NAVBAR  (hidden on mobile)
+       DESKTOP NAVBAR (hidden on mobile)
        ═══════════════════════════════════ -->
   <header class="navbar desktop-nav" :class="{ 'navbar--collapsed': !desktopOpen }">
 
@@ -188,7 +188,7 @@
   </header>
 
   <!-- ═══════════════════════════════════
-       MOBILE NAVBAR  (hidden on desktop)
+       MOBILE NAVBAR (hidden on desktop)
        ═══════════════════════════════════ -->
   <header class="mobile-nav">
 
@@ -278,81 +278,83 @@ import { notifications as notifData } from '../../data/mockData.js'
 import { useSidebar } from '../../composables/useSidebar.js'
 import { useTheme } from '../../composables/useTheme.js'
 
-const route  = useRoute()
+const route = useRoute()
 const router = useRouter()
 const { sidebarOpen, desktopOpen, toggleSidebar, toggleDesktopSidebar } = useSidebar()
 const { theme, themePref, setThemePref, toggleTheme } = useTheme()
 
 /* ── Appearance dropdown ── */
 const themeOpen = ref(false)
-const themeRef  = ref(null)
+const themeRef = ref(null)
 const themeOptions = [
   { value: 'light', label: 'Light', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M4.93 19.07l1.41-1.41M17.66 6.34l1.41-1.41"/></svg>' },
-  { value: 'dark',  label: 'Dark',  icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' },
-  { value: 'auto',  label: 'Auto (match device)', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' },
+  { value: 'dark', label: 'Dark', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg>' },
+  { value: 'auto', label: 'Auto (match device)', icon: '<svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/></svg>' },
 ]
 
 
 /* ── Page meta ── */
 const pages = {
-  '/':                                    { title: 'Dashboard',            subtitle: 'Welcome back, Daniel' },
-  '/customers':                           { title: 'Mailing Tools',        subtitle: 'Manage your email campaigns' },
-  '/transactions':                        { title: 'Transactions',         subtitle: 'Your transaction history' },
-  '/email-services/branded-bills':        { title: 'Crypto Bills Mails',   subtitle: 'Pick a provider to send a brand-styled billing email' },
-  '/email-services/branded-emails':       { title: 'Crypto Mails',         subtitle: 'Pick a provider to send a brand-styled email' },
-  '/email-services/composer':             { title: 'Email Composer',       subtitle: 'Write and send emails' },
-  '/email-services/bank-mailer':          { title: 'Bank Mailer',          subtitle: 'Send debit & credit bank transfer notices' },
-  '/analytics':                           { title: 'Websites',             subtitle: 'Monitor your web properties' },
-  '/settings':                            { title: 'Settings',             subtitle: 'Manage your preferences' },
-  '/tutorials':                           { title: 'Tutorials',            subtitle: 'Learn how to use every feature' },
-  '/help':                                { title: 'Support',              subtitle: 'Get help and find answers' },
-  '/complaint':                           { title: 'Make a Complaint',     subtitle: 'Submit and track your reports' },
-  '/reselling':                           { title: 'Start Reselling',      subtitle: 'Sell our services under your own brand' },
-  '/website-creator':                     { title: 'Website Creator',      subtitle: 'Launch and manage the sites you offer your customers' },
-  '/tesla-giveaway':                      { title: 'Tesla Giveaway',       subtitle: 'Spawn a Tesla giveaway / participate site' },
-  '/tesla-investment':                    { title: 'Tesla Investment',     subtitle: 'Launch a Tesla Investment site' },
-  '/celebrity':                           { title: 'Celebrity',            subtitle: 'Spawn a celebrity talent-booking site' },
-  '/ecommerce':                           { title: 'Ecommerce Sites',      subtitle: 'Spawn your own online store' },
-  '/website-widgets':                     { title: 'Website Widgets',      subtitle: 'Paste a chat or contact widget on your site' },
-  '/wallets':                             { title: 'Wallets',              subtitle: 'Spawn a white-label wallet site' },
-  '/wallet':                              { title: 'My Wallet',            subtitle: 'Your balance and transactions' },
-  '/billing':                             { title: 'Billing & Plans',      subtitle: 'Subscriptions and invoices' },
-  '/tools/transactions-tracker':          { title: 'Transactions Trackers',subtitle: 'Choose a style and share a receipt link' },
-  '/tools/transactions-tracker/payment':  { title: 'Payment Tracking',     subtitle: 'Create a live tracking receipt and share it instantly with a link' },
-  '/tools/transactions-tracker/receipts': { title: 'Receipts Tracking',    subtitle: 'Create a live transaction receipt and share it on your own link' },
-  '/tools/crypto-receipts':               { title: 'Crypto Receipts',      subtitle: 'Pick a brand and generate a branded receipt' },
-  '/digital':                             { title: 'Digital',              subtitle: 'Extra tools for your business' },
-  '/tools':                               { title: 'Generator',            subtitle: 'Generate branded receipts, trackers and documents' },
-  '/tools/currency':                      { title: 'Currency Converter',   subtitle: 'Live exchange rates' },
-  '/tools/wallet-funding':                { title: 'Wallet Funding',       subtitle: 'Crypto wallet top-ups' },
-  '/tools/sms-sender':                    { title: 'SMS Sender',           subtitle: 'Send SMS messages' },
-  '/tools/spoof-calling':                 { title: 'Spoof Calling',        subtitle: 'Place calls with a chosen caller ID' },
+  '/': { title: 'Dashboard', subtitle: 'Welcome back, Daniel' },
+  '/customers': { title: 'Mailing Tools', subtitle: 'Manage your email campaigns' },
+  '/transactions': { title: 'Transactions', subtitle: 'Your transaction history' },
+  '/email-services/branded-bills': { title: 'Crypto Bills Mails', subtitle: 'Pick a provider to send a brand-styled billing email' },
+  '/email-services/branded-emails': { title: 'Crypto Mails', subtitle: 'Pick a provider to send a brand-styled email' },
+  '/email-services/composer': { title: 'Email Composer', subtitle: 'Write and send emails' },
+  '/email-services/bank-mailer': { title: 'Bank Mailer', subtitle: 'Send debit & credit bank transfer notices' },
+  '/analytics': { title: 'Websites', subtitle: 'Monitor your web properties' },
+  '/settings': { title: 'Settings', subtitle: 'Manage your preferences' },
+  '/tutorials': { title: 'Tutorials', subtitle: 'Learn how to use every feature' },
+  '/help': { title: 'Support', subtitle: 'Get help and find answers' },
+  '/complaint': { title: 'Make a Complaint', subtitle: 'Submit and track your reports' },
+  '/reselling': { title: 'Start Reselling', subtitle: 'Sell our services under your own brand' },
+  '/website-creator': { title: 'Website Creator', subtitle: 'Launch and manage the sites you offer your customers' },
+  '/tesla-giveaway': { title: 'Tesla Giveaway', subtitle: 'Spawn a Tesla giveaway / participate site' },
+  '/tesla-investment': { title: 'Tesla Investment', subtitle: 'Launch a Tesla Investment site' },
+  '/celebrity': { title: 'Celebrity', subtitle: 'Spawn a celebrity talent-booking site' },
+  '/ecommerce': { title: 'Ecommerce Sites', subtitle: 'Spawn your own online store' },
+  '/website-widgets': { title: 'Website Widgets', subtitle: 'Paste a chat or contact widget on your site' },
+  '/wallets': { title: 'Wallets', subtitle: 'Spawn a white-label wallet site' },
+  '/wallet': { title: 'My Wallet', subtitle: 'Your balance and transactions' },
+  '/billing': { title: 'Billing & Plans', subtitle: 'Subscriptions and invoices' },
+  '/tools/transactions-tracker': { title: 'Transactions Trackers',subtitle: 'Choose a style and share a receipt link' },
+  '/tools/transactions-tracker/payment': { title: 'Payment Tracking', subtitle: 'Create a live tracking receipt and share it instantly with a link' },
+  '/tools/transactions-tracker/receipts': { title: 'Receipts Tracking', subtitle: 'Create a live transaction receipt and share it on your own link' },
+  '/tools/crypto-receipts': { title: 'Crypto Receipts', subtitle: 'Pick a brand and generate a branded receipt' },
+  '/digital': { title: 'Digital', subtitle: 'Extra tools for your business' },
+  '/tools': { title: 'Generator', subtitle: 'Generate branded receipts, trackers and documents' },
+  '/tools/currency': { title: 'Currency Converter', subtitle: 'Live exchange rates' },
+  '/tools/wallet-funding': { title: 'Wallet Funding', subtitle: 'Crypto wallet top-ups' },
+  '/tools/sms-sender': { title: 'SMS Sender', subtitle: 'Send SMS messages' },
+  '/tools/spoof-calling': { title: 'Spoof Calling', subtitle: 'Place calls with a chosen caller ID' },
+  '/tools/voice-notes': { title: 'Voice Notes', subtitle: 'Type it, pick a voice, send it as a voice note' },
+  '/tools/buy-account': { title: 'Buy Account', subtitle: 'Ready-made, verified accounts delivered instantly' },
 }
 
-const currentPage    = computed(() => pages[route.path] ?? { title: 'Globalgle', subtitle: 'Banking Dashboard' })
-const pageTitle      = computed(() => currentPage.value.title)
+const currentPage = computed(() => pages[route.path] ?? { title: 'Globalgle', subtitle: 'Banking Dashboard' })
+const pageTitle = computed(() => currentPage.value.title)
 
 /* ── Shared state ── */
 const showNotifications = ref(false)
-const notifBtn          = ref(null)
-const mobileNotifBtn    = ref(null)
-const notifications     = ref(notifData)
+const notifBtn = ref(null)
+const mobileNotifBtn = ref(null)
+const notifications = ref(notifData)
 
 /* ── Profile chip dropdown ── */
 const profileDropOpen = ref(false)
-const profileChipRef  = ref(null)
+const profileChipRef = ref(null)
 const toggleProfileDrop = () => { profileDropOpen.value = !profileDropOpen.value }
 function goTo(path) {
   profileDropOpen.value = false
-  searchOpen.value      = false
-  searchQuery.value     = ''
+  searchOpen.value = false
+  searchQuery.value = ''
   router.push(path)
 }
 
 /* ── Search (pages) ── */
-const searchQuery   = ref('')
-const searchOpen    = ref(false)
-const searchRef     = ref(null)
+const searchQuery = ref('')
+const searchOpen = ref(false)
+const searchRef = ref(null)
 const searchResults = computed(() => {
   const q = searchQuery.value.trim().toLowerCase()
   if (!q) return []
@@ -363,14 +365,14 @@ const searchResults = computed(() => {
 })
 
 /* ── Currency + balance ── */
-const currencies   = [
+const currencies = [
   { code: 'NGN', symbol: '₦', rate: 1 },
   { code: 'USD', symbol: '$', rate: 1 / 1580 },
 ]
-const currency     = ref('NGN')
+const currency = ref('NGN')
 const currencyOpen = ref(false)
-const currencyRef  = ref(null)
-const balanceNGN   = ref(0)
+const currencyRef = ref(null)
+const balanceNGN = ref(0)
 const formattedBalance = computed(() => {
   const c = currencies.find(x => x.code === currency.value) ?? currencies[0]
   const amount = balanceNGN.value * c.rate
@@ -380,21 +382,20 @@ const unreadCount = computed(() => notifications.value.filter(n => !n.read).leng
 
 /* ── Notifications ── */
 const toggleNotifications = () => { showNotifications.value = !showNotifications.value }
-const markRead  = (id) => { const n = notifications.value.find(n => n.id === id); if (n) n.read = true }
-const dismiss   = (id) => { notifications.value = notifications.value.filter(n => n.id !== id) }
-const clearAll  = () => { notifications.value = notifications.value.map(n => ({ ...n, read: true })) }
+const markRead = (id) => { const n = notifications.value.find(n => n.id === id); if (n) n.read = true }
+const clearAll = () => { notifications.value = notifications.value.map(n => ({ ...n, read: true })) }
 
 /* ── Click outside ── */
 const handleOutsideClick = (e) => {
-  const clickedNotifBtn   = notifBtn.value?.contains(e.target)
-  const clickedMobileBtn  = mobileNotifBtn.value?.contains(e.target)
+  const clickedNotifBtn = notifBtn.value?.contains(e.target)
+  const clickedMobileBtn = mobileNotifBtn.value?.contains(e.target)
   if (!clickedNotifBtn && !clickedMobileBtn) showNotifications.value = false
   if (!profileChipRef.value?.contains(e.target)) profileDropOpen.value = false
-  if (!currencyRef.value?.contains(e.target))    currencyOpen.value    = false
-  if (!searchRef.value?.contains(e.target))      searchOpen.value      = false
-  if (!themeRef.value?.contains(e.target))       themeOpen.value       = false
+  if (!currencyRef.value?.contains(e.target)) currencyOpen.value = false
+  if (!searchRef.value?.contains(e.target)) searchOpen.value = false
+  if (!themeRef.value?.contains(e.target)) themeOpen.value = false
 }
-onMounted(()       => document.addEventListener('click', handleOutsideClick))
+onMounted(() => document.addEventListener('click', handleOutsideClick))
 onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 </script>
 
@@ -419,8 +420,8 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   gap: 16px;
 }
 
-.navbar__left   { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
-.navbar__right  { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
+.navbar__left { display: flex; align-items: center; gap: 10px; flex-shrink: 0; }
+.navbar__right { display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
 
 .navbar__page-title { font-size: 0.86rem; font-weight: 600; color: var(--t1); }
 
@@ -467,12 +468,12 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 
 /* Bounce once (~1s), then rest — repeats every 5s */
 @keyframes join-bounce {
-  0%, 20%, 100% { transform: translateY(0)    scale(1, 1); }
-  3%            { transform: translateY(0)    scale(1.04, 0.94); }
-  7%            { transform: translateY(-7px) scale(0.97, 1.04); }
-  11%           { transform: translateY(0)    scale(1.03, 0.96); }
-  14%           { transform: translateY(-3px) scale(1, 1); }
-  17%           { transform: translateY(0)    scale(1, 1); }
+  0%, 20%, 100% { transform: translateY(0) scale(1, 1); }
+  3% { transform: translateY(0) scale(1.04, 0.94); }
+  7% { transform: translateY(-7px) scale(0.97, 1.04); }
+  11% { transform: translateY(0) scale(1.03, 0.96); }
+  14% { transform: translateY(-3px) scale(1, 1); }
+  17% { transform: translateY(0) scale(1, 1); }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -504,7 +505,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   background: linear-gradient(160deg, var(--surface-raised) 0%, var(--surface-sunken) 100%);
   border: 1px solid var(--border);
   border-radius: 14px; padding: 6px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.18); z-index: 200;
+   z-index: 200;
   transform-origin: top right;
 }
 .navbar__search-dropdown { left: 0; right: auto; }
@@ -553,7 +554,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   background: linear-gradient(160deg, var(--surface-raised) 0%, var(--surface-sunken) 100%);
   border: 1px solid var(--border);
   border-radius: 14px; padding: 6px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.18); z-index: 200;
+   z-index: 200;
   transform-origin: top right;
   cursor: default;
 }
@@ -603,13 +604,13 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   -webkit-backdrop-filter: blur(24px) saturate(160%);
   border: 1px solid var(--border);
   border-radius: 16px; padding: 6px;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.28); z-index: 200;
+   z-index: 200;
   transform-origin: top right;
 }
 .npd-header { display: flex; align-items: center; gap: 10px; padding: 10px 10px 8px; }
 .npd-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); flex-shrink: 0; }
 .npd-info { display: flex; flex-direction: column; gap: 2px; }
-.npd-name  { font-size: 0.82rem; font-weight: 800; color: var(--t1); }
+.npd-name { font-size: 0.82rem; font-weight: 800; color: var(--t1); }
 .npd-email { font-size: 0.67rem; color: var(--t1); font-weight: 700; }
 .npd-divider { height: 1px; background: var(--border-soft); margin: 4px 0; }
 .npd-item {
@@ -631,8 +632,8 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 
 .profile-chip-drop-enter-active { transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .profile-chip-drop-leave-active { transition: opacity 0.14s ease, transform 0.14s ease; }
-.profile-chip-drop-enter-from  { opacity: 0; transform: scale(0.88) translateY(-8px); }
-.profile-chip-drop-leave-to    { opacity: 0; transform: scale(0.94) translateY(-4px); }
+.profile-chip-drop-enter-from { opacity: 0; transform: scale(0.88) translateY(-8px); }
+.profile-chip-drop-leave-to { opacity: 0; transform: scale(0.94) translateY(-4px); }
 
 /* ══════════════════════════════
    MOBILE NAVBAR
@@ -659,7 +660,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   width: 18px; height: 2px; background: var(--t1); border-radius: 2px;
   transition: all 0.28s ease; transform-origin: center;
 }
-.mn-bar--mid    { width: 13px; align-self: flex-start; margin-left: 11px; }
+.mn-bar--mid { width: 13px; align-self: flex-start; margin-left: 11px; }
 .mn-bar--open-1 { transform: rotate(45deg) translate(5px, 5px); width: 18px; }
 .mn-bar--open-2 { opacity: 0; transform: scaleX(0); }
 .mn-bar--open-3 { transform: rotate(-45deg) translate(5px, -5px); width: 18px; }
@@ -677,7 +678,6 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   background: var(--surface-raised); border: 1px solid var(--border-soft);
   border-radius: 12px; cursor: pointer; color: var(--icon-stroke);
   transition: all 0.2s;
-  box-shadow: 0 2px 6px rgba(0,0,0,0.14);
 }
 .mn-icon-btn:hover { color: var(--t1); background: var(--glass-hover); }
 .mn-badge {
@@ -692,7 +692,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
    NOTIFICATION DROPDOWN (shared)
    ══════════════════════════════ */
 .notif-drop-enter-active, .notif-drop-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
-.notif-drop-enter-from,   .notif-drop-leave-to     { opacity: 0; transform: translateY(-6px) scale(0.97); }
+.notif-drop-enter-from, .notif-drop-leave-to { opacity: 0; transform: translateY(-6px) scale(0.97); }
 
 .notif-dropdown {
   position: absolute; top: calc(100% + 12px); right: 0;
@@ -715,7 +715,7 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   display: flex; justify-content: space-between; align-items: center;
   padding: 14px 16px 12px; border-bottom: 1px solid var(--border-soft);
 }
-.notif-header-left    { display: flex; align-items: center; gap: 8px; }
+.notif-header-left { display: flex; align-items: center; gap: 8px; }
 .notif-dropdown__title { font-size: 0.88rem; font-weight: 700; color: var(--t1); }
 .notif-count-pill {
   font-size: 0.65rem; font-weight: 700;
@@ -735,33 +735,26 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
   padding: 11px 16px; border-bottom: 1px solid var(--border-soft);
   cursor: pointer; transition: background 0.15s; position: relative;
 }
-.notif-item:last-child  { border-bottom: none; }
-.notif-item:hover       { background: var(--glass-2); }
-.notif-item--unread     { background: var(--glass); }
+.notif-item:last-child { border-bottom: none; }
+.notif-item:hover { background: var(--glass-2); }
+.notif-item--unread { background: var(--glass); }
 .notif-item--unread:hover { background: var(--glass-hover); }
 .notif-item--success { border-left: 2px solid var(--t3); }
-.notif-item--error   { border-left: 2px solid var(--t3); }
+.notif-item--error { border-left: 2px solid var(--t3); }
 .notif-item--warning { border-left: 2px solid var(--t3); }
-.notif-item--info    { border-left: 2px solid var(--t3); }
+.notif-item--info { border-left: 2px solid var(--t3); }
 
 .notif-icon { width: 26px; height: 26px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; margin-top: 1px; }
 .ni--success { background: var(--glass-hover); color: var(--t2); }
-.ni--error   { background: var(--glass-hover); color: var(--t2); }
+.ni--error { background: var(--glass-hover); color: var(--t2); }
 .ni--warning { background: var(--glass-hover); color: var(--t2); }
-.ni--info    { background: var(--glass-hover); color: var(--t2); }
+.ni--info { background: var(--glass-hover); color: var(--t2); }
 
 .notif-item__content { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
-.notif-item__title   { font-size: 0.78rem; font-weight: 700; color: var(--t1); margin: 0; }
+.notif-item__title { font-size: 0.78rem; font-weight: 700; color: var(--t1); margin: 0; }
 .notif-item__message { font-size: 0.73rem; color: var(--t2); margin: 0; line-height: 1.4; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-.notif-item__time    { font-size: 0.67rem; color: var(--t3); margin-top: 2px; }
-.notif-item__dot     { width: 6px; height: 6px; border-radius: 50%; background: var(--t3); flex-shrink: 0; margin-top: 6px; }
-.notif-dismiss {
-  width: 20px; height: 20px; border-radius: 50%; border: none; background: transparent;
-  color: var(--t3); cursor: pointer; display: flex; align-items: center; justify-content: center;
-  opacity: 0; transition: opacity 0.15s, background 0.15s; flex-shrink: 0; margin-top: 2px;
-}
-.notif-item:hover .notif-dismiss { opacity: 1; }
-.notif-dismiss:hover { background: rgba(248,113,113,.15); color: #f87171; }
+.notif-item__time { font-size: 0.67rem; color: var(--t3); margin-top: 2px; }
+.notif-item__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--t3); flex-shrink: 0; margin-top: 6px; }
 
 .notif-footer {
   display: flex; justify-content: space-between; align-items: center;
@@ -786,6 +779,6 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 
 @media (max-width: 768px) {
   .desktop-nav { display: none; }
-  .mobile-nav  { display: flex; }
+  .mobile-nav { display: flex; }
 }
 </style>

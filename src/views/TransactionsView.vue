@@ -183,16 +183,16 @@
 import { ref, computed, watch, onMounted, onBeforeUnmount } from 'vue'
 import { transactions as txnData } from '../data/mockData.js'
 
-const searchQuery      = ref('')
-const activeTab        = ref('All')
+const searchQuery = ref('')
+const activeTab = ref('All')
 const activeDateFilter = ref('All Time')
-const page             = ref(1)
-const perPage          = 5
-const viewing          = ref(null)
-const activeMenu       = ref(null)
-const flagged          = ref(new Set())
+const page = ref(1)
+const perPage = 5
+const viewing = ref(null)
+const activeMenu = ref(null)
+const flagged = ref(new Set())
 
-const tabs        = ['All', 'Completed', 'Pending', 'Failed']
+const tabs = ['All', 'Completed', 'Pending', 'Failed']
 const dateFilters = ['Today', 'This Week', 'This Month', 'All Time']
 
 const toast = ref({ show: false, message: '', type: 'success' })
@@ -204,10 +204,10 @@ function showToast(message, type = 'success') {
 }
 
 const kpis = [
-  { label:'Total Volume',  value:'$24,850', pct:'8.2%', up:true,  color:'var(--accent)', iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18)',   border:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.30)',   bg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.07)',   icon:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
-  { label:'Completed',     value:'6',       pct:'2.1%', up:true,  color:'#60a5fa', iconBg:'rgba(96,165,250,0.18)',  border:'rgba(96,165,250,0.30)',  bg:'rgba(96,165,250,0.07)',  icon:'<polyline points="20 6 9 17 4 12"/>' },
-  { label:'Failed',        value:'1',       pct:'0.5%', up:false, color:'#f87171', iconBg:'rgba(248,113,113,0.18)', border:'rgba(248,113,113,0.30)', bg:'rgba(248,113,113,0.07)', icon:'<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>' },
-  { label:'Pending',       value:'1',       pct:'1.3%', up:false, color:'#fbbf24', iconBg:'rgba(251,191,36,0.18)',  border:'rgba(251,191,36,0.30)',  bg:'rgba(251,191,36,0.07)',  icon:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
+  { label:'Total Volume', value:'$24,850', pct:'8.2%', up:true, color:'var(--accent)', iconBg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.18)', border:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.30)', bg:'rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.07)', icon:'<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
+  { label:'Completed', value:'6', pct:'2.1%', up:true, color:'#60a5fa', iconBg:'rgba(96,165,250,0.18)', border:'rgba(96,165,250,0.30)', bg:'rgba(96,165,250,0.07)', icon:'<polyline points="20 6 9 17 4 12"/>' },
+  { label:'Failed', value:'1', pct:'0.5%', up:false, color:'#f87171', iconBg:'rgba(248,113,113,0.18)', border:'rgba(248,113,113,0.30)', bg:'rgba(248,113,113,0.07)', icon:'<circle cx="12" cy="12" r="10"/><line x1="15" y1="9" x2="9" y2="15"/><line x1="9" y1="9" x2="15" y2="15"/>' },
+  { label:'Pending', value:'1', pct:'1.3%', up:false, color:'#fbbf24', iconBg:'rgba(251,191,36,0.18)', border:'rgba(251,191,36,0.30)', bg:'rgba(251,191,36,0.07)', icon:'<circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/>' },
 ]
 
 // Date filter helpers — today is treated as the reference point
@@ -222,8 +222,8 @@ const filteredTransactions = computed(() => {
     list = list.filter(t => {
       const d = parseTxnDate(t.date)
       return d.getFullYear() === now.getFullYear() &&
-             d.getMonth()    === now.getMonth()    &&
-             d.getDate()     === now.getDate()
+             d.getMonth() === now.getMonth() &&
+             d.getDate() === now.getDate()
     })
   } else if (activeDateFilter.value === 'This Week') {
     const weekAgo = new Date(now); weekAgo.setDate(now.getDate() - 7)
@@ -254,8 +254,8 @@ const filteredTransactions = computed(() => {
 watch([searchQuery, activeTab, activeDateFilter], () => { page.value = 1 })
 
 const totalPages = computed(() => Math.ceil(filteredTransactions.value.length / perPage) || 1)
-const pageStart  = computed(() => filteredTransactions.value.length === 0 ? 0 : (page.value - 1) * perPage + 1)
-const pageEnd    = computed(() => Math.min(page.value * perPage, filteredTransactions.value.length))
+const pageStart = computed(() => filteredTransactions.value.length === 0 ? 0 : (page.value - 1) * perPage + 1)
+const pageEnd = computed(() => Math.min(page.value * perPage, filteredTransactions.value.length))
 
 const paginatedTransactions = computed(() => {
   const start = (page.value - 1) * perPage
@@ -266,12 +266,12 @@ const detailFields = computed(() => {
   if (!viewing.value) return []
   const t = viewing.value
   return [
-    { label:'Transaction ID', value: t.id,       cls: 'val--id'  },
-    { label:'Customer',       value: t.customer,  cls: ''         },
-    { label:'Type',           value: t.type,      cls: ''         },
-    { label:'Amount',         value: t.amount,    cls: t.direction === 'credit' ? 'val--pos' : 'val--neg' },
-    { label:'Date',           value: t.date,      cls: ''         },
-    { label:'Status',         value: t.status,    cls: `val--${t.status.toLowerCase()}` },
+    { label:'Transaction ID', value: t.id, cls: 'val--id' },
+    { label:'Customer', value: t.customer, cls: '' },
+    { label:'Type', value: t.type, cls: '' },
+    { label:'Amount', value: t.amount, cls: t.direction === 'credit' ? 'val--pos' : 'val--neg' },
+    { label:'Date', value: t.date, cls: '' },
+    { label:'Status', value: t.status, cls: `val--${t.status.toLowerCase()}` },
   ]
 })
 
@@ -288,14 +288,14 @@ function downloadReceipt(t) {
   if (!t) return
   const lines = [
     '=============================',
-    '       GLOBALGLE RECEIPT     ',
+    ' GLOBALGLE RECEIPT ',
     '=============================',
     `Transaction ID : ${t.id}`,
-    `Customer       : ${t.customer}`,
-    `Type           : ${t.type}`,
-    `Amount         : ${t.amount}`,
-    `Date           : ${t.date}`,
-    `Status         : ${t.status}`,
+    `Customer : ${t.customer}`,
+    `Type : ${t.type}`,
+    `Amount : ${t.amount}`,
+    `Date : ${t.date}`,
+    `Status : ${t.status}`,
     '=============================',
     'Thank you for using Globalgle',
   ]
@@ -438,7 +438,7 @@ function exportCSV() {
 .menu-pop-enter-active { transition:opacity 0.15s ease, transform 0.15s cubic-bezier(0.34,1.56,0.64,1); }
 .menu-pop-leave-active { transition:opacity 0.1s ease, transform 0.1s ease; }
 .menu-pop-enter-from { opacity:0; transform:scale(0.9) translateY(-6px); }
-.menu-pop-leave-to   { opacity:0; transform:scale(0.95) translateY(-4px); }
+.menu-pop-leave-to { opacity:0; transform:scale(0.95) translateY(-4px); }
 
 .txn-row--flagged { background:rgba(248,113,113,0.04) !important; }
 
@@ -452,11 +452,11 @@ function exportCSV() {
   border:1px solid var(--border);
 }
 .txn-toast--success { color:var(--accent); border-color:rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.35); }
-.txn-toast--flag    { color:#f87171; border-color:rgba(248,113,113,0.35); }
+.txn-toast--flag { color:#f87171; border-color:rgba(248,113,113,0.35); }
 .toast-slide-enter-active { transition:opacity 0.22s ease, transform 0.22s cubic-bezier(0.34,1.56,0.64,1); }
 .toast-slide-leave-active { transition:opacity 0.18s ease, transform 0.18s ease; }
 .toast-slide-enter-from { opacity:0; transform:translateX(-50%) translateY(12px); }
-.toast-slide-leave-to   { opacity:0; transform:translateX(-50%) translateY(12px); }
+.toast-slide-leave-to { opacity:0; transform:translateX(-50%) translateY(12px); }
 
 .empty-state { display:flex; flex-direction:column; align-items:center; gap:10px; padding:48px 0; color:var(--t4); font-size:0.875rem; }
 
@@ -498,31 +498,31 @@ function exportCSV() {
 .modal-leave-to { opacity:0; transform:scale(0.96); }
 
 @media (max-width: 1024px) and (min-width: 769px) {
-  .kpi-row         { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .panel-controls  { flex-wrap: wrap; gap: 8px; }
-  .search-box      { width: 180px; }
+  .kpi-row { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .panel-controls { flex-wrap: wrap; gap: 8px; }
+  .search-box { width: 180px; }
 }
 @media (max-width: 768px) {
-  .kpi-row         { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .kpi-card        { padding: 14px 12px; gap: 10px; }
-  .kpi-card__icon  { width: 36px; height: 36px; border-radius: 10px; }
+  .kpi-row { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .kpi-card { padding: 14px 12px; gap: 10px; }
+  .kpi-card__icon { width: 36px; height: 36px; border-radius: 10px; }
   .kpi-card__value { font-size: 0.95rem; }
-  .txn-panel       { padding: 16px; gap: 14px; }
-  .panel-header    { flex-direction: column; align-items: flex-start; }
-  .panel-controls  { width: 100%; gap: 6px; }
-  .date-tabs       { overflow-x: auto; flex-shrink: 0; }
-  .filter-tabs     { overflow-x: auto; flex-shrink: 0; }
-  .search-box      { width: 100%; }
-  .btn-export      { width: 100%; justify-content: center; }
-  .table-wrap      { overflow-x: auto; -webkit-overflow-scrolling: touch; }
-  .txn-table       { min-width: 560px; }
-  .pagination      { flex-direction: column; align-items: center; gap: 10px; }
-  .modal-backdrop  { padding: 12px; align-items: flex-end; }
-  .detail-modal    { max-width: 100%; border-radius: 22px 22px 0 0; }
-  .detail-grid     { grid-template-columns: 1fr 1fr; }
+  .txn-panel { padding: 16px; gap: 14px; }
+  .panel-header { flex-direction: column; align-items: flex-start; }
+  .panel-controls { width: 100%; gap: 6px; }
+  .date-tabs { overflow-x: auto; flex-shrink: 0; }
+  .filter-tabs { overflow-x: auto; flex-shrink: 0; }
+  .search-box { width: 100%; }
+  .btn-export { width: 100%; justify-content: center; }
+  .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .txn-table { min-width: 560px; }
+  .pagination { flex-direction: column; align-items: center; gap: 10px; }
+  .modal-backdrop { padding: 12px; align-items: flex-end; }
+  .detail-modal { max-width: 100%; border-radius: 22px 22px 0 0; }
+  .detail-grid { grid-template-columns: 1fr 1fr; }
 }
 @media (max-width: 480px) {
-  .kpi-row       { grid-template-columns: 1fr; }
-  .detail-grid   { grid-template-columns: 1fr; }
+  .kpi-row { grid-template-columns: 1fr; }
+  .detail-grid { grid-template-columns: 1fr; }
 }
 </style>

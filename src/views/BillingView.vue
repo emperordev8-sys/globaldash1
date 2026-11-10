@@ -42,8 +42,8 @@
               stroke-width="2" stroke-linecap="round">
               <rect x="3" y="4" width="18" height="18" rx="2"/>
               <line x1="16" y1="2" x2="16" y2="6"/>
-              <line x1="8"  y1="2" x2="8"  y2="6"/>
-              <line x1="3"  y1="10" x2="21" y2="10"/>
+              <line x1="8" y1="2" x2="8" y2="6"/>
+              <line x1="3" y1="10" x2="21" y2="10"/>
             </svg>
           </div>
         </div>
@@ -366,15 +366,15 @@ import { ref, computed } from 'vue'
 
 /* ── State ── */
 const currentPlan = ref('Basic')
-const renewDate   = ref('6/14/2026')
-const autoRenew   = ref(false)
+const renewDate = ref('6/14/2026')
+const autoRenew = ref(false)
 const showHistory = ref(false)
-const showRedeem  = ref(false)
-const redeemCode  = ref('')
+const showRedeem = ref(false)
+const redeemCode = ref('')
 const confirmPlan = ref(null)
-const toast       = ref(null)
-const planCycles  = ref({ Basic: 'monthly', Standard: 'monthly', Premium: 'monthly' })
-const perksOpen   = ref({ Basic: false, Standard: false, Premium: false })
+const toast = ref(null)
+const planCycles = ref({ Basic: 'monthly', Standard: 'monthly', Premium: 'monthly' })
+const perksOpen = ref({ Basic: false, Standard: false, Premium: false })
 
 const daysLeft = computed(() => {
   const renew = new Date('2026-06-14')
@@ -413,15 +413,15 @@ const plans = [
 
 /* ── Billing history ── */
 const billingHistory = ref([
-  { id: 1, type: 'renew',   description: 'Basic plan activated',          date: 'Jun 9, 2026',  amount: 5000,  status: 'completed' },
+  { id: 1, type: 'renew', description: 'Basic plan activated', date: 'Jun 9, 2026', amount: 5000, status: 'completed' },
 ])
 
 /* ── FAQ ── */
 const notes = ref([
-  { q: 'When am I charged for an upgrade?',    a: 'Upgrades are charged immediately from your wallet balance. Ensure you have sufficient funds before switching.',                          open: false },
-  { q: 'How does downgrading work?',           a: 'Downgrades are queued. Your current plan remains active until it expires, then the new lower plan takes effect on renewal.',                open: false },
-  { q: 'What happens when my plan expires?',   a: 'If auto-renew is off and your plan expires, your account is paused until you renew. No data is lost — just re-activate anytime.',           open: false },
-  { q: 'Can I cancel anytime?',                a: 'Yes. Turn off auto-renew and your plan will expire at the end of the current billing period without charging you again.',                    open: false },
+  { q: 'When am I charged for an upgrade?', a: 'Upgrades are charged immediately from your wallet balance. Ensure you have sufficient funds before switching.', open: false },
+  { q: 'How does downgrading work?', a: 'Downgrades are queued. Your current plan remains active until it expires, then the new lower plan takes effect on renewal.', open: false },
+  { q: 'What happens when my plan expires?', a: 'If auto-renew is off and your plan expires, your account is paused until you renew. No data is lost — just re-activate anytime.', open: false },
+  { q: 'Can I cancel anytime?', a: 'Yes. Turn off auto-renew and your plan will expire at the end of the current billing period without charging you again.', open: false },
 ])
 
 /* ── Computed ── */
@@ -446,12 +446,12 @@ function confirmSwitch() {
   if (!plan) return
 
   billingHistory.value.unshift({
-    id:          Date.now(),
-    type:        plan.price > (plans.find(p => p.id === currentPlan.value)?.price ?? 0) ? 'upgrade' : 'downgrade',
+    id: Date.now(),
+    type: plan.price > (plans.find(p => p.id === currentPlan.value)?.price ?? 0) ? 'upgrade' : 'downgrade',
     description: `Switched from ${currentPlan.value} to ${plan.id}`,
-    date:        new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-    amount:      planPrice(plan),
-    status:      'completed',
+    date: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+    amount: planPrice(plan),
+    status: 'completed',
   })
 
   currentPlan.value = plan.id
@@ -464,8 +464,8 @@ function applyCode() {
   if (!code) return
   if (['GLOBAL50FREE', 'WELCOME2026', 'UPGRADE100'].includes(code)) {
     showToast('success', `Code "${code}" applied! 1 month free added.`)
-    showRedeem.value  = false
-    redeemCode.value  = ''
+    showRedeem.value = false
+    redeemCode.value = ''
   } else {
     showToast('error', 'Invalid or expired code.')
   }
@@ -492,7 +492,7 @@ function showToast(type, msg) {
   justify-content: space-between; gap: 16px;
 }
 .bill-title { font-size: 1.6rem; font-weight: 800; color: var(--t1); margin: 0 0 5px; letter-spacing: -0.02em; }
-.bill-sub   { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
+.bill-sub { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
 
 .bill-hist-btn {
   display: flex; align-items: center; gap: 7px; flex-shrink: 0;
@@ -524,16 +524,16 @@ function showToast(type, msg) {
   width: 32px; height: 32px; border-radius: 9px;
   display: flex; align-items: center; justify-content: center;
 }
-.bill-stat-icon--green  { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1);   border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);   }
-.bill-stat-icon--blue   { background: rgba(96,165,250,.1);  border: 1px solid rgba(96,165,250,.2);  }
-.bill-stat-icon--amber  { background: rgba(245,158,11,.1);  border: 1px solid rgba(245,158,11,.2);  }
-.bill-stat-icon--red    { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.2); }
+.bill-stat-icon--green { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.bill-stat-icon--blue { background: rgba(96,165,250,.1); border: 1px solid rgba(96,165,250,.2); }
+.bill-stat-icon--amber { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2); }
+.bill-stat-icon--red { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.2); }
 .bill-stat-icon--purple { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
 
-.bill-stat__val         { font-size: 1.5rem; font-weight: 800; color: var(--t1); line-height: 1; }
-.bill-stat__val--warn   { color: #f87171; }
-.bill-stat__note        { font-size: 0.72rem; color: var(--t2); font-weight: 700; }
-.bill-stat__note--warn  { color: #f59e0b; font-weight: 600; }
+.bill-stat__val { font-size: 1.5rem; font-weight: 800; color: var(--t1); line-height: 1; }
+.bill-stat__val--warn { color: #f87171; }
+.bill-stat__note { font-size: 0.72rem; color: var(--t2); font-weight: 700; }
+.bill-stat__note--warn { color: #f59e0b; font-weight: 600; }
 
 /* toggle */
 .bill-toggle {
@@ -555,7 +555,7 @@ function showToast(type, msg) {
   justify-content: space-between; gap: 16px; flex-wrap: wrap;
 }
 .bill-switch-title { font-size: 1.25rem; font-weight: 800; color: var(--t1); margin: 0 0 6px; letter-spacing: -0.01em; }
-.bill-switch-sub   { font-size: 0.82rem; color: var(--t1); font-weight: 700; margin: 0; line-height: 1.5; max-width: 520px; }
+.bill-switch-sub { font-size: 0.82rem; color: var(--t1); font-weight: 700; margin: 0; line-height: 1.5; max-width: 520px; }
 
 .bill-redeem-btn {
   display: flex; align-items: center; gap: 7px;
@@ -590,7 +590,6 @@ function showToast(type, msg) {
 .bill-plan-card--popular {
   border: 2px solid var(--accent) !important;
   background: var(--accent-dim) !important;
-  box-shadow: 0 12px 32px rgba(var(--accent-r),var(--accent-g),var(--accent-b),.22) !important;
 }
 @media (min-width: 769px) { .bill-plan-card--popular { transform: scale(1.03); } }
 
@@ -608,7 +607,7 @@ function showToast(type, msg) {
   letter-spacing: 0.09em; color: var(--t1);
 }
 .bill-plan-price-wrap { display: flex; align-items: baseline; gap: 3px; }
-.bill-plan-price  { font-size: 1.7rem; font-weight: 800; color: var(--t1); line-height: 1; }
+.bill-plan-price { font-size: 1.7rem; font-weight: 800; color: var(--t1); line-height: 1; }
 .bill-plan-period { font-size: 0.8rem; color: var(--t2); font-weight: 700; }
 .bill-plan-saving {
   font-size: 0.68rem; font-weight: 700; color: var(--accent);
@@ -706,9 +705,9 @@ function showToast(type, msg) {
 
 /* ── Modals ── */
 .modal-fade-enter-active, .modal-fade-leave-active { transition: opacity 0.22s ease; }
-.modal-fade-enter-from,  .modal-fade-leave-to     { opacity: 0; }
+.modal-fade-enter-from, .modal-fade-leave-to { opacity: 0; }
 .slide-down-enter-active, .slide-down-leave-active { transition: all 0.2s ease; }
-.slide-down-enter-from,  .slide-down-leave-to     { opacity: 0; transform: translateY(-6px); }
+.slide-down-enter-from, .slide-down-leave-to { opacity: 0; transform: translateY(-6px); }
 
 .bill-overlay {
   position: fixed; inset: 0; z-index: 9999;
@@ -723,7 +722,6 @@ function showToast(type, msg) {
   border-radius: 24px; padding: 28px;
   width: 100%; max-width: 580px; max-height: 88vh; overflow-y: auto;
   display: flex; flex-direction: column; gap: 0;
-  box-shadow: 0 24px 64px rgba(0,0,0,0.6);
 }
 .bill-modal--sm { max-width: 420px; }
 
@@ -733,7 +731,7 @@ function showToast(type, msg) {
   border-bottom: 1px solid rgba(255,255,255,0.08);
 }
 .bill-modal-title { font-size: 1.1rem; font-weight: 800; color: var(--t1); margin: 0 0 4px; }
-.bill-modal-sub   { font-size: 0.77rem; color: var(--t2); font-weight: 600; margin: 0; }
+.bill-modal-sub { font-size: 0.77rem; color: var(--t2); font-weight: 600; margin: 0; }
 .bill-modal-close {
   width: 30px; height: 30px; border-radius: 8px;
   background: rgba(255,255,255,.06); border: 1px solid var(--border-soft);
@@ -760,9 +758,9 @@ function showToast(type, msg) {
   width: 34px; height: 34px; border-radius: 10px;
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
-.bill-hist-icon--upgrade  { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1);   color: var(--accent);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);   }
-.bill-hist-icon--renew    { background: rgba(96,165,250,.1);  color: #60a5fa;  border: 1px solid rgba(96,165,250,.2);  }
-.bill-hist-icon--downgrade{ background: rgba(245,158,11,.1);  color: #f59e0b;  border: 1px solid rgba(245,158,11,.2);  }
+.bill-hist-icon--upgrade { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.bill-hist-icon--renew { background: rgba(96,165,250,.1); color: #60a5fa; border: 1px solid rgba(96,165,250,.2); }
+.bill-hist-icon--downgrade{ background: rgba(245,158,11,.1); color: #f59e0b; border: 1px solid rgba(245,158,11,.2); }
 
 .bill-hist-info { flex: 1; display: flex; flex-direction: column; gap: 2px; min-width: 0; }
 .bill-hist-desc { font-size: 0.83rem; font-weight: 700; color: var(--t1); }
@@ -785,7 +783,7 @@ function showToast(type, msg) {
   box-sizing: border-box;
 }
 .bill-redeem-input:focus { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); }
-.bill-redeem-hint  { font-size: 0.72rem; color: var(--t3); margin: 0; }
+.bill-redeem-hint { font-size: 0.72rem; color: var(--t3); margin: 0; }
 .bill-redeem-apply {
   width: 100%; padding: 13px; border-radius: 12px;
   background: var(--accent); border: none;
@@ -828,40 +826,40 @@ function showToast(type, msg) {
 
 /* ── Toast ── */
 .toast-up-enter-active, .toast-up-leave-active { transition: all 0.3s ease; }
-.toast-up-enter-from, .toast-up-leave-to       { opacity: 0; transform: translateY(20px); }
+.toast-up-enter-from, .toast-up-leave-to { opacity: 0; transform: translateY(20px); }
 .bill-toast {
   position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center; gap: 10px;
   padding: 13px 22px; border-radius: 14px;
   font-size: 0.84rem; font-weight: 600; z-index: 9999;
 }
-.bill-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3);  color: var(--accent);  }
-.bill-toast--error   { background: rgba(248,113,113,.18); border: 1px solid rgba(248,113,113,.3); color: #f87171; }
-.bill-toast--info    { background: rgba(96,165,250,.18);  border: 1px solid rgba(96,165,250,.3);  color: #60a5fa; }
+.bill-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); color: var(--accent); }
+.bill-toast--error { background: rgba(248,113,113,.18); border: 1px solid rgba(248,113,113,.3); color: #f87171; }
+.bill-toast--info { background: rgba(96,165,250,.18); border: 1px solid rgba(96,165,250,.3); color: #60a5fa; }
 
 @media (max-width: 1024px) and (min-width: 769px) {
-  .bill-stats      { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .bill-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
   .bill-plans-grid { grid-template-columns: 1fr 1fr; gap: 14px; }
   .bill-switch-hdr { flex-wrap: wrap; gap: 10px; }
 }
 @media (max-width: 768px) {
-  .bill-page       { padding: 0; gap: 18px; }
-  .bill-hdr        { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .bill-hist-btn   { width: 100%; justify-content: center; }
-  .bill-stats      { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .bill-stat       { padding: 14px 16px; }
-  .bill-stat__val  { font-size: 1.2rem; }
+  .bill-page { padding: 0; gap: 18px; }
+  .bill-hdr { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .bill-hist-btn { width: 100%; justify-content: center; }
+  .bill-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .bill-stat { padding: 14px 16px; }
+  .bill-stat__val { font-size: 1.2rem; }
   .bill-switch-hdr { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .bill-redeem-btn     { width: 100%; justify-content: center; }
+  .bill-redeem-btn { width: 100%; justify-content: center; }
   .bill-plans-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .bill-plan-card  { padding: 18px 14px; }
+  .bill-plan-card { padding: 18px 14px; }
   .bill-plan-price { font-size: 1.4rem; }
-  .bill-overlay    { padding: 12px; align-items: flex-end; }
-  .bill-modal      { max-width: 100%; border-radius: 22px 22px 0 0; max-height: 90vh; }
-  .bill-toast      { bottom: 90px; max-width: calc(100vw - 32px); white-space: normal; }
+  .bill-overlay { padding: 12px; align-items: flex-end; }
+  .bill-modal { max-width: 100%; border-radius: 22px 22px 0 0; max-height: 90vh; }
+  .bill-toast { bottom: 90px; max-width: calc(100vw - 32px); white-space: normal; }
 }
 @media (max-width: 480px) {
-  .bill-stats      { grid-template-columns: 1fr; }
+  .bill-stats { grid-template-columns: 1fr; }
   .bill-plans-grid { grid-template-columns: 1fr; }
 }
 

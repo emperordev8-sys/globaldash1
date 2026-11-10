@@ -1,126 +1,109 @@
 ﻿<!-- src/views/DigitalView.vue -->
 <template>
-  <div class="digital-page">
+  <div class="dg">
 
-    <!-- Page Header -->
-    <div class="page-header">
-      <h1 class="page-header__title">
-        Digital <span class="page-header__badge">TOOLS</span>
-      </h1>
-      <p class="page-header__sub">Extra tools for your business.</p>
+    <!-- Header -->
+    <div class="dg-head">
+      <h1 class="dg-title">Digital <span class="dg-badge">TOOLS</span></h1>
+      <p class="dg-sub">Extra tools for your business.</p>
     </div>
 
-    <!-- Service Cards -->
-    <div class="service-grid">
-      <div
-        v-for="s in services"
-        :key="s.title"
-        class="service-card"
-        @click="$router.push(s.route)"
-      >
-        <div class="service-card__icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-            stroke="var(--accent)" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round"
-            v-html="s.icon"
-          />
-        </div>
-        <h2 class="service-card__title">{{ s.title }}</h2>
-        <p class="service-card__desc" v-html="s.desc" />
-      </div>
+    <!-- Grid -->
+    <div class="dg-grid">
+      <button v-for="t in tiles" :key="t.title" class="dg-card" @click="open(t)">
+        <span class="dg-medal"><img :src="t.img" :alt="t.title" loading="lazy" referrerpolicy="no-referrer" /></span>
+        <span class="dg-name">
+          {{ t.title }}
+          <span v-if="t.isNew" class="dg-new">NEW</span>
+          <svg class="dg-go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </button>
     </div>
 
   </div>
 </template>
 
 <script setup>
-const services = [
-  {
-    title: 'Wallet Funding',
-    desc:  'Offer <span class="hl">crypto</span> wallet top-ups to your customers.',
-    route: '/tools/wallet-funding',
-    icon:  '<circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/>',
-  },
-  {
-    title: 'SMS Sender',
-    desc:  'Send <span class="hl">SMS messages</span> directly to your customers.',
-    route: '/tools/sms-sender',
-    icon:  '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
-  },
-  {
-    title: 'Spoof Calling',
-    desc:  'Place a call with a <span class="hl">chosen caller ID</span>.',
-    route: '/tools/spoof-calling',
-    icon:  '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',
-  },
+import { useRouter } from 'vue-router'
+import { useToast } from '../composables/useToast.js'
+
+const router = useRouter()
+const { info } = useToast()
+
+const PIC = import.meta.glob('../assets/1000880*.png', { eager: true, import: 'default' })
+const pic = (n) => PIC[`../assets/1000880${n}.png`]
+
+const tiles = [
+  { title: 'Wallet Funding', route: '/tools/wallet-funding', img: pic('301') },
+  { title: 'SMS Sender', route: '/tools/sms-sender', img: pic('302') },
+  { title: 'SMS Verification', route: '/tools/sms-verification', img: pic('303') },
+  { title: 'eSIM', route: '/tools/esim', img: pic('304') },
+  { title: 'Buy Account', route: '/tools/buy-account', isNew: true, img: pic('305') },
+  { title: 'Account Verification', route: '/tools/account-verification', img: pic('306') },
 ]
+
+function open(t) {
+  if (t.route) router.push(t.route)
+  else info(`${t.title} coming soon`, 'This tool is not available yet — check back shortly.')
+}
 </script>
 
 <style scoped>
-.digital-page {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
+.dg { display: flex; flex-direction: column; gap: 18px; }
 
 /* Header */
-.page-header        { display: flex; flex-direction: column; gap: 6px; }
-.page-header__title {
-  display: flex; align-items: center; gap: 10px;
-  font-size: 1.5rem; font-weight: 800; color: var(--t1);
-  letter-spacing: -0.025em; margin: 0;
+.dg-head { display: flex; flex-direction: column; gap: 6px; }
+.dg-title {
+  display: flex; align-items: center; gap: 10px; margin: 0;
+  font-size: 1.55rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em;
 }
-.page-header__badge {
-  font-size: 0.72rem; font-weight: 700; color: var(--t1);
-  background: transparent; border: 1.5px solid var(--t1);
-  padding: 3px 9px; border-radius: 999px; letter-spacing: 0.05em;
+.dg-badge {
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em;
+  color: #16a34a; background: rgba(22,163,74,0.1);
+  border: 1px solid rgba(22,163,74,0.35); padding: 3px 10px; border-radius: 999px;
 }
-.page-header__sub { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
+.dg-sub { margin: 0; font-size: 0.84rem; color: var(--t2); font-weight: 500; }
 
 /* Grid */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
+.dg-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+
+.dg-card {
+  position: relative;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+  padding: 18px; border-radius: 18px; cursor: pointer; text-align: left; font-family: inherit;
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.03) 40%, transparent 64%),
+    var(--surface-1);
+  border: 1px solid var(--border); 
+  transition: border-color 0.2s ease, transform 0.16s ease;
+}
+.dg-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
+
+:root:not([data-theme="light"]) .dg-card {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
+    var(--surface-1);
 }
 
-/* Card */
-.service-card {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  padding: 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  cursor: pointer;
-  transition: border-color 0.22s ease, transform 0.18s ease;
+.dg-medal {
+  width: 46px; height: 46px; border-radius: 14px; flex-shrink: 0; overflow: hidden;
+  background: #0b0f0e; 
+  display: flex; align-items: center; justify-content: center;
 }
-.service-card:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-3px);
-}
+.dg-medal img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.service-card__icon {
-  width: 46px; height: 46px; border-radius: 13px;
-  background: var(--accent-dim);
-  border: 1px solid var(--accent-border);
-  display: flex; align-items: center; justify-content: center; flex-shrink: 0;
+.dg-name {
+  display: inline-flex; align-items: center; gap: 7px; flex-wrap: wrap;
+  font-size: 0.9rem; font-weight: 700; color: var(--t1); line-height: 1.3;
 }
-
-.service-card__title {
-  font-size: 1rem; font-weight: 700; color: var(--t1); margin: 0;
+.dg-new {
+  font-size: 0.56rem; font-weight: 800; letter-spacing: 0.03em; color: #fff;
+  background: #ef4444; padding: 2px 6px; border-radius: 999px;
 }
+.dg-go { color: var(--t4); opacity: 0; transform: translateX(-4px); transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease; }
+.dg-card:hover .dg-go { opacity: 1; transform: translateX(0); color: var(--accent); }
 
-.service-card__desc {
-  font-size: 0.82rem; color: var(--t2); line-height: 1.6; margin: 0;
-}
-.service-card__desc :deep(.hl) { color: var(--accent); font-weight: 500; }
-
-/* Responsive */
-@media (max-width: 768px) {
-  .service-grid { grid-template-columns: 1fr; gap: 12px; }
-  .service-card { padding: 14px 14px; }
-}
-
+@media (max-width: 1100px) { .dg-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px) { .dg-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px) { .dg-grid { grid-template-columns: 1fr; } }
 </style>

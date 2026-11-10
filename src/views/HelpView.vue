@@ -51,7 +51,6 @@
           <div>
             <h2 class="help-section-title">Frequently Asked Questions</h2>
             <p class="help-section-sub">
-        
               {{ filteredFaqs.length }} result{{ filteredFaqs.length !== 1 ? 's' : '' }}
               <span v-if="searchQuery"> for "<strong>{{ searchQuery }}</strong>"</span>
             </p>
@@ -195,35 +194,35 @@
 <script setup>
 import { ref, computed } from 'vue'
 
-const searchQuery    = ref('')
+const searchQuery = ref('')
 const activeCategory = ref('all')
-const openFaq        = ref(0)
-const searchFocused  = ref(false)
+const openFaq = ref(0)
+const searchFocused = ref(false)
 
 /* ── Categories ── */
 const categories = [
-  { key: 'all',          label: 'All Topics',   count: 24, color: 'purple',
+  { key: 'all', label: 'All Topics', count: 24, color: 'purple',
     icon: '<path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/>' },
-  { key: 'accounts',     label: 'Accounts',     count: 8,  color: 'green',
+  { key: 'accounts', label: 'Accounts', count: 8, color: 'green',
     icon: '<rect x="2" y="5" width="20" height="14" rx="2"/><path d="M16 12h2"/><path d="M2 10h20"/>' },
-  { key: 'transactions', label: 'Transactions', count: 6,  color: 'amber',
+  { key: 'transactions', label: 'Transactions', count: 6, color: 'amber',
     icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
-  { key: 'security',     label: 'Security',     count: 5,  color: 'red',
+  { key: 'security', label: 'Security', count: 5, color: 'red',
     icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>' },
-  { key: 'compliance',   label: 'Compliance',   count: 5,  color: 'blue',
+  { key: 'compliance', label: 'Compliance', count: 5, color: 'blue',
     icon: '<rect x="3" y="4" width="18" height="18" rx="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/>' },
 ]
 
 /* ── FAQs ── */
 const allFaqs = [
-  { id: 1, category: 'accounts',     question: 'How do I onboard a new customer?',           answer: 'To onboard a new customer, navigate to the Customers page and click "Add Customer". Fill in the required KYC details including full name, email, phone number, and government-issued ID. Once submitted, the customer will receive a verification email. Their account status will remain "Pending" until KYC is approved by a compliance officer.' },
-  { id: 2, category: 'accounts',     question: 'How do I suspend or reactivate a customer account?', answer: 'Open the customer\'s profile from the Customers page, click the "..." action menu, and select "Suspend Account". The customer\'s status will update to "Suspended" immediately and they will be unable to perform transactions. To reactivate, follow the same steps and choose "Reactivate Account".' },
-  { id: 3, category: 'transactions', question: 'What causes a transaction to fail?',           answer: 'Transactions can fail for several reasons: insufficient funds, a suspended account, a flagged KYC status, network timeout, or a fraud detection trigger. Failed transactions are automatically logged with an error code. You can view the details by clicking the transaction in the Transactions view and opening the detail panel.' },
+  { id: 1, category: 'accounts', question: 'How do I onboard a new customer?', answer: 'To onboard a new customer, navigate to the Customers page and click "Add Customer". Fill in the required KYC details including full name, email, phone number, and government-issued ID. Once submitted, the customer will receive a verification email. Their account status will remain "Pending" until KYC is approved by a compliance officer.' },
+  { id: 2, category: 'accounts', question: 'How do I suspend or reactivate a customer account?', answer: 'Open the customer\'s profile from the Customers page, click the "..." action menu, and select "Suspend Account". The customer\'s status will update to "Suspended" immediately and they will be unable to perform transactions. To reactivate, follow the same steps and choose "Reactivate Account".' },
+  { id: 3, category: 'transactions', question: 'What causes a transaction to fail?', answer: 'Transactions can fail for several reasons: insufficient funds, a suspended account, a flagged KYC status, network timeout, or a fraud detection trigger. Failed transactions are automatically logged with an error code. You can view the details by clicking the transaction in the Transactions view and opening the detail panel.' },
   { id: 4, category: 'transactions', question: 'Can I reverse or refund a completed transaction?', answer: 'Completed transactions cannot be automatically reversed from the dashboard. To initiate a reversal, you must open a support ticket with the Transaction ID, customer name, and reason. The core banking team will review and process the reversal within 1–3 business days subject to compliance review.' },
-  { id: 5, category: 'security',     question: 'How do I enable two-factor authentication?',   answer: 'Go to Settings → Security and click "Enable 2FA". You will be prompted to scan a QR code using an authenticator app (Google Authenticator, Authy, etc.). After scanning, enter the 6-digit verification code to confirm. 2FA will be required on every subsequent login.' },
-  { id: 6, category: 'security',     question: 'What should I do if I suspect unauthorised access?', answer: 'Immediately go to Settings → Security → Active Sessions and revoke all unrecognised sessions. Then change your password and enable 2FA if not already active. Contact our security team via the support ticket system and mark it as "URGENT – Security Incident" so it is escalated immediately.' },
-  { id: 7, category: 'compliance',   question: 'What KYC documents are required for customer verification?', answer: 'Standard KYC requires a government-issued photo ID (national ID card, passport, or driver\'s licence) and proof of address (utility bill or bank statement dated within 90 days). For business accounts, a Certificate of Incorporation and a letter of authorisation from the business owner are also required.' },
-  { id: 8, category: 'accounts',     question: 'How are customer balances updated in the dashboard?', answer: 'Customer balances shown in the dashboard are fetched from the core banking system and cached for performance. The cache refreshes every 5 minutes. For a real-time balance, click the "Refresh" button on the customer\'s profile page or view their full transaction history for the most up-to-date ledger.' },
+  { id: 5, category: 'security', question: 'How do I enable two-factor authentication?', answer: 'Go to Settings → Security and click "Enable 2FA". You will be prompted to scan a QR code using an authenticator app (Google Authenticator, Authy, etc.). After scanning, enter the 6-digit verification code to confirm. 2FA will be required on every subsequent login.' },
+  { id: 6, category: 'security', question: 'What should I do if I suspect unauthorised access?', answer: 'Immediately go to Settings → Security → Active Sessions and revoke all unrecognised sessions. Then change your password and enable 2FA if not already active. Contact our security team via the support ticket system and mark it as "URGENT – Security Incident" so it is escalated immediately.' },
+  { id: 7, category: 'compliance', question: 'What KYC documents are required for customer verification?', answer: 'Standard KYC requires a government-issued photo ID (national ID card, passport, or driver\'s licence) and proof of address (utility bill or bank statement dated within 90 days). For business accounts, a Certificate of Incorporation and a letter of authorisation from the business owner are also required.' },
+  { id: 8, category: 'accounts', question: 'How are customer balances updated in the dashboard?', answer: 'Customer balances shown in the dashboard are fetched from the core banking system and cached for performance. The cache refreshes every 5 minutes. For a real-time balance, click the "Refresh" button on the customer\'s profile page or view their full transaction history for the most up-to-date ledger.' },
 ]
 
 const filteredFaqs = computed(() => {
@@ -238,21 +237,21 @@ const filteredFaqs = computed(() => {
 
 /* ── Quick Links ── */
 const quickLinks = [
-  { label: 'Getting Started Guide',     color: 'green',  icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>' },
-  { label: 'Transaction Limits & Fees', color: 'amber',  icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
-  { label: 'KYC & Compliance Manual',   color: 'blue',   icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/>' },
-  { label: 'API Integration Docs',      color: 'purple', icon: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>' },
-  { label: 'Admin Role Permissions',    color: 'green',  icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
-  { label: 'Audit Log & Reporting',     color: 'amber',  icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
+  { label: 'Getting Started Guide', color: 'green', icon: '<path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/>' },
+  { label: 'Transaction Limits & Fees', color: 'amber', icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
+  { label: 'KYC & Compliance Manual', color: 'blue', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><polyline points="9 15 11 17 15 13"/>' },
+  { label: 'API Integration Docs', color: 'purple', icon: '<polyline points="16 18 22 12 16 6"/><polyline points="8 6 2 12 8 18"/>' },
+  { label: 'Admin Role Permissions', color: 'green', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { label: 'Audit Log & Reporting', color: 'amber', icon: '<line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/>' },
 ]
 
 /* ── System Status ── */
 const systemStatus = [
-  { name: 'Core Banking API',     status: 'ok',       label: 'Operational' },
-  { name: 'Transaction Engine',   status: 'ok',       label: 'Operational' },
-  { name: 'KYC Verification',     status: 'ok',       label: 'Operational' },
-  { name: 'Notification Service', status: 'degraded', label: 'Degraded'    },
-  { name: 'Analytics Pipeline',   status: 'ok',       label: 'Operational' },
+  { name: 'Core Banking API', status: 'ok', label: 'Operational' },
+  { name: 'Transaction Engine', status: 'ok', label: 'Operational' },
+  { name: 'KYC Verification', status: 'ok', label: 'Operational' },
+  { name: 'Notification Service', status: 'degraded', label: 'Degraded' },
+  { name: 'Analytics Pipeline', status: 'ok', label: 'Operational' },
 ]
 
 /* ── Toast ── */
@@ -334,16 +333,16 @@ function showToast(type, msg) {
   display: flex; align-items: center; justify-content: center;
 }
 .help-cat-icon--purple { background: rgba(167,139,250,.12); color: #a78bfa; border: 1px solid rgba(167,139,250,.2); }
-.help-cat-icon--green  { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12);   color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);   }
-.help-cat-icon--amber  { background: rgba(245,158,11,.12);  color: #f59e0b; border: 1px solid rgba(245,158,11,.2);  }
-.help-cat-icon--red    { background: rgba(248,113,113,.12); color: #f87171; border: 1px solid rgba(248,113,113,.2); }
-.help-cat-icon--blue   { background: rgba(96,165,250,.12);  color: #60a5fa; border: 1px solid rgba(96,165,250,.2);  }
+.help-cat-icon--green { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.help-cat-icon--amber { background: rgba(245,158,11,.12); color: #f59e0b; border: 1px solid rgba(245,158,11,.2); }
+.help-cat-icon--red { background: rgba(248,113,113,.12); color: #f87171; border: 1px solid rgba(248,113,113,.2); }
+.help-cat-icon--blue { background: rgba(96,165,250,.12); color: #60a5fa; border: 1px solid rgba(96,165,250,.2); }
 
 .help-cat--active .help-cat-icon--purple { background: rgba(167,139,250,.2); border-color: rgba(167,139,250,.35); }
-.help-cat--active .help-cat-icon--green  { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);   border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4);    }
-.help-cat--active .help-cat-icon--amber  { background: rgba(245,158,11,.2);  border-color: rgba(245,158,11,.35);  }
-.help-cat--active .help-cat-icon--red    { background: rgba(248,113,113,.2); border-color: rgba(248,113,113,.35); }
-.help-cat--active .help-cat-icon--blue   { background: rgba(96,165,250,.2);  border-color: rgba(96,165,250,.35);  }
+.help-cat--active .help-cat-icon--green { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); }
+.help-cat--active .help-cat-icon--amber { background: rgba(245,158,11,.2); border-color: rgba(245,158,11,.35); }
+.help-cat--active .help-cat-icon--red { background: rgba(248,113,113,.2); border-color: rgba(248,113,113,.35); }
+.help-cat--active .help-cat-icon--blue { background: rgba(96,165,250,.2); border-color: rgba(96,165,250,.35); }
 
 .help-cat-label { font-size: 0.82rem; font-weight: 700; color: var(--t1); }
 .help-cat-count { font-size: 0.66rem; color: var(--t3); }
@@ -363,7 +362,7 @@ function showToast(type, msg) {
   display: flex; justify-content: space-between; align-items: flex-start; gap: 12px;
 }
 .help-section-title { font-size: 0.92rem; font-weight: 800; color: var(--t1); margin: 0 0 3px; }
-.help-section-sub   { font-size: 0.75rem; color: var(--t1); font-weight: 600; margin: 0; }
+.help-section-sub { font-size: 0.75rem; color: var(--t1); font-weight: 600; margin: 0; }
 .help-section-sub strong { color: var(--t2); }
 
 .help-filter-chip {
@@ -456,11 +455,11 @@ function showToast(type, msg) {
   width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
 }
-.help-link-icon--green  { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1);   color: var(--accent);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18);   }
-.help-link-icon--amber  { background: rgba(245,158,11,.1);  color: #f59e0b;  border: 1px solid rgba(245,158,11,.18);  }
-.help-link-icon--blue   { background: rgba(96,165,250,.1);  color: #60a5fa;  border: 1px solid rgba(96,165,250,.18);  }
-.help-link-icon--purple { background: rgba(167,139,250,.1); color: #a78bfa;  border: 1px solid rgba(167,139,250,.18); }
-.help-link-icon--red    { background: rgba(248,113,113,.1); color: #f87171;  border: 1px solid rgba(248,113,113,.18); }
+.help-link-icon--green { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18); }
+.help-link-icon--amber { background: rgba(245,158,11,.1); color: #f59e0b; border: 1px solid rgba(245,158,11,.18); }
+.help-link-icon--blue { background: rgba(96,165,250,.1); color: #60a5fa; border: 1px solid rgba(96,165,250,.18); }
+.help-link-icon--purple { background: rgba(167,139,250,.1); color: #a78bfa; border: 1px solid rgba(167,139,250,.18); }
+.help-link-icon--red { background: rgba(248,113,113,.1); color: #f87171; border: 1px solid rgba(248,113,113,.18); }
 
 .help-link-label {
   flex: 1; font-size: 0.8rem; font-weight: 600; color: var(--t2);
@@ -474,8 +473,8 @@ function showToast(type, msg) {
   display: flex; align-items: center; justify-content: center;
 }
 .help-contact-title { font-size: 0.88rem; font-weight: 800; color: var(--t1); margin: 0; }
-.help-contact-desc  { font-size: 0.76rem; color: var(--t3); margin: 0; line-height: 1.5; }
-.help-contact-btns  { display: flex; gap: 8px; }
+.help-contact-desc { font-size: 0.76rem; color: var(--t3); margin: 0; line-height: 1.5; }
+.help-contact-btns { display: flex; gap: 8px; }
 
 .help-primary-btn {
   flex: 1; padding: 9px; border-radius: 10px; background: var(--accent); border: none;
@@ -499,10 +498,10 @@ function showToast(type, msg) {
 }
 .help-meta-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
 .help-meta-dot--green { background: var(--accent); }
-.help-meta-dot--blue  { background: #60a5fa; }
+.help-meta-dot--blue { background: #60a5fa; }
 
 /* System Status */
-.help-status-hdr   { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
+.help-status-hdr { display: flex; justify-content: space-between; align-items: center; gap: 8px; }
 .help-status-ok-badge {
   display: flex; align-items: center; gap: 6px;
   font-size: 0.62rem; font-weight: 700; color: var(--accent);
@@ -515,7 +514,7 @@ function showToast(type, msg) {
 }
 @keyframes pulse-dot {
   0%, 100% { opacity: 1; }
-  50%       { opacity: .35; }
+  50% { opacity: .35; }
 }
 
 .help-status-list { display: flex; flex-direction: column; gap: 6px; }
@@ -524,31 +523,31 @@ function showToast(type, msg) {
   padding: 8px 12px; border-radius: 10px;
   background: var(--glass); border: 1px solid var(--border-soft);
 }
-.help-status-name  { font-size: 0.76rem; color: var(--t2); }
+.help-status-name { font-size: 0.76rem; color: var(--t2); }
 .help-status-right { display: flex; align-items: center; gap: 6px; }
-.help-status-dot   { width: 7px; height: 7px; border-radius: 50%; }
-.help-status-dot--ok       { background: var(--accent); }
+.help-status-dot { width: 7px; height: 7px; border-radius: 50%; }
+.help-status-dot--ok { background: var(--accent); }
 .help-status-dot--degraded { background: #f59e0b; }
-.help-status-dot--down     { background: #f87171; }
+.help-status-dot--down { background: #f87171; }
 .help-status-label { font-size: 0.7rem; font-weight: 700; }
-.help-status-label--ok       { color: var(--accent); }
+.help-status-label--ok { color: var(--accent); }
 .help-status-label--degraded { color: #f59e0b; }
-.help-status-label--down     { color: #f87171; }
+.help-status-label--down { color: #f87171; }
 
 /* ── Toast ── */
 .toast-up-enter-active, .toast-up-leave-active { transition: all 0.3s ease; }
-.toast-up-enter-from, .toast-up-leave-to       { opacity: 0; transform: translateY(18px); }
+.toast-up-enter-from, .toast-up-leave-to { opacity: 0; transform: translateY(18px); }
 .help-toast {
   position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center; gap: 9px;
   padding: 12px 20px; border-radius: 13px; font-size: 0.83rem; font-weight: 600;
 }
-.help-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3);  color: var(--accent); }
-.help-toast--info    { background: rgba(96,165,250,.18); border: 1px solid rgba(96,165,250,.3); color: #60a5fa; }
+.help-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); color: var(--accent); }
+.help-toast--info { background: rgba(96,165,250,.18); border: 1px solid rgba(96,165,250,.3); color: #60a5fa; }
 /* ── Tablet ── */
 @media (max-width: 1024px) and (min-width: 769px) {
   .help-cats { grid-template-columns: repeat(5, 1fr); gap: 8px; }
-  .help-cat  { padding: 14px 10px; }
+  .help-cat { padding: 14px 10px; }
   .help-cat-icon { width: 38px; height: 38px; }
   .help-body { grid-template-columns: 1fr 260px; }
 }
@@ -558,34 +557,34 @@ function showToast(type, msg) {
   .help { gap: 14px; }
 
   /* Hero */
-  .help-hero         { padding: 32px 20px; }
-  .help-hero-title   { font-size: 1.5rem; }
-  .help-hero-sub     { font-size: 0.8rem; }
-  .help-hero-search  { max-width: 100%; }
+  .help-hero { padding: 32px 20px; }
+  .help-hero-title { font-size: 1.5rem; }
+  .help-hero-sub { font-size: 0.8rem; }
+  .help-hero-search { max-width: 100%; }
 
   /* Category cards — 3 cols */
-  .help-cats   { grid-template-columns: repeat(3, 1fr); gap: 8px; }
-  .help-cat    { padding: 14px 10px; gap: 6px; }
-  .help-cat-icon    { width: 38px; height: 38px; border-radius: 10px; }
-  .help-cat-label   { font-size: 0.75rem; }
-  .help-cat-count   { font-size: 0.62rem; }
+  .help-cats { grid-template-columns: repeat(3, 1fr); gap: 8px; }
+  .help-cat { padding: 14px 10px; gap: 6px; }
+  .help-cat-icon { width: 38px; height: 38px; border-radius: 10px; }
+  .help-cat-label { font-size: 0.75rem; }
+  .help-cat-count { font-size: 0.62rem; }
 
   /* Body — stack to single column */
-  .help-body   { grid-template-columns: 1fr; gap: 14px; }
+  .help-body { grid-template-columns: 1fr; gap: 14px; }
 
   /* FAQ header — wrap on narrow */
   .help-faq-hdr { flex-wrap: wrap; gap: 8px; }
   .help-faq-trigger { padding: 13px 15px; }
-  .help-faq-q   { font-size: 0.83rem; }
-  .help-faq-answer  { padding: 0 15px 14px; font-size: 0.79rem; }
+  .help-faq-q { font-size: 0.83rem; }
+  .help-faq-answer { padding: 0 15px 14px; font-size: 0.79rem; }
 
   /* Right column becomes a normal stacked section */
-  .help-right  { gap: 12px; }
-  .help-status-hdr  { flex-wrap: wrap; gap: 6px; }
+  .help-right { gap: 12px; }
+  .help-status-hdr { flex-wrap: wrap; gap: 6px; }
   .help-status-ok-badge { font-size: 0.58rem; }
 
   /* Toast above bottom nav */
-  .help-toast  { bottom: 90px; max-width: calc(100vw - 32px); white-space: normal; text-align: center; }
+  .help-toast { bottom: 90px; max-width: calc(100vw - 32px); white-space: normal; text-align: center; }
 }
 
 /* ── Small Mobile ── */
@@ -593,28 +592,28 @@ function showToast(type, msg) {
   .help { gap: 12px; }
 
   /* Hero tighter */
-  .help-hero         { padding: 26px 16px; border-radius: 18px; }
-  .help-hero-title   { font-size: 1.25rem; }
-  .help-hero-sub     { font-size: 0.75rem; }
-  .help-hero-search  { padding: 8px 8px 8px 12px; gap: 8px; }
-  .help-search-btn   { padding: 7px 14px; font-size: 0.78rem; }
+  .help-hero { padding: 26px 16px; border-radius: 18px; }
+  .help-hero-title { font-size: 1.25rem; }
+  .help-hero-sub { font-size: 0.75rem; }
+  .help-hero-search { padding: 8px 8px 8px 12px; gap: 8px; }
+  .help-search-btn { padding: 7px 14px; font-size: 0.78rem; }
 
   /* Category cards — 2 cols */
-  .help-cats   { grid-template-columns: repeat(2, 1fr); gap: 8px; }
-  .help-cat    { padding: 12px 8px; border-radius: 14px; }
-  .help-cat-icon    { width: 34px; height: 34px; border-radius: 9px; }
-  .help-cat-label   { font-size: 0.72rem; }
+  .help-cats { grid-template-columns: repeat(2, 1fr); gap: 8px; }
+  .help-cat { padding: 12px 8px; border-radius: 14px; }
+  .help-cat-icon { width: 34px; height: 34px; border-radius: 9px; }
+  .help-cat-label { font-size: 0.72rem; }
 
   /* FAQ */
-  .help-faq    { padding: 16px; gap: 12px; }
+  .help-faq { padding: 16px; gap: 12px; }
   .help-faq-trigger { padding: 11px 12px; gap: 10px; }
-  .help-faq-answer  { padding: 0 12px 12px; }
+  .help-faq-answer { padding: 0 12px 12px; }
 
   /* Cards */
-  .help-card   { padding: 16px; }
+  .help-card { padding: 16px; }
   .help-contact-btns { flex-direction: column; }
   .help-primary-btn, .help-ghost-btn { flex: unset; width: 100%; }
-  .help-status-name  { font-size: 0.7rem; }
+  .help-status-name { font-size: 0.7rem; }
 }
 
 </style>

@@ -84,10 +84,10 @@ export const transactions = [
 ]
 
 export const notifications = [
-  { id: 1, type: 'warning', title: 'KYC Submitted',         message: 'New customer KYC is pending your review.',         time: '2 min ago',  read: true },
-  { id: 2, type: 'error',   title: 'Transaction Failed',    message: 'TXN-8826 by Carlos Rivera could not be processed.', time: '15 min ago', read: true },
-  { id: 3, type: 'success', title: 'Loan Approved',         message: 'Loan #L-4421 has been approved successfully.',      time: '1 hr ago',   read: true },
-  { id: 4, type: 'info',    title: 'System Maintenance',    message: 'Scheduled downtime tonight at 12:00 AM WAT.',       time: '3 hr ago',   read: true },
-  { id: 5, type: 'success', title: 'Deposit Confirmed',     message: 'Ravi Patel deposit of ₦3,000 confirmed.',           time: '5 hr ago',   read: true },
-  { id: 6, type: 'warning', title: 'Suspicious Activity',   message: 'Unusual login detected on account GLB-010.',        time: 'Yesterday',  read: true },
+  { id: 1, type: 'warning', title: 'KYC Submitted', message: 'New customer KYC is pending your review.', time: '2 min ago', read: true },
+  { id: 2, type: 'error', title: 'Transaction Failed', message: 'TXN-8826 by Carlos Rivera could not be processed.', time: '15 min ago', read: true },
+  { id: 3, type: 'success', title: 'Loan Approved', message: 'Loan #L-4421 has been approved successfully.', time: '1 hr ago', read: true },
+  { id: 4, type: 'info', title: 'System Maintenance', message: 'Scheduled downtime tonight at 12:00 AM WAT.', time: '3 hr ago', read: true },
+  { id: 5, type: 'success', title: 'Deposit Confirmed', message: 'Ravi Patel deposit of ₦3,000 confirmed.', time: '5 hr ago', read: true },
+  { id: 6, type: 'warning', title: 'Suspicious Activity', message: 'Unusual login detected on account GLB-010.', time: 'Yesterday', read: true },
 ]

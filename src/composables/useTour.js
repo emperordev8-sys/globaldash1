@@ -2,16 +2,16 @@
 // Lightweight product-tour state, shared app-wide (module-level singleton).
 import { ref } from 'vue'
 
-const active     = ref(false)
-const stepIndex  = ref(0)
-const steps      = ref([])
+const active = ref(false)
+const stepIndex = ref(0)
+const steps = ref([])
 
 // Default guided tour. Each step points at an element via a CSS selector
 // (data-tour="..."). Steps whose target isn't on screen are skipped
 // automatically, so the same tour works on desktop and mobile.
 export const defaultTourSteps = [
   {
-    target: null,              // centered welcome card, no spotlight
+    target: null, // centered welcome card, no spotlight
     center: true,
     title: 'Welcome to your dashboard 👋',
     body: "This is your home base. Give us 20 seconds and we'll point out the essentials — you can skip anytime.",

@@ -261,29 +261,29 @@ setInterval(() => { clockTime.value = formatClock() }, 10000)
 
 /* â"€â"€ Banks â"€â"€ */
 const banks = [
-  { name: 'Chase',          color: '#1565C0', symbol: '+',  legal: 'JPMorgan Chase Bank, N.A. Member FDIC',         sub: 'Equal Housing Lender Â· Â© 2026 JPMorgan Chase & Co.' },
-  { name: 'Bank of America',color: '#E31837', symbol: 'â¬¡',  legal: 'Bank of America, N.A. Member FDIC',              sub: 'Equal Housing Lender Â· Â© 2026 Bank of America Corp.' },
-  { name: 'Wells Fargo',    color: '#CC0000', symbol: 'âœ¦',  legal: 'Wells Fargo Bank, N.A. Member FDIC',             sub: 'Equal Housing Lender Â· Â© 2026 Wells Fargo & Company' },
-  { name: 'Citibank',       color: '#003B8E', symbol: 'â—Ž',  legal: 'Citibank, N.A. Member FDIC',                     sub: 'Equal Housing Lender Â· Â© 2026 Citigroup Inc.' },
-  { name: 'Capital One',    color: '#C8102E', symbol: 'â—†',  legal: 'Capital One, N.A. Member FDIC',                  sub: 'Equal Housing Lender Â· Â© 2026 Capital One Financial Corp.' },
-  { name: 'TD Bank',        color: '#34A853', symbol: 'â—‰',  legal: 'TD Bank, N.A. Member FDIC',                      sub: 'Equal Housing Lender Â· Â© 2026 TD Bank Group.' },
-  { name: 'US Bank',        color: '#002B5C', symbol: 'â˜…',  legal: 'U.S. Bank National Association, Member FDIC',    sub: 'Equal Housing Lender Â· Â© 2026 U.S. Bancorp' },
-  { name: 'PNC Bank',       color: '#EF3E42', symbol: 'â– ',  legal: 'PNC Bank, National Association, Member FDIC',    sub: 'Equal Housing Lender Â· Â© 2026 The PNC Financial Services Group' },
-  { name: 'Ally Bank',      color: '#7C4DFF', symbol: 'A',  legal: 'Ally Bank, Member FDIC',                         sub: 'Equal Housing Lender Â· Â© 2026 Ally Financial Inc.' },
-  { name: 'Chime',          color: '#00B894', symbol: 'âœ¦',  legal: 'Banking services provided by The Bancorp Bank',  sub: 'Member FDIC Â· Â© 2026 Chime Financial Inc.' },
-  { name: 'Cash App',       color: '#00D64F', symbol: '$',  legal: 'Cash App is a product of Block, Inc.',           sub: 'Investing in stocks via Cash App Investing LLC. Â© 2026 Block Inc.' },
-  { name: 'Zelle',          color: '#6C1CD3', symbol: 'Z',  legal: 'ZelleÂ® and the ZelleÂ® related marks are wholly owned by Early Warning Services, LLC', sub: 'Â© 2026 Early Warning Services, LLC' },
+  { name: 'Chase', color: '#1565C0', symbol: '+', legal: 'JPMorgan Chase Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 JPMorgan Chase & Co.' },
+  { name: 'Bank of America',color: '#E31837', symbol: 'â¬¡', legal: 'Bank of America, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Bank of America Corp.' },
+  { name: 'Wells Fargo', color: '#CC0000', symbol: 'âœ¦', legal: 'Wells Fargo Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Wells Fargo & Company' },
+  { name: 'Citibank', color: '#003B8E', symbol: 'â—Ž', legal: 'Citibank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Citigroup Inc.' },
+  { name: 'Capital One', color: '#C8102E', symbol: 'â—†', legal: 'Capital One, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Capital One Financial Corp.' },
+  { name: 'TD Bank', color: '#34A853', symbol: 'â—‰', legal: 'TD Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 TD Bank Group.' },
+  { name: 'US Bank', color: '#002B5C', symbol: 'â˜…', legal: 'U.S. Bank National Association, Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 U.S. Bancorp' },
+  { name: 'PNC Bank', color: '#EF3E42', symbol: 'â– ', legal: 'PNC Bank, National Association, Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 The PNC Financial Services Group' },
+  { name: 'Ally Bank', color: '#7C4DFF', symbol: 'A', legal: 'Ally Bank, Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Ally Financial Inc.' },
+  { name: 'Chime', color: '#00B894', symbol: 'âœ¦', legal: 'Banking services provided by The Bancorp Bank', sub: 'Member FDIC Â· Â© 2026 Chime Financial Inc.' },
+  { name: 'Cash App', color: '#00D64F', symbol: '$', legal: 'Cash App is a product of Block, Inc.', sub: 'Investing in stocks via Cash App Investing LLC. Â© 2026 Block Inc.' },
+  { name: 'Zelle', color: '#6C1CD3', symbol: 'Z', legal: 'ZelleÂ® and the ZelleÂ® related marks are wholly owned by Early Warning Services, LLC', sub: 'Â© 2026 Early Warning Services, LLC' },
 ]
 
 /* â"€â"€ Transaction types â"€â"€ */
 const txTypes = [
-  { value: 'transfer-sent',     label: 'Transfer sent' },
+  { value: 'transfer-sent', label: 'Transfer sent' },
   { value: 'transfer-received', label: 'Transfer received' },
-  { value: 'payment',           label: 'Payment' },
-  { value: 'withdrawal',        label: 'Withdrawal' },
-  { value: 'deposit',           label: 'Deposit' },
-  { value: 'refund',            label: 'Refund' },
-  { value: 'purchase',          label: 'Purchase' },
+  { value: 'payment', label: 'Payment' },
+  { value: 'withdrawal', label: 'Withdrawal' },
+  { value: 'deposit', label: 'Deposit' },
+  { value: 'refund', label: 'Refund' },
+  { value: 'purchase', label: 'Purchase' },
 ]
 
 /* â"€â"€ Form state â"€â"€ */
@@ -293,19 +293,19 @@ const defaultDate = `${today.getFullYear()}-${padded(today.getMonth()+1)}-${padd
 const defaultTime = `${padded(today.getHours())}:${padded(today.getMinutes())}`
 
 const form = reactive({
-  bank:        'Chase',
-  txType:      'transfer-sent',
-  amount:      '1250.00',
-  date:        defaultDate,
-  time:        defaultTime,
-  fromName:    'John A. Smith',
+  bank: 'Chase',
+  txType: 'transfer-sent',
+  amount: '1250.00',
+  date: defaultDate,
+  time: defaultTime,
+  fromName: 'John A. Smith',
   fromAccount: '****4821',
-  toName:      'Sarah Johnson',
-  toAccount:   '****9032',
-  memo:        'Rent payment',
-  method:      'Zelle',
-  status:      'Completed',
-  reference:   'FGIOEDORF3',
+  toName: 'Sarah Johnson',
+  toAccount: '****9032',
+  memo: 'Rent payment',
+  method: 'Zelle',
+  status: 'Completed',
+  reference: 'FGIOEDORF3',
 })
 
 /* â"€â"€ Computed â"€â"€ */
@@ -313,13 +313,13 @@ const activeBank = computed(() => banks.find(b => b.name === form.bank) || banks
 
 const txTitle = computed(() => {
   const map = {
-    'transfer-sent':     'Payment sent',
+    'transfer-sent': 'Payment sent',
     'transfer-received': 'Payment received',
-    'payment':           'Payment sent',
-    'withdrawal':        'Withdrawal',
-    'deposit':           'Deposit received',
-    'refund':            'Refund received',
-    'purchase':          'Purchase made',
+    'payment': 'Payment sent',
+    'withdrawal': 'Withdrawal',
+    'deposit': 'Deposit received',
+    'refund': 'Refund received',
+    'purchase': 'Purchase made',
   }
   return map[form.txType] || 'Transaction'
 })
@@ -349,8 +349,8 @@ const formattedAmount = computed(() => {
 const amountClass = computed(() => isDebit.value ? 'br-rx-amount--debit' : 'br-rx-amount--credit')
 
 const statusClass = computed(() => {
-  if (form.status === 'Failed')     return 'br-check--fail'
-  if (form.status === 'Pending')    return 'br-check--pending'
+  if (form.status === 'Failed') return 'br-check--fail'
+  if (form.status === 'Pending') return 'br-check--pending'
   if (form.status === 'Processing') return 'br-check--processing'
   return 'br-check--success'
 })
@@ -429,8 +429,8 @@ async function downloadPDF() {
   margin: 0 0 6px;
   letter-spacing: -0.02em;
 }
-.br-sub  { font-size: 0.85rem; color: var(--t1); font-weight: 600; margin: 0 0 24px; }
-.br-hl   { color: var(--accent); font-weight: 600; }
+.br-sub { font-size: 0.85rem; color: var(--t1); font-weight: 600; margin: 0 0 24px; }
+.br-hl { color: var(--accent); font-weight: 600; }
 
 /* â"€â"€ Layout â"€â"€ */
 .br-layout {
@@ -554,7 +554,6 @@ async function downloadPDF() {
 .br-btn-pdf {
   background: linear-gradient(135deg, var(--accent-press) 0%, var(--accent) 100%);
   color: #fff;
-  box-shadow: 0 4px 14px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.30);
 }
 .br-btn-img {
   background: var(--bg);
@@ -583,7 +582,6 @@ async function downloadPDF() {
   max-width: 360px;
   border-radius: 24px;
   overflow: hidden;
-  box-shadow: 0 16px 48px rgba(0,0,0,0.45), 0 0 0 1px rgba(255,255,255,0.06);
 }
 
 /* â"€â"€ Receipt â"€â"€ */
@@ -616,10 +614,10 @@ async function downloadPDF() {
   padding: 14px 18px;
   color: #fff;
 }
-.br-bank-left  { display: flex; align-items: center; gap: 10px; }
-.br-bank-sym   { font-size: 1.1rem; font-weight: 900; }
-.br-bank-name  { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; }
-.br-bank-x     { font-size: 1rem; opacity: 0.75; cursor: default; }
+.br-bank-left { display: flex; align-items: center; gap: 10px; }
+.br-bank-sym { font-size: 1.1rem; font-weight: 900; }
+.br-bank-name { font-size: 0.9rem; font-weight: 800; letter-spacing: 0.06em; }
+.br-bank-x { font-size: 1rem; opacity: 0.75; cursor: default; }
 
 /* Receipt body */
 .br-receipt-body {
@@ -640,13 +638,13 @@ async function downloadPDF() {
   margin-bottom: 14px;
   transition: background 0.3s;
 }
-.br-check--success    { background: var(--accent); }
-.br-check--fail       { background: #ef4444; }
-.br-check--pending    { background: #f59e0b; }
+.br-check--success { background: var(--accent); }
+.br-check--fail { background: #ef4444; }
+.br-check--pending { background: #f59e0b; }
 .br-check--processing { background: #3b82f6; }
 
 .br-rx-title { font-size: 1.05rem; font-weight: 800; color: #111; margin-bottom: 4px; }
-.br-rx-date  { font-size: 0.72rem; color: #777; margin-bottom: 12px; text-align: center; }
+.br-rx-date { font-size: 0.72rem; color: #777; margin-bottom: 12px; text-align: center; }
 
 .br-tx-badge {
   font-size: 0.62rem;
@@ -662,7 +660,7 @@ async function downloadPDF() {
   letter-spacing: -0.03em;
   margin-bottom: 18px;
 }
-.br-rx-amount--debit  { color: #111; }
+.br-rx-amount--debit { color: #111; }
 .br-rx-amount--credit { color: #16a34a; }
 
 /* Detail rows */
@@ -692,9 +690,9 @@ async function downloadPDF() {
   align-items: flex-end;
   text-align: right;
 }
-.br-dv strong   { font-size: 0.8rem; font-weight: 700; color: #111; }
-.br-dv small    { font-size: 0.68rem; color: #888; }
-.br-dv-single   { font-size: 0.8rem; font-weight: 700; color: #111; text-align: right; }
+.br-dv strong { font-size: 0.8rem; font-weight: 700; color: #111; }
+.br-dv small { font-size: 0.68rem; color: #888; }
+.br-dv-single { font-size: 0.8rem; font-weight: 700; color: #111; text-align: right; }
 
 /* Footer */
 .br-rx-footer {
@@ -708,33 +706,33 @@ async function downloadPDF() {
 
 /* â"€â"€ Responsive â"€â"€ */
 @media (max-width: 900px) {
-  .br-layout      { grid-template-columns: 1fr; }
+  .br-layout { grid-template-columns: 1fr; }
   .br-preview-col { position: static; order: -1; }
-  .br-phone-wrap  { max-width: 360px; margin: 0 auto; }
+  .br-phone-wrap { max-width: 360px; margin: 0 auto; }
 }
 @media (max-width: 600px) {
-  .br-header      { margin-top: 10px; }
-  .br-title       { font-size: 1.3rem; }
-  .br-sub         { font-size: 0.8rem; margin-bottom: 18px; }
-  .br-card        { padding: 18px 14px; gap: 14px; border-radius: 14px; }
-  .br-row         { grid-template-columns: 1fr; gap: 14px; }
-  .br-actions     { flex-direction: column; }
-  .br-phone-wrap  { max-width: 100%; border-radius: 16px; }
-  .br-rx-amount   { font-size: 1.7rem; }
+  .br-header { margin-top: 10px; }
+  .br-title { font-size: 1.3rem; }
+  .br-sub { font-size: 0.8rem; margin-bottom: 18px; }
+  .br-card { padding: 18px 14px; gap: 14px; border-radius: 14px; }
+  .br-row { grid-template-columns: 1fr; gap: 14px; }
+  .br-actions { flex-direction: column; }
+  .br-phone-wrap { max-width: 100%; border-radius: 16px; }
+  .br-rx-amount { font-size: 1.7rem; }
 }
 @media (max-width: 430px) {
-  .br-header      { margin-top: 8px; }
-  .br-title       { font-size: 1.15rem; }
-  .br-card        { padding: 14px 12px; gap: 12px; }
+  .br-header { margin-top: 8px; }
+  .br-title { font-size: 1.15rem; }
+  .br-card { padding: 14px 12px; gap: 12px; }
   .br-input, .br-select { padding: 9px 11px; font-size: 0.82rem; }
-  .br-rx-amount   { font-size: 1.5rem; }
-  .br-rx-title    { font-size: 0.95rem; }
+  .br-rx-amount { font-size: 1.5rem; }
+  .br-rx-title { font-size: 0.95rem; }
 }
 @media (max-width: 360px) {
-  .br-title       { font-size: 1.05rem; }
-  .br-card        { padding: 12px 10px; gap: 10px; border-radius: 12px; }
+  .br-title { font-size: 1.05rem; }
+  .br-card { padding: 12px 10px; gap: 10px; border-radius: 12px; }
   .br-input, .br-select { padding: 8px 10px; font-size: 0.8rem; }
-  .br-actions     { gap: 8px; }
+  .br-actions { gap: 8px; }
   .br-btn-pdf, .br-btn-img { padding: 10px 0; font-size: 0.8rem; }
 }
 </style>

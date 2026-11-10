@@ -2,16 +2,8 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ── Sidebar rail indicator glow ── */
-.nav-indicator {
-  background: var(--accent) !important;
-  box-shadow:
-    0 0 3px 1px var(--accent),
-    0 0 8px 2px var(--accent-border) !important;
-}
-
 /* ══════════════════════════════════════════════
-   CSS DESIGN TOKENS  — Dark (Stakent-style) + Light
+   CSS DESIGN TOKENS — Dark (Stakent-style) + Light
    ══════════════════════════════════════════════ */
 
 /* ──────────────────────────────────────────────
@@ -23,18 +15,18 @@
 :root {
   /* Page canvas (behind everything) + base/card surface (elevated) */
   --canvas: #080c0b;
-  --bg:     #0f1513;
+  --bg: #0f1513;
 
   /* Glass surfaces */
-  --glass:        rgba(255, 255, 255, 0.035);
-  --glass-2:      rgba(255, 255, 255, 0.022);
-  --glass-hover:  rgba(255, 255, 255, 0.065);
-  --modal-glass:  rgba(255, 255, 255, 0.05);
-  --modal-input:  rgba(255, 255, 255, 0.05);
+  --glass: rgba(255, 255, 255, 0.035);
+  --glass-2: rgba(255, 255, 255, 0.022);
+  --glass-hover: rgba(255, 255, 255, 0.065);
+  --modal-glass: rgba(255, 255, 255, 0.05);
+  --modal-input: rgba(255, 255, 255, 0.05);
   --modal-border: rgba(255, 255, 255, 0.12);
 
   /* Borders */
-  --border:      rgba(255, 255, 255, 0.09);
+  --border: rgba(255, 255, 255, 0.09);
   --border-soft: rgba(255, 255, 255, 0.055);
 
   /* Text */
@@ -44,11 +36,11 @@
   --t4: rgba(255, 255, 255, 0.14);
 
   /* Accent — Globalgle Green (unified across both themes) */
-  --accent:        #22c55e;
-  --accent-hover:  #34d17a;
-  --accent-press:  #16a34a;
-  --accent-deep:   #0f5a2e;
-  --accent-dim:    rgba(34, 197, 94, 0.15);
+  --accent: #22c55e;
+  --accent-hover: #34d17a;
+  --accent-press: #16a34a;
+  --accent-deep: #0f5a2e;
+  --accent-dim: rgba(34, 197, 94, 0.15);
   --accent-border: rgba(34, 197, 94, 0.32);
   --accent-grad-1: #34d17a;
   --accent-grad-2: #16a34a;
@@ -58,52 +50,50 @@
   --accent-b: 94;
 
   /* Success — Bright Green */
-  --green:        #4ade80;
-  --green-dim:    rgba(74, 222, 128, 0.12);
+  --green: #4ade80;
+  --green-dim: rgba(74, 222, 128, 0.12);
   --green-border: rgba(74, 222, 128, 0.25);
 
   /* Danger — Soft Red */
-  --red:        #f87171;
-  --red-dim:    rgba(248, 113, 113, 0.12);
+  --red: #f87171;
+  --red-dim: rgba(248, 113, 113, 0.12);
   --red-border: rgba(248, 113, 113, 0.25);
 
   /* Warning — Amber */
-  --yellow:        #fbbf24;
-  --yellow-dim:    rgba(251, 191, 36, 0.12);
+  --yellow: #fbbf24;
+  --yellow-dim: rgba(251, 191, 36, 0.12);
   --yellow-border: rgba(251, 191, 36, 0.25);
 
   /* Chrome surfaces used by hardcoded gradients/backgrounds */
-  --surface:        #0f1513;
+  --surface: #0f1513;
   --surface-raised: #161d1a;
   --surface-sunken: #0c1210;
-  --surface-1:      #0f1513;
-  --surface-2:      #19211e;
-  --icon-stroke:     rgba(255, 255, 255, 0.85);
+  --surface-1: #0f1513;
+  --surface-2: #19211e;
+  --icon-stroke: rgba(255, 255, 255, 0.85);
   --icon-stroke-soft: rgba(255, 255, 255, 0.62);
 
-  /* Elevation + shape scale */
+  /* Shape scale */
   --radius-lg: 18px;
-  --radius:    14px;
+  --radius: 14px;
   --radius-sm: 10px;
-  --shadow-card: 0 1px 2px rgba(0, 0, 0, 0.35);
-  --shadow-pop:  0 18px 44px rgba(0, 0, 0, 0.5);
 }
 
 :root[data-theme="light"] {
   /* Page canvas (soft neutral) + card surface (white) */
   --canvas: #eef1f0;
-  --bg:     #ffffff;
+  --bg: #ffffff;
 
   /* Glass surfaces */
-  --glass:        rgba(16, 32, 26, 0.03);
-  --glass-2:      rgba(16, 32, 26, 0.02);
-  --glass-hover:  rgba(16, 32, 26, 0.05);
-  --modal-glass:  rgba(16, 32, 26, 0.035);
-  --modal-input:  rgba(16, 32, 26, 0.03);
+  --glass: rgba(16, 32, 26, 0.03);
+  --glass-2: rgba(16, 32, 26, 0.02);
+  --glass-hover: rgba(16, 32, 26, 0.05);
+  --modal-glass: rgba(16, 32, 26, 0.035);
+  --modal-input: rgba(16, 32, 26, 0.03);
   --modal-border: rgba(16, 32, 26, 0.11);
 
   /* Borders */
-  --border:      rgba(16, 24, 32, 0.10);
+  --border: rgba(16, 24, 32, 0.10);
   --border-soft: rgba(16, 24, 32, 0.07);
 
   /* Text */
@@ -113,20 +103,20 @@
   --t4: rgba(17, 24, 28, 0.12);
 
   /* Chrome surfaces used by hardcoded gradients/backgrounds */
-  --surface:        #ffffff;
+  --surface: #ffffff;
   --surface-raised: #ffffff;
   --surface-sunken: #f1f4f3;
-  --surface-1:      #ffffff;
-  --surface-2:      #f4f7f6;
-  --icon-stroke:     rgba(17, 24, 28, 0.72);
+  --surface-1: #ffffff;
+  --surface-2: #f4f7f6;
+  --icon-stroke: rgba(17, 24, 28, 0.72);
   --icon-stroke-soft: rgba(17, 24, 28, 0.55);
 
   /* Accent — Globalgle Green in light mode too */
-  --accent:        #16a34a;
-  --accent-hover:  #15803d;
-  --accent-press:  #15803d;
-  --accent-deep:   #14532d;
-  --accent-dim:    rgba(22, 163, 74, 0.10);
+  --accent: #16a34a;
+  --accent-hover: #15803d;
+  --accent-press: #15803d;
+  --accent-deep: #14532d;
+  --accent-dim: rgba(22, 163, 74, 0.10);
   --accent-border: rgba(22, 163, 74, 0.28);
   --accent-grad-1: #22c55e;
   --accent-grad-2: #16a34a;
@@ -134,9 +124,6 @@
   --accent-r: 22;
   --accent-g: 163;
   --accent-b: 74;
-
-  --shadow-card: 0 1px 3px rgba(16, 24, 40, 0.06), 0 1px 2px rgba(16, 24, 40, 0.04);
-  --shadow-pop:  0 20px 48px rgba(16, 24, 40, 0.16);
 }
 
 /* ══════════════════════════════════════════════
@@ -149,8 +136,7 @@
 .theme-transitioning *,
 .theme-transitioning *::before,
 .theme-transitioning *::after {
-  /* Only the cheap paint properties — box-shadow/fill/stroke animations
-     across the whole DOM are what caused the lag, so they swap instantly. */
+  /* Only cheap paint properties transition during the theme swap, so it stays instant. */
   transition: background-color 0.15s ease, color 0.15s ease, border-color 0.15s ease !important;
   transition-delay: 0s !important;
 }
@@ -163,8 +149,6 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  box-shadow: none !important;
-  text-shadow: none !important;
 }
 
 html {
@@ -244,20 +228,41 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; 
    ═══════════════════════════════════════════════ */
 @keyframes fadeUp {
   from { opacity: 0; transform: translateY(28px); }
-  to   { opacity: 1; transform: translateY(0); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* ── Global glass-wave shine on green CTA buttons that don't already have it ── */
+.ww-new, .nw-create, .vn-buy, .vn-generate {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+}
+.ww-new::after, .nw-create::after, .vn-buy::after, .vn-generate::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: -80%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.22) 40%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.22) 60%, transparent 100%);
+  transform: skewX(-22deg);
+  pointer-events: none;
+  z-index: 2;
+  animation: gg-shine 3s ease-in-out infinite;
+  animation-delay: 1s;
+}
+@keyframes gg-shine { 0% { left: -80%; } 35% { left: 130%; } 100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) {
+  .ww-new::after, .nw-create::after, .vn-buy::after, .vn-generate::after { animation: none; display: none; }
 }
 
 /* Global hover lift for clickable grid cards (stat/data tiles excluded) */
 .tool-card, .service-card, .gen-card, .be-card,
 .cmp-cat-card, .help-card, .tut-card, .site-card {
-  transition: transform 0.18s ease, border-color 0.18s ease, box-shadow 0.2s ease !important;
+  transition: transform 0.18s ease, border-color 0.18s ease;
   cursor: pointer;
 }
 .tool-card:hover, .service-card:hover, .gen-card:hover, .be-card:hover,
 .cmp-cat-card:hover, .help-card:hover, .tut-card:hover, .site-card:hover {
   transform: translateY(-3px);
   border-color: var(--accent-border) !important;
-  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.14) !important;
 }
 
 .websites-page > *, .bill-page > *, .gen-page > *, .be-page > *,
@@ -327,65 +332,65 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; 
   }
 
   /* ── Two-column body layouts ── */
-  .help-body                { grid-template-columns: 1fr !important; }
-  .help-cats                { grid-template-columns: repeat(3, 1fr) !important; }
-  .set-layout               { grid-template-columns: 1fr !important; }
-  .set-left                 { display: none !important; }
-  .set-tabs-mobile          { display: flex !important; }
+  .help-body { grid-template-columns: 1fr !important; }
+  .help-cats { grid-template-columns: repeat(3, 1fr) !important; }
+  .set-layout { grid-template-columns: 1fr !important; }
+  .set-left { display: none !important; }
+  .set-tabs-mobile { display: flex !important; }
 
   /* ── Stats / card rows ── */
-  .w-stats                  { grid-template-columns: 1fr 1fr !important; }
-  .billing-plans            { grid-template-columns: 1fr !important; }
-  .billing-header           { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+  .w-stats { grid-template-columns: 1fr 1fr !important; }
+  .billing-plans { grid-template-columns: 1fr !important; }
+  .billing-header { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
 
   /* ── Tools grid ── */
-  .tools-grid               { grid-template-columns: 1fr !important; }
+  .tools-grid { grid-template-columns: 1fr !important; }
 
   /* ── Transactions / Customers table ── */
   .txn-table-wrap, .cust-table-wrap { overflow-x: auto !important; }
 
   /* ── Complaint page ── */
-  .cmp-header               { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
-  .cmp-cat-grid             { grid-template-columns: 1fr 1fr !important; }
-  .cmp-detail-grid          { grid-template-columns: 1fr 1fr !important; }
-  .cmp-modal                { border-radius: 16px !important; }
+  .cmp-header { flex-direction: column !important; align-items: flex-start !important; gap: 10px !important; }
+  .cmp-cat-grid { grid-template-columns: 1fr 1fr !important; }
+  .cmp-detail-grid { grid-template-columns: 1fr 1fr !important; }
+  .cmp-modal { border-radius: 16px !important; }
 
   /* ── SMS Sender ── */
-  .sms-layout               { grid-template-columns: 1fr !important; }
+  .sms-layout { grid-template-columns: 1fr !important; }
 
   /* ── Email Composer ── */
-  .composer-layout          { grid-template-columns: 1fr !important; }
+  .composer-layout { grid-template-columns: 1fr !important; }
 
   /* ── Wallet ── */
-  .w-hdr                    { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
+  .w-hdr { flex-direction: column !important; align-items: flex-start !important; gap: 12px !important; }
 
   /* ── Analytics ── */
-  .analytics-grid           { grid-template-columns: 1fr !important; }
-  .analytics-stats          { grid-template-columns: 1fr 1fr !important; }
+  .analytics-grid { grid-template-columns: 1fr !important; }
+  .analytics-stats { grid-template-columns: 1fr 1fr !important; }
 
   /* ── Help hero search ── */
-  .help-hero                { padding: 32px 16px !important; }
-  .help-hero-title          { font-size: 1.4rem !important; }
+  .help-hero { padding: 32px 16px !important; }
+  .help-hero-title { font-size: 1.4rem !important; }
 
   /* ── Spoof calling ── */
-  .sc-stats                 { grid-template-columns: 1fr 1fr !important; }
-  .sc-form-grid             { grid-template-columns: 1fr !important; }
+  .sc-stats { grid-template-columns: 1fr 1fr !important; }
+  .sc-form-grid { grid-template-columns: 1fr !important; }
 
   /* ── Currency converter ── */
-  .cc-pair-row              { flex-direction: column !important; }
-  .cc-swap-btn              { align-self: center !important; transform: rotate(90deg) !important; }
+  .cc-pair-row { flex-direction: column !important; }
+  .cc-swap-btn { align-self: center !important; transform: rotate(90deg) !important; }
 
   /* ── Page headers ── */
   .cmp-header,
   .w-hdr,
-  .tut-header               { flex-wrap: wrap !important; }
+  .tut-header { flex-wrap: wrap !important; }
 
   /* ── Modal full screen on tiny screens ── */
-  .cmp-overlay              { padding: 12px !important; }
-  .cmp-cat-grid             { grid-template-columns: 1fr 1fr !important; }
+  .cmp-overlay { padding: 12px !important; }
+  .cmp-cat-grid { grid-template-columns: 1fr 1fr !important; }
 
   /* ── Settings mobile tabs ── */
-  .set-tabs-mobile          { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 4px; }
+  .set-tabs-mobile { display: flex; overflow-x: auto; gap: 8px; padding-bottom: 4px; }
   .set-tabs-mobile::-webkit-scrollbar { display: none; }
 }
 
@@ -400,13 +405,13 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; 
     border-radius: 12px !important;
   }
 
-  .help-cats                { grid-template-columns: 1fr 1fr !important; }
-  .w-stats                  { grid-template-columns: 1fr !important; }
-  .analytics-stats          { grid-template-columns: 1fr !important; }
-  .sc-stats                 { grid-template-columns: 1fr !important; }
-  .cmp-pri-row              { flex-wrap: wrap !important; }
-  .help-contact-btns        { flex-direction: column !important; }
-  .billing-toggle           { flex-direction: column !important; align-items: flex-start !important; }
+  .help-cats { grid-template-columns: 1fr 1fr !important; }
+  .w-stats { grid-template-columns: 1fr !important; }
+  .analytics-stats { grid-template-columns: 1fr !important; }
+  .sc-stats { grid-template-columns: 1fr !important; }
+  .cmp-pri-row { flex-wrap: wrap !important; }
+  .help-contact-btns { flex-direction: column !important; }
+  .billing-toggle { flex-direction: column !important; align-items: flex-start !important; }
 }
 
 /* ══════════════════════════════════════════════
@@ -444,5 +449,4 @@ button, input, textarea, select { font-family: 'Plus Jakarta Sans', sans-serif; 
   backdrop-filter: none !important;
   -webkit-backdrop-filter: none !important;
   border: 1px solid var(--border) !important;
-  box-shadow: var(--shadow-card) !important;
 }

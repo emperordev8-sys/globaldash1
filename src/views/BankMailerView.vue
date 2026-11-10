@@ -307,21 +307,21 @@
 <script setup>
 import { ref, reactive, computed, onMounted, onUnmounted } from 'vue'
 
-const preview         = ref('debit')
-const senderLogoUrl   = ref(null)
+const preview = ref('debit')
+const senderLogoUrl = ref(null)
 const receiverLogoUrl = ref(null)
-const senderDragOver   = ref(false)
+const senderDragOver = ref(false)
 const receiverDragOver = ref(false)
-const senderFileRef   = ref(null)
+const senderFileRef = ref(null)
 const receiverFileRef = ref(null)
-const sending         = ref(false)
-const showSuccess     = ref(false)
-const formError       = ref('')
+const sending = ref(false)
+const showSuccess = ref(false)
+const formError = ref('')
 const txId = ref('TN' + String(Math.floor(Math.random() * 1e9)).padStart(9, '0'))
 
 const now = ref(new Date())
 let clockTimer
-onMounted  (() => { clockTimer = setInterval(() => { now.value = new Date() }, 30000) })
+onMounted (() => { clockTimer = setInterval(() => { now.value = new Date() }, 30000) })
 onUnmounted(() => clearInterval(clockTimer))
 
 const currentDate = computed(() => now.value.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }))
@@ -345,9 +345,9 @@ const formattedAmount = computed(() => {
 })
 
 const isDebit = computed(() => preview.value === 'debit')
-const activeLogoUrl     = computed(() => isDebit.value ? senderLogoUrl.value   : receiverLogoUrl.value)
+const activeLogoUrl = computed(() => isDebit.value ? senderLogoUrl.value : receiverLogoUrl.value)
 const activeBankDisplay = computed(() => isDebit.value ? (form.senderBank || form.senderCountry || '') : (form.receiverBank || form.receiverCountry || ''))
-const activeName        = computed(() => isDebit.value ? form.senderName : form.receiverName)
+const activeName = computed(() => isDebit.value ? form.senderName : form.receiverName)
 
 const emailTitle = computed(() =>
   isDebit.value
@@ -369,7 +369,7 @@ function maskedLast4(acct) {
   if (!acct || acct.length < 4) return '1234'
   return acct.slice(-4)
 }
-const maskedSenderAccount   = computed(() => form.senderAccount   ? 'â€¢â€¢â€¢â€¢ ' + form.senderAccount.slice(-4)   : 'â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢')
+const maskedSenderAccount = computed(() => form.senderAccount ? 'â€¢â€¢â€¢â€¢ ' + form.senderAccount.slice(-4) : 'â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢')
 const maskedReceiverAccount = computed(() => form.receiverAccount ? 'â€¢â€¢â€¢â€¢ ' + form.receiverAccount.slice(-4) : 'â€¢â€¢â€¢â€¢ â€¢â€¢â€¢â€¢')
 
 function handleLogoFile(e, type) {
@@ -389,18 +389,18 @@ function handleDrop(e, type) {
 
 function sendEmails() {
   formError.value = ''
-  if (!form.amount || Number(form.amount) <= 0)       { formError.value = 'Please enter a valid amount.'; return }
-  if (!form.swift.trim())                             { formError.value = 'SWIFT code is required.'; return }
-  if (!form.senderName.trim())                        { formError.value = 'Sender name is required.'; return }
-  if (!form.senderEmail.includes('@'))                { formError.value = 'Valid sender email is required.'; return }
-  if (!form.senderAccount.trim())                     { formError.value = 'Sender account number is required.'; return }
-  if (!form.senderBank.trim())                        { formError.value = "Sender's bank is required."; return }
-  if (!form.senderAddress.trim())                     { formError.value = "Sender's bank address is required."; return }
-  if (!form.receiverName.trim())                      { formError.value = 'Receiver name is required.'; return }
-  if (!form.receiverEmail.includes('@'))              { formError.value = 'Valid receiver email is required.'; return }
-  if (!form.receiverAccount.trim())                   { formError.value = 'Receiver account number is required.'; return }
-  if (!form.receiverBank.trim())                      { formError.value = "Receiver's bank is required."; return }
-  if (!form.receiverAddress.trim())                   { formError.value = "Receiver's bank address is required."; return }
+  if (!form.amount || Number(form.amount) <= 0) { formError.value = 'Please enter a valid amount.'; return }
+  if (!form.swift.trim()) { formError.value = 'SWIFT code is required.'; return }
+  if (!form.senderName.trim()) { formError.value = 'Sender name is required.'; return }
+  if (!form.senderEmail.includes('@')) { formError.value = 'Valid sender email is required.'; return }
+  if (!form.senderAccount.trim()) { formError.value = 'Sender account number is required.'; return }
+  if (!form.senderBank.trim()) { formError.value = "Sender's bank is required."; return }
+  if (!form.senderAddress.trim()) { formError.value = "Sender's bank address is required."; return }
+  if (!form.receiverName.trim()) { formError.value = 'Receiver name is required.'; return }
+  if (!form.receiverEmail.includes('@')) { formError.value = 'Valid receiver email is required.'; return }
+  if (!form.receiverAccount.trim()) { formError.value = 'Receiver account number is required.'; return }
+  if (!form.receiverBank.trim()) { formError.value = "Receiver's bank is required."; return }
+  if (!form.receiverAddress.trim()) { formError.value = "Receiver's bank address is required."; return }
 
   sending.value = true
   setTimeout(() => {
@@ -426,7 +426,7 @@ function sendEmails() {
 .back-btn:hover { background: var(--bg); color: var(--t1); }
 .bm-head-text { display: flex; flex-direction: column; gap: 4px; }
 .bm-title { font-size: 1.45rem; font-weight: 800; color: var(--t1); letter-spacing: -0.025em; margin: 0; }
-.bm-sub   { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
+.bm-sub { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
 
 /* Two-column layout */
 .bm-layout {
@@ -450,13 +450,13 @@ function sendEmails() {
 /* Preview toggle */
 .preview-toggle-wrap { display: flex; flex-direction: column; gap: 10px; padding-bottom: 20px; border-bottom: 1px solid var(--border-soft); margin-bottom: 20px; }
 .toggle-label { font-size: 0.7rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.06em; color: var(--t3); margin: 0; }
-.toggle-btns  { display: flex; gap: 8px; }
+.toggle-btns { display: flex; gap: 8px; }
 .toggle-btn {
   display: flex; align-items: center; gap: 7px; padding: 10px 18px;
   border-radius: 10px; font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.83rem; font-weight: 600;
   cursor: pointer; transition: all 0.18s; border: 1px solid transparent;
 }
-.toggle-btn--dark  { background: #0f172a; color: #fff; border-color: #0f172a; }
+.toggle-btn--dark { background: #0f172a; color: #fff; border-color: #0f172a; }
 .toggle-btn--light { background: var(--bg); color: var(--t2); border-color: var(--border-soft); }
 .toggle-btn--light:hover { border-color: var(--border); color: var(--t1); }
 
@@ -476,7 +476,7 @@ function sendEmails() {
 .fg { display: flex; flex-direction: column; gap: 6px; }
 .fl { font-size: 0.78rem; font-weight: 600; color: var(--t2); }
 .req { color: #ef4444; }
-.field-opt  { font-weight: 400; color: var(--t4); }
+.field-opt { font-weight: 400; color: var(--t4); }
 .field-hint { font-size: 0.7rem; color: var(--t4); }
 
 .fi {
@@ -582,43 +582,42 @@ details[open] .optional-arrow { transform: rotate(90deg); }
   width: 46px; height: 46px; border-radius: 8px; background: #f8fafc;
   border: 1px solid #e2e8f0; display: flex; align-items: center; justify-content: center; overflow: hidden;
 }
-.e-logo-img    { width: 100%; height: 100%; object-fit: contain; }
-.e-alerts-tag  { font-size: 0.72rem; color: #94a3b8; }
+.e-logo-img { width: 100%; height: 100%; object-fit: contain; }
+.e-alerts-tag { font-size: 0.72rem; color: #94a3b8; }
 .e-bank-name-tag { font-size: 0.78rem; font-weight: 600; color: #475569; margin: 4px 0 12px; }
-.e-separator   { height: 1px; background: #e2e8f0; margin: 0 0 18px; }
+.e-separator { height: 1px; background: #e2e8f0; margin: 0 0 18px; }
 .e-email-title { font-size: 1.05rem; font-weight: 700; color: #0f172a; margin: 0 0 10px; line-height: 1.4; }
-.e-greeting    { font-size: 0.85rem; color: #334155; margin: 0 0 6px; }
-.e-body-text   { font-size: 0.85rem; color: #334155; margin: 0 0 18px; line-height: 1.6; }
+.e-greeting { font-size: 0.85rem; color: #334155; margin: 0 0 6px; }
+.e-body-text { font-size: 0.85rem; color: #334155; margin: 0 0 18px; line-height: 1.6; }
 
 .e-block { border: 1px solid #e2e8f0; border-radius: 6px; overflow: hidden; margin-bottom: 14px; }
 .e-block-head { background: #ebf5fb; padding: 8px 14px; font-size: 0.78rem; font-weight: 700; color: #1e3a5f; }
-.e-block-body { }
 .e-row { display: flex; justify-content: space-between; align-items: center; padding: 8px 14px; border-top: 1px solid #e2e8f0; font-size: 0.8rem; }
 .e-row:first-child { border-top: none; }
 .e-row-lbl { color: #475569; }
 .e-row-val { color: #1a56db; font-weight: 500; text-align: right; }
 .e-row-val--success { color: #1a56db; }
-.e-row-val--link    { color: #1a56db; }
+.e-row-val--link { color: #1a56db; }
 
-.e-security  { font-size: 0.75rem; color: #475569; line-height: 1.6; margin: 14px 0 10px; }
+.e-security { font-size: 0.75rem; color: #475569; line-height: 1.6; margin: 14px 0 10px; }
 .e-security strong { color: #0f172a; }
-.e-contact   { font-size: 0.75rem; color: #475569; line-height: 1.6; margin: 0 0 10px; }
+.e-contact { font-size: 0.75rem; color: #475569; line-height: 1.6; margin: 0 0 10px; }
 .e-contact strong { color: #0f172a; }
-.e-auto-msg  { color: #ef4444; }
-.e-footer    { font-size: 0.75rem; color: #1a56db; font-weight: 600; margin: 0; padding-top: 10px; border-top: 1px solid #e2e8f0; }
+.e-auto-msg { color: #ef4444; }
+.e-footer { font-size: 0.75rem; color: #1a56db; font-weight: 600; margin: 0; padding-top: 10px; border-top: 1px solid #e2e8f0; }
 
 /* Success toast */
 .success-toast {
   position: fixed; bottom: 28px; right: 28px; z-index: 400;
   display: flex; align-items: center; gap: 10px; padding: 14px 20px; border-radius: 14px;
   background: var(--accent); color: #fff; font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.85rem; font-weight: 600; box-shadow: 0 8px 28px rgba(22,163,74,0.45);
+  font-size: 0.85rem; font-weight: 600; 
 }
 
 .toast-pop-enter-active { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
 .toast-pop-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
 .toast-pop-enter-from,
-.toast-pop-leave-to     { opacity: 0; transform: translateY(12px) scale(0.95); }
+.toast-pop-leave-to { opacity: 0; transform: translateY(12px) scale(0.95); }
 
 /* â"€â"€ Responsive â"€â"€ */
 
@@ -629,53 +628,53 @@ details[open] .optional-arrow { transform: rotate(90deg); }
 
 /* Tablet portrait (601px â€" 900px): stack preview below form */
 @media (max-width: 900px) {
-  .bm-page        { gap: 20px; }
-  .bm-layout      { grid-template-columns: 1fr; gap: 18px; }
+  .bm-page { gap: 20px; }
+  .bm-layout { grid-template-columns: 1fr; gap: 18px; }
   .bm-preview-col { position: static; max-height: none; order: 1; }
-  .two-col        { grid-template-columns: 1fr 1fr; }
+  .two-col { grid-template-columns: 1fr 1fr; }
 }
 
 /* Mobile (â‰¤ 600px) */
 @media (max-width: 600px) {
-  .bm-page        { gap: 16px; }
-  .bm-layout      { gap: 14px; }
-  .bm-header      { gap: 10px; margin-top: 10px; flex-direction: column; align-items: flex-start; }
-  .bm-title       { font-size: 1.2rem; }
-  .bm-sub         { font-size: 0.76rem; }
+  .bm-page { gap: 16px; }
+  .bm-layout { gap: 14px; }
+  .bm-header { gap: 10px; margin-top: 10px; flex-direction: column; align-items: flex-start; }
+  .bm-title { font-size: 1.2rem; }
+  .bm-sub { font-size: 0.76rem; }
 
-  .bm-form-card   { padding: 18px 16px; border-radius: 16px; }
-  .form-section   { gap: 12px; padding: 16px 0; }
-  .section-title  { font-size: 0.78rem; }
-  .two-col        { grid-template-columns: 1fr; }
-  .fi--half       { max-width: 100%; }
-  .toggle-btn     { padding: 9px 14px; font-size: 0.78rem; }
+  .bm-form-card { padding: 18px 16px; border-radius: 16px; }
+  .form-section { gap: 12px; padding: 16px 0; }
+  .section-title { font-size: 0.78rem; }
+  .two-col { grid-template-columns: 1fr; }
+  .fi--half { max-width: 100%; }
+  .toggle-btn { padding: 9px 14px; font-size: 0.78rem; }
   .logo-preview-box { width: 50px; height: 50px; }
 
-  .send-btn       { padding: 13px; font-size: 0.86rem; border-radius: 11px; }
-  .success-toast  { bottom: 90px; right: 14px; left: 14px; font-size: 0.8rem; padding: 12px 16px; }
+  .send-btn { padding: 13px; font-size: 0.86rem; border-radius: 11px; }
+  .success-toast { bottom: 90px; right: 14px; left: 14px; font-size: 0.8rem; padding: 12px 16px; }
 
-  .preview-bar    { padding: 10px 14px; gap: 4px; flex-direction: column; align-items: flex-start; }
+  .preview-bar { padding: 10px 14px; gap: 4px; flex-direction: column; align-items: flex-start; }
   .preview-subject-txt { font-size: 0.72rem; }
 }
 
 /* Small phones (â‰¤ 430px) */
 @media (max-width: 430px) {
-  .bm-title       { font-size: 1.1rem; }
-  .bm-form-card   { padding: 16px 13px; border-radius: 14px; }
-  .form-section   { gap: 10px; padding: 14px 0; }
-  .fi, .fs        { font-size: 0.78rem; padding: 8px 10px; }
-  .fl             { font-size: 0.72rem; }
-  .toggle-btn     { padding: 8px 12px; font-size: 0.74rem; gap: 5px; }
-  .send-btn       { padding: 12px; font-size: 0.82rem; }
+  .bm-title { font-size: 1.1rem; }
+  .bm-form-card { padding: 16px 13px; border-radius: 14px; }
+  .form-section { gap: 10px; padding: 14px 0; }
+  .fi, .fs { font-size: 0.78rem; padding: 8px 10px; }
+  .fl { font-size: 0.72rem; }
+  .toggle-btn { padding: 8px 12px; font-size: 0.74rem; gap: 5px; }
+  .send-btn { padding: 12px; font-size: 0.82rem; }
 }
 
 /* Tiny phones (â‰¤ 360px) */
 @media (max-width: 360px) {
-  .bm-title       { font-size: 1rem; }
-  .bm-form-card   { padding: 14px 11px; }
-  .fi, .fs        { font-size: 0.74rem; padding: 7px 9px; }
-  .send-btn       { padding: 11px; font-size: 0.78rem; }
-  .toggle-btn     { padding: 7px 10px; font-size: 0.7rem; }
+  .bm-title { font-size: 1rem; }
+  .bm-form-card { padding: 14px 11px; }
+  .fi, .fs { font-size: 0.74rem; padding: 7px 9px; }
+  .send-btn { padding: 11px; font-size: 0.78rem; }
+  .toggle-btn { padding: 7px 10px; font-size: 0.7rem; }
 }
 
 </style>

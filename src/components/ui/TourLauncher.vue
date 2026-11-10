@@ -9,6 +9,7 @@
         aria-label="Take the tour"
       >
         <span class="tour-fab__pulse" />
+        <span class="tour-fab__shine" />
         <span class="tour-fab__icon">
           <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
             <circle cx="12" cy="12" r="10"/>
@@ -26,7 +27,7 @@ import { useRouter, useRoute } from 'vue-router'
 import { useTour } from '../../composables/useTour.js'
 
 const router = useRouter()
-const route  = useRoute()
+const route = useRoute()
 const { active, start } = useTour()
 
 function launch() {
@@ -56,17 +57,32 @@ function launch() {
   font-size: 0.86rem;
   font-weight: 700;
   cursor: pointer;
-  box-shadow: 0 10px 28px rgba(22, 163, 74, 0.42), inset 0 1px 0 rgba(255, 255, 255, 0.28);
-  transition: transform 0.18s ease, box-shadow 0.2s ease;
+  transition: transform 0.18s ease;
 }
 .tour-fab:hover {
   transform: translateY(-2px);
-  box-shadow: 0 14px 34px rgba(22, 163, 74, 0.5), inset 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 .tour-fab:active { transform: translateY(0); }
 
-.tour-fab__icon { display: flex; align-items: center; }
-.tour-fab__label { white-space: nowrap; }
+.tour-fab__icon { display: flex; align-items: center; position: relative; z-index: 2; }
+.tour-fab__label { white-space: nowrap; position: relative; z-index: 2; }
+
+/* Moving glass wave (clipped to the pill) */
+.tour-fab__shine {
+  position: absolute; inset: 0; border-radius: inherit;
+  overflow: hidden; pointer-events: none; z-index: 1;
+}
+.tour-fab__shine::after {
+  content: '';
+  position: absolute; top: 0; bottom: 0; left: -80%;
+  width: 45%;
+  background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.22) 40%, rgba(255,255,255,0.75) 50%, rgba(255,255,255,0.22) 60%, transparent 100%);
+  transform: skewX(-22deg);
+  animation: fab-shine 3s ease-in-out infinite;
+  animation-delay: 1.2s;
+}
+@keyframes fab-shine { 0% { left: -80%; } 35% { left: 130%; } 100% { left: 130%; } }
+@media (prefers-reduced-motion: reduce) { .tour-fab__shine { display: none; } }
 
 /* Soft attention pulse behind the button */
 .tour-fab__pulse {
@@ -78,8 +94,8 @@ function launch() {
   animation: fab-pulse 2.6s ease-out infinite;
 }
 @keyframes fab-pulse {
-  0%   { transform: scale(1);   opacity: 0.45; }
-  70%  { transform: scale(1.18); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.45; }
+  70% { transform: scale(1.18); opacity: 0; }
   100% { transform: scale(1.18); opacity: 0; }
 }
 

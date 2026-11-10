@@ -130,7 +130,7 @@ const apiPerks = [
 /* Header */
 .resell-head { display: flex; flex-direction: column; gap: 6px; }
 .resell-head__title { margin: 0; font-size: 1.55rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; }
-.resell-head__sub   { margin: 0; font-size: 0.86rem; color: var(--t2); font-weight: 500; }
+.resell-head__sub { margin: 0; font-size: 0.86rem; color: var(--t2); font-weight: 500; }
 
 /* Cards grid */
 .resell-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; align-items: stretch; }
@@ -141,7 +141,6 @@ const apiPerks = [
   border-radius: 18px;
   padding: 22px;
   display: flex; flex-direction: column;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 
 .resell-card__top { display: flex; align-items: flex-start; justify-content: space-between; margin-bottom: 18px; }
@@ -161,7 +160,7 @@ const apiPerks = [
 }
 
 .resell-card__title { margin: 0 0 8px; font-size: 1.15rem; font-weight: 800; color: var(--t1); letter-spacing: -0.01em; }
-.resell-card__desc  { margin: 0 0 18px; font-size: 0.88rem; line-height: 1.6; color: var(--t2); }
+.resell-card__desc { margin: 0 0 18px; font-size: 0.88rem; line-height: 1.6; color: var(--t2); }
 
 .resell-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 12px; }
 .resell-list li {
@@ -174,8 +173,8 @@ const apiPerks = [
 
 .resell-price { display: flex; align-items: baseline; gap: 8px; }
 .resell-price__amount { font-size: 1.7rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; }
-.resell-price__cycle  { font-size: 0.86rem; font-weight: 600; color: var(--t3); }
-.resell-price__note   { margin: 6px 0 0; font-size: 0.76rem; color: var(--t3); }
+.resell-price__cycle { font-size: 0.86rem; font-weight: 600; color: var(--t3); }
+.resell-price__note { margin: 6px 0 0; font-size: 0.76rem; color: var(--t3); }
 
 .resell-card__footnote { margin: auto 0 0; font-size: 0.86rem; color: var(--t2); }
 
@@ -186,7 +185,6 @@ const apiPerks = [
   border-radius: 18px;
   padding: 20px 22px;
   display: flex; flex-direction: column; gap: 16px;
-  box-shadow: 0 2px 10px rgba(0,0,0,0.04);
 }
 .resell-banner__row {
   display: flex; align-items: center; justify-content: space-between;
@@ -202,7 +200,7 @@ const apiPerks = [
   color: #16a34a;
 }
 .resell-banner__title { margin: 0 0 3px; font-size: 1.02rem; font-weight: 800; color: var(--t1); }
-.resell-banner__text  { margin: 0; font-size: 0.85rem; color: var(--t2); }
+.resell-banner__text { margin: 0; font-size: 0.85rem; color: var(--t2); }
 .resell-banner__url {
   font-family: 'Courier New', monospace; font-size: 0.82rem;
   background: var(--glass-hover); border: 1px solid var(--border-soft);
@@ -220,10 +218,9 @@ const apiPerks = [
   background: linear-gradient(135deg, #22c55e 0%, #16a34a 55%, #0f7a37 100%);
   color: #fff; text-decoration: none;
   font-family: inherit; font-size: 0.9rem; font-weight: 700;
-  box-shadow: 0 8px 22px rgba(22,163,74,0.38), inset 0 1px 0 rgba(255,255,255,0.28);
-  transition: transform 0.16s ease, box-shadow 0.2s ease;
+  transition: transform 0.16s ease;
 }
-.resell-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 28px rgba(22,163,74,0.46); }
+.resell-btn:hover { transform: translateY(-2px); }
 .resell-btn:active { transform: translateY(0); }
 .resell-btn::after {
   content: '';
@@ -240,8 +237,8 @@ const apiPerks = [
   animation: resell-shine 2.4s ease-in-out infinite;
 }
 @keyframes resell-shine {
-  0%   { left: -75%; }
-  40%  { left: 125%; }
+  0% { left: -75%; }
+  40% { left: 125%; }
   100% { left: 125%; }
 }
 @media (prefers-reduced-motion: reduce) {
@@ -256,7 +253,7 @@ const apiPerks = [
   border: 1px solid rgba(22,163,74,0.25);
 }
 .resell-note svg { color: #16a34a; flex-shrink: 0; margin-top: 1px; }
-.resell-note p   { margin: 0; font-size: 0.84rem; line-height: 1.55; color: var(--t2); }
+.resell-note p { margin: 0; font-size: 0.84rem; line-height: 1.55; color: var(--t2); }
 .resell-note strong { color: var(--t1); font-weight: 700; }
 
 /* Responsive */

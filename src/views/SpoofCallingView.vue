@@ -439,23 +439,23 @@ const router = useRouter()
 
 /* ── Tabs ── */
 const tabs = [
-  { id: 'speak',          label: 'Speak Myself',  icon: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>' },
+  { id: 'speak', label: 'Speak Myself', icon: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/><line x1="8" y1="23" x2="16" y2="23"/>' },
   { id: 'conversational', label: 'Conversational', icon: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>' },
-  { id: 'script',         label: 'Script',         icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>' },
-  { id: 'live',           label: 'Live',           icon: '<circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/>' },
+  { id: 'script', label: 'Script', icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>' },
+  { id: 'live', label: 'Live', icon: '<circle cx="12" cy="12" r="2"/><path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"/>' },
 ]
 
 /* ── Voices ── */
 const voices = [
-  { id: 'own',    label: 'Use my own voice (no replacement)',  desc: 'The recipient hears you exactly as you speak.',                      type: null    },
-  { id: 'james',  label: 'James (Male)',                       desc: 'male',                                                                type: 'male'  },
-  { id: 'rachel', label: 'Rachel (Female)',                    desc: 'female · ElevenLabs default voice · professional female',             type: 'female'},
+  { id: 'own', label: 'Use my own voice (no replacement)', desc: 'The recipient hears you exactly as you speak.', type: null },
+  { id: 'james', label: 'James (Male)', desc: 'male', type: 'male' },
+  { id: 'rachel', label: 'Rachel (Female)', desc: 'female · ElevenLabs default voice · professional female', type: 'female'},
 ]
 const aiVoices = [
-  { id: 'james',   label: 'James (Male)',    desc: 'male · deep and authoritative',                         type: 'male'    },
-  { id: 'rachel',  label: 'Rachel (Female)', desc: 'female · ElevenLabs default voice · professional female', type: 'female'  },
-  { id: 'alex',    label: 'Alex (Neutral)',  desc: 'neutral · clear and articulate · ElevenLabs',           type: 'neutral' },
-  { id: 'maria',   label: 'Maria (Female)',  desc: 'female · warm and friendly · Spanish-accented English', type: 'female'  },
+  { id: 'james', label: 'James (Male)', desc: 'male · deep and authoritative', type: 'male' },
+  { id: 'rachel', label: 'Rachel (Female)', desc: 'female · ElevenLabs default voice · professional female', type: 'female' },
+  { id: 'alex', label: 'Alex (Neutral)', desc: 'neutral · clear and articulate · ElevenLabs', type: 'neutral' },
+  { id: 'maria', label: 'Maria (Female)', desc: 'female · warm and friendly · Spanish-accented English', type: 'female' },
 ]
 const quickPrompts = [
   'You are calling to confirm a delivery appointment. Be professional and confirm address and time.',
@@ -464,31 +464,31 @@ const quickPrompts = [
 ]
 
 /* ── State ── */
-const activeTab         = ref('speak')
-const recipientPhone    = ref('')
-const callerID          = ref('')
-const selectedVoice     = ref('own')
-const selectedAIVoice   = ref('james')
+const activeTab = ref('speak')
+const recipientPhone = ref('')
+const callerID = ref('')
+const selectedVoice = ref('own')
+const selectedAIVoice = ref('james')
 const selectedScriptVoice = ref('james')
 const selectedLiveVoice = ref('james')
-const playingVoice      = ref(null)
-const uploadedFile      = ref(null)
-const fileInput         = ref(null)
-const aiPrompt          = ref('')
-const openingLine       = ref('')
-const scriptText        = ref('')
-const livePreset        = ref('')
-const liveTyping        = ref('')
-const recentCalls       = ref([])
-const transcriptCall    = ref(null)
-const toast             = ref(null)
+const playingVoice = ref(null)
+const uploadedFile = ref(null)
+const fileInput = ref(null)
+const aiPrompt = ref('')
+const openingLine = ref('')
+const scriptText = ref('')
+const livePreset = ref('')
+const liveTyping = ref('')
+const recentCalls = ref([])
+const transcriptCall = ref(null)
+const toast = ref(null)
 
 /* ── Call state ── */
-const callState  = ref(null)   // null | 'ringing' | 'connected'
-const callTimer  = ref(0)
-const isMuted    = ref(false)
-let   callInterval = null
-let   ringingTimeout = null
+const callState = ref(null) // null | 'ringing' | 'connected'
+const callTimer = ref(0)
+const isMuted = ref(false)
+let callInterval = null
+let ringingTimeout = null
 
 const callStateLabel = computed(() => {
   if (callState.value === 'ringing') return 'Ringing...'
@@ -519,17 +519,17 @@ function playVoice(v) {
 }
 
 function triggerUpload() { fileInput.value?.click() }
-function handleDrop(e)   { uploadedFile.value = e.dataTransfer.files[0] ?? null }
+function handleDrop(e) { uploadedFile.value = e.dataTransfer.files[0] ?? null }
 function handleFileSelect(e) { uploadedFile.value = e.target.files[0] ?? null }
 
 function startCall() {
-  if (!recipientPhone.value.trim())                                        { toastError('Recipient required',  'Enter the phone number to call.');                    return }
-  if (activeTab.value === 'conversational' && !aiPrompt.value.trim())      { toastError('AI Goal required',   'Enter the AI goal/prompt for the call.');              return }
-  if (activeTab.value === 'script' && !scriptText.value.trim())            { toastError('Script required',    'Please write a script before starting the call.');     return }
-  if (activeTab.value === 'speak' && !uploadedFile.value)                  { toastError('Voice file required','Please upload a voice sample.');                       return }
+  if (!recipientPhone.value.trim()) { toastError('Recipient required', 'Enter the phone number to call.'); return }
+  if (activeTab.value === 'conversational' && !aiPrompt.value.trim()) { toastError('AI Goal required', 'Enter the AI goal/prompt for the call.'); return }
+  if (activeTab.value === 'script' && !scriptText.value.trim()) { toastError('Script required', 'Please write a script before starting the call.'); return }
+  if (activeTab.value === 'speak' && !uploadedFile.value) { toastError('Voice file required','Please upload a voice sample.'); return }
   if (!canCall.value) return
   callState.value = 'ringing'
-  isMuted.value   = false
+  isMuted.value = false
   callTimer.value = 0
   ringingTimeout = setTimeout(() => {
     callState.value = 'connected'
@@ -542,22 +542,22 @@ function endCall() {
   clearInterval(callInterval)
   const duration = callTimer.value
   const voiceLabel = {
-    speak:          voices.find(v => v.id === selectedVoice.value)?.label,
+    speak: voices.find(v => v.id === selectedVoice.value)?.label,
     conversational: aiVoices.find(v => v.id === selectedAIVoice.value)?.label,
-    script:         aiVoices.find(v => v.id === selectedScriptVoice.value)?.label,
-    live:           aiVoices.find(v => v.id === selectedLiveVoice.value)?.label,
+    script: aiVoices.find(v => v.id === selectedScriptVoice.value)?.label,
+    live: aiVoices.find(v => v.id === selectedLiveVoice.value)?.label,
   }[activeTab.value] ?? 'Own voice'
 
   if (callState.value === 'connected') {
     recentCalls.value.unshift({
-      id:        Date.now(),
+      id: Date.now(),
       recipient: recipientPhone.value,
-      callerID:  callerID.value || null,
-      voice:     voiceLabel,
-      mode:      tabs.find(t => t.id === activeTab.value)?.label ?? activeTab.value,
-      duration:  formatDuration(duration),
-      status:    'completed',
-      date:      new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
+      callerID: callerID.value || null,
+      voice: voiceLabel,
+      mode: tabs.find(t => t.id === activeTab.value)?.label ?? activeTab.value,
+      duration: formatDuration(duration),
+      status: 'completed',
+      date: new Date().toLocaleString('en-US', { month: 'short', day: 'numeric', hour: '2-digit', minute: '2-digit' }),
     })
   }
   callState.value = null
@@ -620,7 +620,7 @@ onBeforeUnmount(() => {
   display: flex; align-items: center; justify-content: center; flex-shrink: 0;
 }
 .sc-hdr-title { font-size: 1.5rem; font-weight: 800; color: var(--t1); margin: 0 0 4px; letter-spacing: -0.02em; }
-.sc-hdr-sub   { font-size: 0.8rem; color: var(--t1); font-weight: 600; margin: 0; line-height: 1.5; max-width: 560px; }
+.sc-hdr-sub { font-size: 0.8rem; color: var(--t1); font-weight: 600; margin: 0; line-height: 1.5; max-width: 560px; }
 
 .sc-refresh-btn {
   display: flex; align-items: center; gap: 7px; flex-shrink: 0;
@@ -642,8 +642,8 @@ onBeforeUnmount(() => {
   display: flex; flex-direction: column; gap: 6px;
 }
 .sc-stat__label { font-size: 0.65rem; font-weight: 800; text-transform: uppercase; letter-spacing: 0.1em; color: var(--t2); }
-.sc-stat__val   { font-size: 1.5rem; font-weight: 800; color: var(--t1); }
-.sc-stat__note  { font-size: 0.73rem; color: var(--t2); font-weight: 600; }
+.sc-stat__val { font-size: 1.5rem; font-weight: 800; color: var(--t1); }
+.sc-stat__note { font-size: 0.73rem; color: var(--t2); font-weight: 600; }
 .sc-link { color: var(--accent); cursor: pointer; }
 .sc-link:hover { text-decoration: underline; }
 
@@ -661,8 +661,8 @@ onBeforeUnmount(() => {
   color: var(--t3); cursor: pointer; font-family: inherit; transition: all 0.18s;
   white-space: nowrap; flex-shrink: 0;
 }
-.sc-tab:hover    { color: var(--t1); background: var(--glass-hover); }
-.sc-tab--active  { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.25); }
+.sc-tab:hover { color: var(--t1); background: var(--glass-hover); }
+.sc-tab--active { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.25); }
 /* hide scrollbar on the tab bar when overflowing */
 .sc-tab-bar::-webkit-scrollbar { display: none; }
 
@@ -689,7 +689,7 @@ onBeforeUnmount(() => {
   border-radius: 12px; padding: 12px 16px; font-size: 0.88rem;
   color: var(--t1); font-family: inherit; outline: none; transition: border-color 0.2s;
 }
-.sc-input:focus       { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); }
+.sc-input:focus { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); }
 .sc-input::placeholder{ color: var(--t3); }
 
 .sc-textarea {
@@ -698,9 +698,9 @@ onBeforeUnmount(() => {
   color: var(--t1); font-family: inherit; outline: none; resize: none;
   transition: border-color 0.2s; line-height: 1.6;
 }
-.sc-textarea:focus       { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); }
+.sc-textarea:focus { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); }
 .sc-textarea::placeholder{ color: var(--t3); }
-.sc-textarea--lg         { min-height: 140px; }
+.sc-textarea--lg { min-height: 140px; }
 
 .sc-hint { font-size: 0.73rem; color: var(--t2); font-weight: 600; line-height: 1.4; margin: 0; }
 .sc-char-row {
@@ -723,8 +723,8 @@ onBeforeUnmount(() => {
   cursor: pointer; transition: all 0.18s;
   background: var(--glass);
 }
-.sc-voice-row:hover      { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.04); }
-.sc-voice-row--active    { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.07); border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.35); }
+.sc-voice-row:hover { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.04); }
+.sc-voice-row--active { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.07); border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.35); }
 
 .sc-radio {
   width: 18px; height: 18px; border-radius: 50%;
@@ -732,8 +732,8 @@ onBeforeUnmount(() => {
   display: flex; align-items: center; justify-content: center;
   transition: border-color 0.2s;
 }
-.sc-radio--on  { border-color: var(--accent); }
-.sc-radio-dot  { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
+.sc-radio--on { border-color: var(--accent); }
+.sc-radio-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); }
 
 .sc-voice-info { display: flex; flex-direction: column; gap: 2px; flex: 1; }
 .sc-voice-name { font-size: 0.88rem; font-weight: 700; color: var(--t1); }
@@ -815,7 +815,7 @@ onBeforeUnmount(() => {
   padding: 20px 24px 16px; border-bottom: 1px solid var(--border-soft);
 }
 .sc-recent-title { font-size: 0.92rem; font-weight: 700; color: var(--t1); margin-bottom: 4px; }
-.sc-recent-sub   { font-size: 0.75rem; color: var(--t1); font-weight: 600; margin: 0; line-height: 1.4; max-width: 480px; }
+.sc-recent-sub { font-size: 0.75rem; color: var(--t1); font-weight: 600; margin: 0; line-height: 1.4; max-width: 480px; }
 
 .sc-empty {
   display: flex; flex-direction: column; align-items: center; gap: 10px;
@@ -830,18 +830,18 @@ onBeforeUnmount(() => {
   transition: background 0.15s;
 }
 .sc-call-row:last-child { border-bottom: none; }
-.sc-call-row:hover      { background: var(--glass); }
+.sc-call-row:hover { background: var(--glass); }
 
 .sc-call-icon {
   width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
 }
-.sc-call-icon--completed { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12);  color: var(--accent);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);  }
-.sc-call-icon--missed    { background: rgba(248,113,113,.12); color: #f87171;  border: 1px solid rgba(248,113,113,.2);}
-.sc-call-icon--failed    { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12);  color: var(--accent);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.sc-call-icon--completed { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.sc-call-icon--missed { background: rgba(248,113,113,.12); color: #f87171; border: 1px solid rgba(248,113,113,.2);}
+.sc-call-icon--failed { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
 
 .sc-call-info { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 0; }
-.sc-call-to   { font-size: 0.88rem; font-weight: 700; color: var(--t1); }
+.sc-call-to { font-size: 0.88rem; font-weight: 700; color: var(--t1); }
 .sc-call-meta { font-size: 0.72rem; color: var(--t3); white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
 
 .sc-call-right { display: flex; flex-direction: column; align-items: flex-end; gap: 3px; flex-shrink: 0; }
@@ -849,15 +849,15 @@ onBeforeUnmount(() => {
   font-size: 0.65rem; font-weight: 700; text-transform: uppercase; padding: 2px 8px;
   border-radius: 999px;
 }
-.sc-call-status--completed { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12);  color: var(--accent);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);  }
-.sc-call-status--missed    { background: rgba(248,113,113,.12); color: #f87171;  border: 1px solid rgba(248,113,113,.2);}
+.sc-call-status--completed { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.sc-call-status--missed { background: rgba(248,113,113,.12); color: #f87171; border: 1px solid rgba(248,113,113,.2);}
 .sc-call-duration { font-size: 0.78rem; font-weight: 700; color: var(--t1); }
-.sc-call-date     { font-size: 0.68rem; color: var(--t3); }
-.sc-call-chevron  { color: var(--t3); flex-shrink: 0; }
+.sc-call-date { font-size: 0.68rem; color: var(--t3); }
+.sc-call-chevron { color: var(--t3); flex-shrink: 0; }
 
 /* ── Active call modal ── */
 .modal-fade-enter-active, .modal-fade-leave-active { transition: opacity 0.25s ease; }
-.modal-fade-enter-from,  .modal-fade-leave-to     { opacity: 0; }
+.modal-fade-enter-from, .modal-fade-leave-to { opacity: 0; }
 
 .sc-call-overlay {
   position: fixed; inset: 0; z-index: 9999; background: rgba(0,0,0,0.75); backdrop-filter: blur(6px); -webkit-backdrop-filter: blur(6px);
@@ -881,12 +881,12 @@ onBeforeUnmount(() => {
   background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.07);
   animation: ripple 2.2s ease-out infinite;
 }
-.sc-ripple--1 { width: 100px; height: 100px; animation-delay: 0s;    }
+.sc-ripple--1 { width: 100px; height: 100px; animation-delay: 0s; }
 .sc-ripple--2 { width: 160px; height: 160px; animation-delay: 0.55s; }
-.sc-ripple--3 { width: 220px; height: 220px; animation-delay: 1.1s;  }
+.sc-ripple--3 { width: 220px; height: 220px; animation-delay: 1.1s; }
 @keyframes ripple {
-  0%   { transform: scale(0.8); opacity: 0.6; }
-  100% { transform: scale(1.6); opacity: 0;   }
+  0% { transform: scale(0.8); opacity: 0.6; }
+  100% { transform: scale(1.6); opacity: 0; }
 }
 
 .sc-call-avatar {
@@ -901,12 +901,12 @@ onBeforeUnmount(() => {
 }
 @keyframes pulse-live {
   0%, 100% { opacity: 1; }
-  50%       { opacity: 0.6; }
+  50% { opacity: 0.6; }
 }
 
 .sc-call-modal-status { font-size: 0.78rem; font-weight: 700; color: var(--t3); text-transform: uppercase; letter-spacing: 0.1em; }
 .sc-call-modal-number { font-size: 1.3rem; font-weight: 800; color: var(--t1); }
-.sc-call-modal-cid    { font-size: 0.78rem; color: var(--t3); }
+.sc-call-modal-cid { font-size: 0.78rem; color: var(--t3); }
 .sc-call-timer {
   font-size: 2rem; font-weight: 800; color: var(--accent);
   font-variant-numeric: tabular-nums; letter-spacing: -0.02em;
@@ -940,8 +940,8 @@ onBeforeUnmount(() => {
   color: var(--t2); font-size: 0.72rem; font-weight: 600; font-family: inherit;
   transition: all 0.2s;
 }
-.sc-ctrl-btn:hover        { background: var(--glass-hover); color: var(--t1); }
-.sc-ctrl-btn--active      { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); color: var(--accent); }
+.sc-ctrl-btn:hover { background: var(--glass-hover); color: var(--t1); }
+.sc-ctrl-btn--active { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.12); border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); color: var(--accent); }
 .sc-ctrl-btn--end {
   background: rgba(248,113,113,.12); border-color: rgba(248,113,113,.25); color: #f87171;
 }
@@ -958,7 +958,7 @@ onBeforeUnmount(() => {
   padding-bottom: 14px; border-bottom: 1px solid var(--border-soft);
 }
 .sc-transcript-title { font-size: 1rem; font-weight: 700; color: var(--t1); margin-bottom: 4px; }
-.sc-transcript-meta  { font-size: 0.72rem; color: var(--t3); }
+.sc-transcript-meta { font-size: 0.72rem; color: var(--t3); }
 .sc-modal-close {
   width: 30px; height: 30px; border-radius: 8px; flex-shrink: 0;
   background: var(--modal-input); border: 1px solid var(--border-soft);
@@ -966,52 +966,52 @@ onBeforeUnmount(() => {
   display: flex; align-items: center; justify-content: center; transition: background 0.15s;
 }
 .sc-modal-close:hover { background: rgba(248,113,113,.12); color: #f87171; }
-.sc-transcript-body  { min-height: 80px; display: flex; align-items: center; justify-content: center; }
+.sc-transcript-body { min-height: 80px; display: flex; align-items: center; justify-content: center; }
 .sc-transcript-empty { font-size: 0.82rem; color: var(--t3); text-align: center; }
 
 /* ── Toast ── */
 .toast-up-enter-active, .toast-up-leave-active { transition: all 0.3s ease; }
-.toast-up-enter-from, .toast-up-leave-to       { opacity: 0; transform: translateY(20px); }
+.toast-up-enter-from, .toast-up-leave-to { opacity: 0; transform: translateY(20px); }
 .sc-toast {
   position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center; gap: 10px;
   padding: 13px 22px; border-radius: 14px;
   font-size: 0.84rem; font-weight: 600; z-index: 9999;
 }
-.sc-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3);  color: var(--accent);  }
-.sc-toast--error   { background: rgba(248,113,113,.18); border: 1px solid rgba(248,113,113,.3); color: #f87171; }
+.sc-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); color: var(--accent); }
+.sc-toast--error { background: rgba(248,113,113,.18); border: 1px solid rgba(248,113,113,.3); color: #f87171; }
 
 /* ── Tablet ── */
 @media (max-width: 1024px) and (min-width: 769px) {
-  .sc-stats      { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .sc-phone-row  { grid-template-columns: 1fr 1fr; gap: 14px; }
+  .sc-stats { grid-template-columns: repeat(2, 1fr); gap: 12px; }
+  .sc-phone-row { grid-template-columns: 1fr 1fr; gap: 14px; }
 }
 
 /* ── Mobile ── */
 @media (max-width: 768px) {
-  .sc-page       { padding: 0; gap: 16px; }
-  .sc-hdr        { flex-direction: column; align-items: flex-start; gap: 10px; }
-  .sc-hdr-title  { font-size: 1.3rem; }
+  .sc-page { padding: 0; gap: 16px; }
+  .sc-hdr { flex-direction: column; align-items: flex-start; gap: 10px; }
+  .sc-hdr-title { font-size: 1.3rem; }
   .sc-refresh-btn { align-self: flex-start; }
 
   /* tab bar: full-width, horizontally scrollable, no scrollbar visible */
-  .sc-tab-bar    { width: 100%; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
-  .sc-tab        { padding: 8px 14px; font-size: 0.78rem; }
+  .sc-tab-bar { width: 100%; overflow-x: auto; scrollbar-width: none; -ms-overflow-style: none; }
+  .sc-tab { padding: 8px 14px; font-size: 0.78rem; }
 
-  .sc-stats      { grid-template-columns: 1fr 1fr; gap: 10px; }
-  .sc-phone-row  { grid-template-columns: 1fr; gap: 12px; }
-  .sc-form-card  { padding: 18px 16px; }
-  .sc-overlay    { padding: 0; align-items: flex-end; }
+  .sc-stats { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .sc-phone-row { grid-template-columns: 1fr; gap: 12px; }
+  .sc-form-card { padding: 18px 16px; }
+  .sc-overlay { padding: 0; align-items: flex-end; }
   .sc-call-modal { max-width: 100%; border-radius: 22px 22px 0 0; max-height: 90vh; overflow-y: auto; }
-  .sc-toast      { bottom: 90px; max-width: calc(100vw - 32px); white-space: normal; }
+  .sc-toast { bottom: 90px; max-width: calc(100vw - 32px); white-space: normal; }
 }
 
 /* ── Small Mobile ── */
 @media (max-width: 480px) {
-  .sc-stats      { grid-template-columns: 1fr; }
-  .sc-hdr-title  { font-size: 1.15rem; }
-  .sc-tab        { padding: 8px 12px; gap: 5px; }
-  .sc-tab svg    { display: none; }
+  .sc-stats { grid-template-columns: 1fr; }
+  .sc-hdr-title { font-size: 1.15rem; }
+  .sc-tab { padding: 8px 12px; gap: 5px; }
+  .sc-tab svg { display: none; }
 }
 
 </style>

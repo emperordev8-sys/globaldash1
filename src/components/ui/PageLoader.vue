@@ -27,7 +27,6 @@ const { loading } = useLoader()
   align-items: center;
   justify-content: center;
   background: rgba(12, 13, 31, 0.45);
- 
 }
 
 .spinner {
@@ -46,7 +45,7 @@ const { loading } = useLoader()
 }
 
 .loader-enter-active { transition: opacity 0.15s ease; }
-.loader-enter-from   { opacity: 0; }
+.loader-enter-from { opacity: 0; }
 .loader-leave-active { transition: opacity 0.25s ease; }
-.loader-leave-to     { opacity: 0; }
+.loader-leave-to { opacity: 0; }
 </style>

@@ -86,11 +86,11 @@
 import { ref } from 'vue'
 import { useRouter } from 'vue-router'
 
-const router   = useRouter()
-const code     = ref('')
+const router = useRouter()
+const code = ref('')
 const showPass = ref(false)
-const loading  = ref(false)
-const toast    = ref({ show: false, type: 'error', message: '' })
+const loading = ref(false)
+const toast = ref({ show: false, type: 'error', message: '' })
 
 let toastTimer = null
 
@@ -115,7 +115,7 @@ function unlock() {
     } else {
       showToast('error', 'Incorrect access code. Please try again.')
       loading.value = false
-      code.value    = ''
+      code.value = ''
     }
   }, 600)
 }
@@ -177,14 +177,13 @@ function unlock() {
   background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.12);
   border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.25);
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 8px 32px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.15);
 }
 
 /* Titles */
 .auth-titles { text-align: center; display: flex; flex-direction: column; gap: 4px; }
-.auth-title  { font-size: 1.4rem; font-weight: 800; color: var(--t1); margin: 0; letter-spacing: -0.02em; }
-.auth-sub    { font-size: 0.85rem; color: var(--t3); margin: 0; }
-.auth-brand  { color: var(--accent); font-weight: 700; }
+.auth-title { font-size: 1.4rem; font-weight: 800; color: var(--t1); margin: 0; letter-spacing: -0.02em; }
+.auth-sub { font-size: 0.85rem; color: var(--t3); margin: 0; }
+.auth-brand { color: var(--accent); font-weight: 700; }
 
 /* Form */
 .auth-form {
@@ -241,12 +240,11 @@ function unlock() {
   font-weight: 700;
   letter-spacing: 0.01em;
   cursor: pointer;
-  transition: opacity 0.2s, transform 0.15s, box-shadow 0.2s;
+  transition: opacity 0.2s, transform 0.15s;
   display: flex; align-items: center; justify-content: center;
-  box-shadow: 0 4px 20px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.3);
   min-height: 50px;
 }
-.auth-btn:hover  { opacity: 0.92; transform: translateY(-1px); box-shadow: 0 8px 28px rgba(var(--accent-r),var(--accent-g),var(--accent-b),0.4); }
+.auth-btn:hover { opacity: 0.92; transform: translateY(-1px); }
 .auth-btn:active { transform: translateY(0); }
 .auth-btn--loading { opacity: 0.7; pointer-events: none; }
 
@@ -272,8 +270,8 @@ function unlock() {
 
 /* Large desktop */
 @media (min-width: 1200px) {
-  .auth-card  { max-width: 380px; padding: 36px 32px 28px; }
-  .auth-icon  { width: 64px; height: 64px; border-radius: 18px; }
+  .auth-card { max-width: 380px; padding: 36px 32px 28px; }
+  .auth-icon { width: 64px; height: 64px; border-radius: 18px; }
   .auth-title { font-size: 1.45rem; }
   .auth-orb--1 { width: 600px; height: 600px; }
   .auth-orb--2 { width: 500px; height: 500px; }
@@ -281,12 +279,12 @@ function unlock() {
 
 /* Tablet landscape / small laptop */
 @media (max-width: 1024px) {
-  .auth-card  { max-width: 350px; padding: 30px 26px 24px; }
+  .auth-card { max-width: 350px; padding: 30px 26px 24px; }
 }
 
 /* Tablet portrait */
 @media (max-width: 768px) {
-  .auth-card  { max-width: 340px; padding: 28px 24px 22px; gap: 14px; }
+  .auth-card { max-width: 340px; padding: 28px 24px 22px; gap: 14px; }
   .auth-title { font-size: 1.3rem; }
   .auth-orb--1 { width: 300px; height: 300px; }
   .auth-orb--2 { width: 260px; height: 260px; }
@@ -294,23 +292,23 @@ function unlock() {
 
 /* Large mobile */
 @media (max-width: 600px) {
-  .auth-page  { padding: 16px; align-items: center; }
-  .auth-card  { max-width: 320px; padding: 26px 20px 20px; border-radius: 20px; gap: 13px; }
-  .auth-icon  { width: 56px; height: 56px; border-radius: 15px; }
+  .auth-page { padding: 16px; align-items: center; }
+  .auth-card { max-width: 320px; padding: 26px 20px 20px; border-radius: 20px; gap: 13px; }
+  .auth-icon { width: 56px; height: 56px; border-radius: 15px; }
   .auth-title { font-size: 1.2rem; }
   .auth-input { font-size: 0.88rem; }
-  .auth-btn   { font-size: 0.9rem; min-height: 46px; }
+  .auth-btn { font-size: 0.9rem; min-height: 46px; }
 }
 
 /* Mobile */
 @media (max-width: 430px) {
-  .auth-page  { padding: 14px; }
-  .auth-card  { max-width: 100%; padding: 24px 16px 20px; border-radius: 18px; gap: 12px; }
-  .auth-icon  { width: 50px; height: 50px; border-radius: 13px; }
+  .auth-page { padding: 14px; }
+  .auth-card { max-width: 100%; padding: 24px 16px 20px; border-radius: 18px; gap: 12px; }
+  .auth-icon { width: 50px; height: 50px; border-radius: 13px; }
   .auth-title { font-size: 1.1rem; }
-  .auth-sub   { font-size: 0.8rem; }
+  .auth-sub { font-size: 0.8rem; }
   .auth-input { font-size: 0.85rem; padding: 11px 0; }
-  .auth-btn   { font-size: 0.88rem; min-height: 44px; }
+  .auth-btn { font-size: 0.88rem; min-height: 44px; }
   .auth-footer { font-size: 0.68rem; }
   .auth-orb--1 { width: 200px; height: 200px; top: -60px; left: -60px; }
   .auth-orb--2 { width: 180px; height: 180px; bottom: -50px; right: -50px; }
@@ -318,10 +316,10 @@ function unlock() {
 
 /* Small mobile */
 @media (max-width: 360px) {
-  .auth-card  { padding: 20px 14px 18px; border-radius: 16px; gap: 11px; }
-  .auth-icon  { width: 44px; height: 44px; border-radius: 12px; }
+  .auth-card { padding: 20px 14px 18px; border-radius: 16px; gap: 11px; }
+  .auth-icon { width: 44px; height: 44px; border-radius: 12px; }
   .auth-title { font-size: 1rem; }
-  .auth-btn   { font-size: 0.84rem; min-height: 42px; }
+  .auth-btn { font-size: 0.84rem; min-height: 42px; }
 }
 
 /* Toast responsive */
@@ -358,7 +356,6 @@ function unlock() {
   color: var(--t1);
   backdrop-filter: blur(20px);
   -webkit-backdrop-filter: blur(20px);
-  box-shadow: 0 16px 48px rgba(0,0,0,0.65), 0 2px 8px rgba(0,0,0,0.4);
   pointer-events: none;
 }
 .auth-toast--error {
@@ -373,6 +370,6 @@ function unlock() {
 /* Toast transition */
 .toast-slide-enter-active { transition: all 0.35s cubic-bezier(0.34,1.56,0.64,1); }
 .toast-slide-leave-active { transition: all 0.25s ease; }
-.toast-slide-enter-from  { opacity: 0; transform: translateX(-50%) translateY(-16px); }
-.toast-slide-leave-to    { opacity: 0; transform: translateX(-50%) translateY(-8px); }
+.toast-slide-enter-from { opacity: 0; transform: translateX(-50%) translateY(-16px); }
+.toast-slide-leave-to { opacity: 0; transform: translateX(-50%) translateY(-8px); }
 </style>

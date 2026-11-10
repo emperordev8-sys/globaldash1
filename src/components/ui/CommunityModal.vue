@@ -53,19 +53,19 @@
 <script setup>
 import { ref, onMounted, onBeforeUnmount } from 'vue'
 
-const visible   = ref(false)
-const timerPct  = ref(100)
+const visible = ref(false)
+const timerPct = ref(100)
 
-let showTimer     = null
+let showTimer = null
 let countInterval = null
-let countSeconds  = 0
-const DISPLAY_MS  = 15_000
+let countSeconds = 0
+const DISPLAY_MS = 15_000
 
 function show() {
   if (sessionStorage.getItem('community_modal_seen')) return
-  visible.value  = true
+  visible.value = true
   timerPct.value = 100
-  countSeconds   = 0
+  countSeconds = 0
   clearInterval(countInterval)
   countInterval = setInterval(() => {
     countSeconds += 100
@@ -104,7 +104,6 @@ onBeforeUnmount(() => {
   display: flex; align-items: center; justify-content: center;
   background: rgba(0, 0, 0, 0.5);
   backdrop-filter: blur(6px);
- 
 }
 
 /* Card */
@@ -160,8 +159,8 @@ onBeforeUnmount(() => {
 }
 
 @keyframes pulse-ring {
-  0%   { transform: scale(1);   opacity: 0.7; }
-  70%  { transform: scale(1.5); opacity: 0; }
+  0% { transform: scale(1); opacity: 0.7; }
+  70% { transform: scale(1.5); opacity: 0; }
   100% { transform: scale(1.5); opacity: 0; }
 }
 
@@ -207,8 +206,8 @@ onBeforeUnmount(() => {
 /* Transitions */
 .modal-enter-active { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
 .modal-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
-.modal-enter-from   { opacity: 0; transform: scale(0.88) translateY(16px); }
-.modal-leave-to     { opacity: 0; transform: scale(0.95) translateY(8px); }
+.modal-enter-from { opacity: 0; transform: scale(0.88) translateY(16px); }
+.modal-leave-to { opacity: 0; transform: scale(0.95) translateY(8px); }
 
 @media (max-width: 768px) {
   .modal-backdrop { padding: 0 24px; }
@@ -220,9 +219,9 @@ onBeforeUnmount(() => {
     border-radius: 18px;
   }
   .modal-title { font-size: 1.05rem; }
-  .modal-sub   { font-size: 0.8rem; }
+  .modal-sub { font-size: 0.8rem; }
   .modal-actions { gap: 8px; }
-  .btn-join  { width: auto; align-self: center; padding: 11px 32px; font-size: 0.85rem; }
+  .btn-join { width: auto; align-self: center; padding: 11px 32px; font-size: 0.85rem; }
   .btn-later { width: auto; align-self: center; padding: 10px 28px; font-size: 0.82rem; }
 }
 
@@ -234,7 +233,7 @@ onBeforeUnmount(() => {
     padding: 24px 16px 18px;
     gap: 12px;
   }
-  .btn-join  { padding: 10px 24px; }
+  .btn-join { padding: 10px 24px; }
   .btn-later { padding: 9px 20px; }
 }
 </style>

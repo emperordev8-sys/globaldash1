@@ -30,11 +30,17 @@
       <div v-for="(s, i) in stats" :key="s.label" class="stat-card" :class="{ 'cascade-play': cascadeReady, 'stat-card--hero': i === 0 }">
         <div class="stat-card__top">
           <span class="stat-card__lbl">{{ s.label }}</span>
-          <span class="stat-card__ico">
-            <svg v-if="s.icon === 'wallet'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+
+          <!-- Wallet balance card → "Top up wallet" action -->
+          <button v-if="i === 0" class="stat-card__topup" @click.stop="router.push('/wallet')" aria-label="Top up wallet">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/>
             </svg>
-            <svg v-else-if="s.icon === 'card'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            Top up wallet
+          </button>
+
+          <span v-else class="stat-card__ico">
+            <svg v-if="s.icon === 'card'" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/>
             </svg>
             <svg v-else width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
@@ -62,7 +68,7 @@
             @click="openAction(tile)"
           >
             <span class="qa-tile__medal" :class="{ 'qa-tile__medal--img': tile.img }"
-              :style="tile.img ? {} : { background: group.grad, boxShadow: '0 8px 18px ' + group.glow }">
+              :style="tile.img ? {} : { background: group.grad }">
               <img v-if="tile.img" :src="tile.img" :alt="tile.title" class="qa-tile__pic" />
               <svg v-else width="22" height="22" viewBox="0 0 24 24" fill="none"
                 stroke="#fff" stroke-width="1.9"
@@ -167,35 +173,35 @@ onMounted(() => {
 
 /* ── Stat cards ── */
 const stats = [
-  { label: 'Wallet balance',  value: '₦0.00', icon: 'wallet'  },
-  { label: 'Active plan',     value: 'None',  icon: 'card'    },
-  { label: 'Recent payments', value: '0',     icon: 'receipt' },
+  { label: 'Wallet balance', value: '₦0.00', icon: 'wallet' },
+  { label: 'Active plan', value: 'None', icon: 'card' },
+  { label: 'Recent payments', value: '0', icon: 'receipt' },
 ]
 
 /* ── Quick actions ── */
 const ICO = {
-  domain:   '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
-  mail:     '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>',
-  broker:   '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
-  bank:     '<line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5 6 12 3 19 6"/><line x1="4" y1="10" x2="4" y2="21"/><line x1="20" y1="10" x2="20" y2="21"/><line x1="8" y1="14" x2="8" y2="17"/><line x1="12" y1="14" x2="12" y2="17"/><line x1="16" y1="14" x2="16" y2="17"/>',
-  gift:     '<polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>',
-  chart:    '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
-  star:     '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
-  cart:     '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>',
-  widgets:  '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
-  file:     '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
-  pin:      '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
+  domain: '<circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>',
+  mail: '<rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>',
+  broker: '<polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/>',
+  bank: '<line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5 6 12 3 19 6"/><line x1="4" y1="10" x2="4" y2="21"/><line x1="20" y1="10" x2="20" y2="21"/><line x1="8" y1="14" x2="8" y2="17"/><line x1="12" y1="14" x2="12" y2="17"/><line x1="16" y1="14" x2="16" y2="17"/>',
+  gift: '<polyline points="20 12 20 22 4 22 4 12"/><rect x="2" y="7" width="20" height="5"/><line x1="12" y1="22" x2="12" y2="7"/><path d="M12 7H7.5a2.5 2.5 0 0 1 0-5C11 2 12 7 12 7z"/><path d="M12 7h4.5a2.5 2.5 0 0 0 0-5C13 2 12 7 12 7z"/>',
+  chart: '<line x1="18" y1="20" x2="18" y2="10"/><line x1="12" y1="20" x2="12" y2="4"/><line x1="6" y1="20" x2="6" y2="14"/>',
+  star: '<polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>',
+  cart: '<circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/><path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>',
+  widgets: '<rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/>',
+  file: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/>',
+  pin: '<path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/>',
   activity: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>',
-  wallet:   '<path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/>',
-  coins:    '<circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/>',
-  sms:      '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
+  wallet: '<path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/>',
+  coins: '<circle cx="12" cy="12" r="10"/><path d="M16 8h-6a2 2 0 1 0 0 4h4a2 2 0 1 1 0 4H8"/><line x1="12" y1="6" x2="12" y2="8"/><line x1="12" y1="16" x2="12" y2="18"/>',
+  sms: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>',
   smsCheck: '<path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/><polyline points="8 10 11 13 16 8"/>',
-  sim:      '<path d="M19 21H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l6 6v10a2 2 0 0 1-2 2z"/><rect x="9" y="13" width="6" height="5" rx="1"/>',
+  sim: '<path d="M19 21H8a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h7l6 6v10a2 2 0 0 1-2 2z"/><rect x="9" y="13" width="6" height="5" rx="1"/>',
   userPlus: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><line x1="19" y1="8" x2="19" y2="14"/><line x1="22" y1="11" x2="16" y2="11"/>',
-  userChk:  '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/>',
-  phone:    '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',
-  mic:      '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>',
-  receipt:  '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/>',
+  userChk: '<path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><polyline points="17 11 19 13 23 9"/>',
+  phone: '<path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.63 3.38 2 2 0 0 1 3.6 1.2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.96a16 16 0 0 0 6.13 6.13l1.27-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/>',
+  mic: '<path d="M12 1a3 3 0 0 0-3 3v8a3 3 0 0 0 6 0V4a3 3 0 0 0-3-3z"/><path d="M19 10v2a7 7 0 0 1-14 0v-2"/><line x1="12" y1="19" x2="12" y2="23"/>',
+  receipt: '<path d="M4 2v20l2-1 2 1 2-1 2 1 2-1 2 1 2-1 2 1V2l-2 1-2-1-2 1-2-1-2 1-2-1-2 1-2-1z"/><line x1="8" y1="9" x2="16" y2="9"/><line x1="8" y1="13" x2="14" y2="13"/>',
 }
 
 /* 4D icon images (user-supplied in src/assets) */
@@ -208,59 +214,59 @@ const pic = (n) => PIC[`../assets/1000880${n}.png`]
 const quickGroups = [
   {
     label: 'Website Creator',
-    grad: 'linear-gradient(145deg,#22c55e,#0f7a39)', glow: 'rgba(22,163,74,0.4)',
+    grad: 'linear-gradient(145deg,#22c55e,#0f7a39)',
     tiles: [
-      { title: 'Buy Domain',            icon: ICO.domain,  img: pic('289')          },
-      { title: 'Buy Webmail',           icon: ICO.mail,    img: pic('311')          },
-      { title: 'Broker',                icon: ICO.broker,  route: '/broker',        img: pic('290') },
-      { title: 'Online Banking',        icon: ICO.bank,    route: '/online-banking', img: pic('291') },
-      { title: 'Tesla Giveaway',        icon: ICO.gift,    img: pic('294')          },
-      { title: 'Tesla Investment',      icon: ICO.chart,   img: pic('293')          },
-      { title: 'Celebrity',             icon: ICO.star,    img: pic('292')          },
-      { title: 'Ecommerce Site',        icon: ICO.cart,    img: pic('295')          },
-      { title: 'Website Widgets',       icon: ICO.widgets, isNew: true, img: tileWebsiteWidgets },
-      { title: 'Support Pages',         icon: ICO.file,    route: '/support-pages',  img: tileSupportPages },
-      { title: 'Tracking Pages',        icon: ICO.pin,     route: '/tracking-pages', img: pic('299') },
+      { title: 'Buy Domain', icon: ICO.domain, img: pic('289') },
+      { title: 'Buy Webmail', icon: ICO.mail, img: pic('311') },
+      { title: 'Broker', icon: ICO.broker, route: '/broker', img: pic('290') },
+      { title: 'Online Banking', icon: ICO.bank, route: '/online-banking', img: pic('291') },
+      { title: 'Tesla Giveaway', icon: ICO.gift, img: pic('294') },
+      { title: 'Tesla Investment', icon: ICO.chart, img: pic('293') },
+      { title: 'Celebrity', icon: ICO.star, img: pic('292') },
+      { title: 'Ecommerce Site', icon: ICO.cart, img: pic('295') },
+      { title: 'Website Widgets', icon: ICO.widgets, isNew: true, route: '/website-widgets', img: tileWebsiteWidgets },
+      { title: 'Support Pages', icon: ICO.file, route: '/support-pages', img: tileSupportPages },
+      { title: 'Tracking Pages', icon: ICO.pin, route: '/tracking-pages', img: pic('299') },
       { title: 'Transactions Trackers', icon: ICO.activity, route: '/tools/transactions-tracker', img: tileTransactionsTrackers },
-      { title: 'Wallets',               icon: ICO.wallet,  route: '/wallet',        img: pic('300') },
+      { title: 'Wallets', icon: ICO.wallet, route: '/wallet', img: pic('300') },
     ],
   },
   {
     label: 'Digital Tools',
-    grad: 'linear-gradient(145deg,#3b82f6,#1e40af)', glow: 'rgba(37,99,235,0.4)',
+    grad: 'linear-gradient(145deg,#3b82f6,#1e40af)',
     tiles: [
-      { title: 'Wallet Funding',        icon: ICO.coins,    route: '/tools/wallet-funding', img: pic('301') },
-      { title: 'SMS Sender',            icon: ICO.sms,      route: '/tools/sms-sender',     img: pic('302') },
-      { title: 'SMS Verification',      icon: ICO.smsCheck, img: pic('303')         },
-      { title: 'eSIM',                  icon: ICO.sim,      img: pic('304')         },
-      { title: 'Buy Account',           icon: ICO.userPlus, isNew: true, img: pic('305') },
-      { title: 'Account Verification',  icon: ICO.userChk,  img: pic('306')         },
+      { title: 'Wallet Funding', icon: ICO.coins, route: '/tools/wallet-funding', img: pic('301') },
+      { title: 'SMS Sender', icon: ICO.sms, route: '/tools/sms-sender', img: pic('302') },
+      { title: 'SMS Verification', icon: ICO.smsCheck, img: pic('303') },
+      { title: 'eSIM', icon: ICO.sim, img: pic('304') },
+      { title: 'Buy Account', icon: ICO.userPlus, isNew: true, route: '/tools/buy-account', img: pic('305') },
+      { title: 'Account Verification', icon: ICO.userChk, img: pic('306') },
     ],
   },
   {
     label: 'Call Tools',
-    grad: 'linear-gradient(145deg,#a855f7,#6d28d9)', glow: 'rgba(124,58,237,0.4)',
+    grad: 'linear-gradient(145deg,#a855f7,#6d28d9)',
     tiles: [
-      { title: 'Custom Caller',         icon: ICO.phone,    route: '/tools/spoof-calling', img: pic('307') },
-      { title: 'Voice Notes',           icon: ICO.mic,      isNew: true, img: pic('308') },
+      { title: 'Custom Caller', icon: ICO.phone, route: '/tools/spoof-calling', img: pic('307') },
+      { title: 'Voice Notes', icon: ICO.mic, isNew: true, route: '/tools/voice-notes', img: pic('308') },
     ],
   },
   {
     label: 'Mailing Tools',
-    grad: 'linear-gradient(145deg,#fb923c,#ea580c)', glow: 'rgba(234,88,12,0.4)',
+    grad: 'linear-gradient(145deg,#fb923c,#ea580c)',
     tiles: [
-      { title: 'Crypto Mails',          icon: ICO.mail,     route: '/email-services/branded-emails', img: pic('310') },
-      { title: 'Crypto Bills Mails',    icon: ICO.mail,     route: '/email-services/branded-bills',  img: pic('309') },
-      { title: 'Bank Mailer',           icon: ICO.mail,     route: '/email-services/bank-mailer',    img: pic('312') },
+      { title: 'Crypto Mails', icon: ICO.mail, route: '/email-services/branded-emails', img: pic('310') },
+      { title: 'Crypto Bills Mails', icon: ICO.mail, route: '/email-services/branded-bills', img: pic('309') },
+      { title: 'Bank Mailer', icon: ICO.mail, route: '/email-services/bank-mailer', img: pic('312') },
     ],
   },
   {
     label: 'Generator Tools',
-    grad: 'linear-gradient(145deg,#ec4899,#be185d)', glow: 'rgba(219,39,119,0.4)',
+    grad: 'linear-gradient(145deg,#ec4899,#be185d)',
     tiles: [
-      { title: 'Crypto Receipts',       icon: ICO.receipt,  route: '/tools/crypto-receipts', img: pic('314') },
-      { title: 'Bank Receipt',          icon: ICO.receipt,  route: '/tools/bank-receipt',    img: pic('313') },
-      { title: 'Store Receipt',         icon: ICO.receipt,  img: pic('315')         },
+      { title: 'Crypto Receipts', icon: ICO.receipt, route: '/tools/crypto-receipts', img: pic('314') },
+      { title: 'Bank Receipt', icon: ICO.receipt, route: '/tools/bank-receipt', img: pic('313') },
+      { title: 'Store Receipt', icon: ICO.receipt, img: pic('315') },
     ],
   },
 ]
@@ -279,7 +285,7 @@ function openAction(tile) {
    ══════════════════════════════════ */
 @keyframes dashFadeUp {
   from { opacity: 0; transform: translateY(26px) scale(0.98); }
-  to   { opacity: 1; transform: translateY(0) scale(1); }
+  to { opacity: 1; transform: translateY(0) scale(1); }
 }
 
 .dash-toolbar,
@@ -296,12 +302,12 @@ function openAction(tile) {
   animation: dashFadeUp 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
 }
 
-.dash-toolbar.cascade-play                       { animation-delay: 0.05s; }
+.dash-toolbar.cascade-play { animation-delay: 0.05s; }
 .dash-stats .stat-card.cascade-play:nth-child(1) { animation-delay: 0.12s; }
 .dash-stats .stat-card.cascade-play:nth-child(2) { animation-delay: 0.20s; }
 .dash-stats .stat-card.cascade-play:nth-child(3) { animation-delay: 0.28s; }
-.quick-actions.cascade-play                      { animation-delay: 0.36s; }
-.dash-recent.cascade-play                        { animation-delay: 0.46s; }
+.quick-actions.cascade-play { animation-delay: 0.36s; }
+.dash-recent.cascade-play { animation-delay: 0.46s; }
 
 @media (prefers-reduced-motion: reduce) {
   .dash-toolbar,
@@ -336,7 +342,7 @@ function openAction(tile) {
   height: 40px; padding: 0 18px; border-radius: 10px;
   font-family: inherit; font-size: 0.8rem; font-weight: 700;
   cursor: pointer; white-space: nowrap;
-  transition: background 0.18s ease, box-shadow 0.18s ease, transform 0.12s ease;
+  transition: background 0.18s ease, transform 0.12s ease;
   position: relative; overflow: hidden; isolation: isolate;
 }
 .dtb-btn:active { transform: scale(0.97); }
@@ -370,9 +376,9 @@ function openAction(tile) {
 .dash-toolbar__actions .dtb-btn:nth-child(3)::after { animation-delay: 0.5s; }
 
 @keyframes dtb-shine {
-  0%   { left: -75%; }
-  40%  { left: 125%; }
-  100% { left: 125%; }   /* rest between sweeps */
+  0% { left: -75%; }
+  40% { left: 125%; }
+  100% { left: 125%; } /* rest between sweeps */
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -382,9 +388,8 @@ function openAction(tile) {
 .dtb-btn--green {
   background: #16a34a; color: #fff;
   border: 1px solid #15803d;
-  box-shadow: 0 6px 16px rgba(22,163,74,0.28);
 }
-.dtb-btn--green:hover { background: #15803d; box-shadow: 0 8px 20px rgba(22,163,74,0.34); }
+.dtb-btn--green:hover { background: #15803d; }
 
 .dtb-btn--ghost {
   background: var(--glass-hover); color: var(--t2);
@@ -405,7 +410,6 @@ function openAction(tile) {
     var(--surface-1);
   border: 1px solid var(--border); border-radius: 20px;
   padding: 20px 22px 22px; display: flex; flex-direction: column; gap: 16px;
-  box-shadow: var(--shadow-card);
   min-height: 132px; justify-content: space-between;
 }
 
@@ -413,7 +417,6 @@ function openAction(tile) {
 .stat-card--hero {
   background: linear-gradient(145deg, #22c55e 0%, #16a34a 55%, #0f7a39 100%);
   border: 1px solid rgba(255,255,255,0.18);
-  box-shadow: 0 14px 34px rgba(22,163,74,0.32);
   position: relative; overflow: hidden;
 }
 .stat-card--hero::after {
@@ -440,6 +443,26 @@ function openAction(tile) {
 }
 .stat-card__val { font-size: 1.5rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; line-height: 1.1; }
 
+/* "Top up wallet" chip on the hero card */
+.stat-card__topup {
+  display: inline-flex; align-items: center; gap: 6px; flex-shrink: 0;
+  padding: 7px 13px; border-radius: 999px; cursor: pointer;
+  font-family: inherit; font-size: 0.72rem; font-weight: 700;
+  background: rgba(255,255,255,0.2);
+  border: 1px solid rgba(255,255,255,0.32);
+  color: #fff;
+  transition: background 0.18s ease, transform 0.12s ease;
+}
+.stat-card__topup:hover { background: rgba(255,255,255,0.3); }
+.stat-card__topup:active { transform: scale(0.97); }
+/* Light mode hero is white → green chip */
+:root[data-theme="light"] .stat-card__topup {
+  background: rgba(22,163,74,0.12);
+  border-color: rgba(22,163,74,0.28);
+  color: #16a34a;
+}
+:root[data-theme="light"] .stat-card__topup:hover { background: rgba(22,163,74,0.2); }
+
 /* ══════════════════════════════════
    QUICK ACTIONS
    ══════════════════════════════════ */
@@ -462,15 +485,13 @@ function openAction(tile) {
     radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.03) 38%, transparent 62%),
     var(--surface-1);
   border: 1px solid var(--border);
-  box-shadow: var(--shadow-card);
   cursor: pointer; text-align: left;
   font-family: inherit;
-  transition: border-color 0.2s ease, transform 0.16s ease, box-shadow 0.2s ease;
+  transition: border-color 0.2s ease, transform 0.16s ease;
 }
 .qa-tile:hover {
   border-color: var(--accent-border);
   transform: translateY(-3px);
-  box-shadow: 0 14px 30px rgba(0,0,0,0.10);
 }
 .qa-tile:active { transform: translateY(-1px); }
 
@@ -491,16 +512,28 @@ function openAction(tile) {
     var(--surface-1);
 }
 
+/* Light mode: Wallet balance hero is a clean WHITE card (green stays in dark) */
+:root[data-theme="light"] .stat-card--hero {
+  background:
+    radial-gradient(80% 120% at 0% 100%, rgba(34,197,94,0.1) 0%, transparent 58%),
+    var(--surface-1);
+  border: 1px solid var(--border);
+}
+:root[data-theme="light"] .stat-card--hero::after { display: none; }
+:root[data-theme="light"] .stat-card--hero .stat-card__lbl { color: var(--t3); }
+:root[data-theme="light"] .stat-card--hero .stat-card__val { color: var(--t1); }
+:root[data-theme="light"] .stat-card--hero .stat-card__ico {
+  background: rgba(22,163,74,0.12); border-color: rgba(22,163,74,0.25); color: #16a34a;
+}
+
 .qa-tile__medal {
   width: 46px; height: 46px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
   border-radius: 14px;
-  box-shadow: inset 0 1px 0 rgba(255,255,255,0.3);
 }
 /* 4D image icon — dark app-tile look, image fills the medallion */
 .qa-tile__medal--img {
   background: #0b0f0e;
-  box-shadow: var(--shadow-card);
   overflow: hidden;
 }
 .qa-tile__pic { width: 100%; height: 100%; object-fit: cover; display: block; }
@@ -526,7 +559,6 @@ function openAction(tile) {
     radial-gradient(55% 90% at 0% 100%, rgba(34,197,94,0.08) 0%, transparent 55%),
     var(--surface-1);
   border: 1px solid var(--border); border-radius: 20px;
-  box-shadow: var(--shadow-card);
   display: flex; flex-direction: column;
 }
 .recent-card__hdr {

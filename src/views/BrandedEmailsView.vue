@@ -211,49 +211,49 @@ import { ref, reactive } from 'vue'
 const gf = d => `https://www.google.com/s2/favicons?domain=${d}&sz=128`
 
 const providers = [
-  { name: 'Binance',        tagline: 'Binance Sets the Standard',                    badge: 'GLOBAL',       badgeBg: '#f59e0b',  badgeColor: '#fff', topColor: '#f59e0b',  logo: gf('binance.com') },
-  { name: 'Coinbase',       tagline: 'Coinbase, Accessible and Simple',              badge: 'GOLD',         badgeBg: '#3b82f6',  badgeColor: '#fff', topColor: '#3b82f6',  logo: gf('coinbase.com') },
-  { name: 'Kraken',         tagline: 'Kraken, Trusted by Pros',                      badge: 'PRO',          badgeBg: '#8b5cf6',  badgeColor: '#fff', topColor: '#8b5cf6',  logo: gf('kraken.com') },
-  { name: 'Blockchain.com', tagline: 'Blockchain, the Original',                     badge: 'PREMIUM',      badgeBg: '#60a5fa',  badgeColor: '#fff', topColor: '#60a5fa',  logo: gf('blockchain.com') },
-  { name: 'Bitcoin.com',    tagline: 'Bitcoin, Reimagined',                          badge: 'PIONEER',      badgeBg: '#f59e0b',  badgeColor: '#fff', topColor: '#f59e0b',  logo: gf('bitcoin.com') },
-  { name: 'ByBit',          tagline: 'Bybit, Speed and Precision',                   badge: 'SPEED',        badgeBg: '#f59e0b',  badgeColor: '#fff', topColor: '#f59e0b',  logo: gf('bybit.com') },
-  { name: 'MetaMask',       tagline: 'MetaMask, the Gateway',                        badge: 'PROFESSIONAL', badgeBg: '#f97316',  badgeColor: '#fff', topColor: '#f97316',  logo: gf('metamask.io') },
-  { name: 'OKX',            tagline: 'OKX, Powerful. Secure. Global.',               badge: 'POWERHOUSE',   badgeBg: '#0f172a',  badgeColor: '#fff', topColor: '#0f172a',  logo: gf('okx.com') },
-  { name: 'LUNO',           tagline: 'Luno, Crypto for Emerging Markets',            badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#1e293b',  logo: gf('luno.com') },
-  { name: 'VALR',           tagline: "VALR, South Africa's Crypto Frontier",         badge: 'AFRICA',       badgeBg: '#0f172a',  badgeColor: '#fff', topColor: '#0f172a',  logo: gf('valr.com') },
-  { name: 'Yellow Card',    tagline: 'Yellow Card, Crypto for Emerging Markets',     badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#f59e0b',  logo: gf('yellowcard.io') },
-  { name: 'Roqqu',          tagline: 'Roqqu, Crypto for Emerging Markets',           badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#1e293b',  logo: gf('roqqu.com') },
-  { name: 'Bitso',          tagline: "Bitso, Latin America's Crypto Bridge",         badge: 'PROFESSIONAL', badgeBg: '#f05025',  badgeColor: '#fff', topColor: '#f05025',  logo: gf('bitso.com') },
-  { name: 'Bitget',         tagline: 'Bitget, Crypto Made Accessible',               badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#22d3ee',  logo: gf('bitget.com') },
-  { name: 'SuperEx',        tagline: 'SuperEx, Crypto for Emerging Markets',         badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#ef4444',  logo: gf('superex.com') },
-  { name: 'XT Wallet',      tagline: 'XT Wallet, Crypto for Emerging Markets',       badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#3b82f6',  logo: gf('xt.com') },
-  { name: 'AltCoin Trader', tagline: 'AltCoin Trader, Crypto for Emerging Markets', badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#60a5fa',  logo: gf('altcointrader.co.za') },
-  { name: 'Crypto.com',     tagline: 'Crypto at the Speed of Life',                 badge: 'GOLD WINNER',  badgeBg: '#3b82f6',  badgeColor: '#fff', topColor: '#3b82f6',  logo: gf('crypto.com') },
-  { name: 'Cash App',       tagline: 'Cash App, Everyday Crypto',                   badge: 'GOLD WINNER',  badgeBg: '#f05025',  badgeColor: '#fff', topColor: '#f05025',  logo: gf('cash.app') },
-  { name: 'Zelle',          tagline: 'Zelle, Crypto for Emerging Markets',           badge: 'EMERGENCE',    badgeBg: '#8b5cf6',  badgeColor: '#fff', topColor: '#8b5cf6',  logo: gf('zellepay.com') },
-  { name: 'Venmo',          tagline: 'Venmo, Crypto for Emerging Markets',           badge: 'EMERGENCE',    badgeBg: '#1e293b',  badgeColor: '#fff', topColor: '#3b82f6',  logo: gf('venmo.com') },
-  { name: 'GCash',          tagline: 'GCash, Crypto in Your Wallet',                badge: 'PHP',          badgeBg: '#22d3ee',  badgeColor: '#fff', topColor: '#22d3ee',  logo: gf('gcash.com') },
+  { name: 'Binance', tagline: 'Binance Sets the Standard', badge: 'GLOBAL', badgeBg: '#f59e0b', badgeColor: '#fff', topColor: '#f59e0b', logo: gf('binance.com') },
+  { name: 'Coinbase', tagline: 'Coinbase, Accessible and Simple', badge: 'GOLD', badgeBg: '#3b82f6', badgeColor: '#fff', topColor: '#3b82f6', logo: gf('coinbase.com') },
+  { name: 'Kraken', tagline: 'Kraken, Trusted by Pros', badge: 'PRO', badgeBg: '#8b5cf6', badgeColor: '#fff', topColor: '#8b5cf6', logo: gf('kraken.com') },
+  { name: 'Blockchain.com', tagline: 'Blockchain, the Original', badge: 'PREMIUM', badgeBg: '#60a5fa', badgeColor: '#fff', topColor: '#60a5fa', logo: gf('blockchain.com') },
+  { name: 'Bitcoin.com', tagline: 'Bitcoin, Reimagined', badge: 'PIONEER', badgeBg: '#f59e0b', badgeColor: '#fff', topColor: '#f59e0b', logo: gf('bitcoin.com') },
+  { name: 'ByBit', tagline: 'Bybit, Speed and Precision', badge: 'SPEED', badgeBg: '#f59e0b', badgeColor: '#fff', topColor: '#f59e0b', logo: gf('bybit.com') },
+  { name: 'MetaMask', tagline: 'MetaMask, the Gateway', badge: 'PROFESSIONAL', badgeBg: '#f97316', badgeColor: '#fff', topColor: '#f97316', logo: gf('metamask.io') },
+  { name: 'OKX', tagline: 'OKX, Powerful. Secure. Global.', badge: 'POWERHOUSE', badgeBg: '#0f172a', badgeColor: '#fff', topColor: '#0f172a', logo: gf('okx.com') },
+  { name: 'LUNO', tagline: 'Luno, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#1e293b', logo: gf('luno.com') },
+  { name: 'VALR', tagline: "VALR, South Africa's Crypto Frontier", badge: 'AFRICA', badgeBg: '#0f172a', badgeColor: '#fff', topColor: '#0f172a', logo: gf('valr.com') },
+  { name: 'Yellow Card', tagline: 'Yellow Card, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#f59e0b', logo: gf('yellowcard.io') },
+  { name: 'Roqqu', tagline: 'Roqqu, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#1e293b', logo: gf('roqqu.com') },
+  { name: 'Bitso', tagline: "Bitso, Latin America's Crypto Bridge", badge: 'PROFESSIONAL', badgeBg: '#f05025', badgeColor: '#fff', topColor: '#f05025', logo: gf('bitso.com') },
+  { name: 'Bitget', tagline: 'Bitget, Crypto Made Accessible', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#22d3ee', logo: gf('bitget.com') },
+  { name: 'SuperEx', tagline: 'SuperEx, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#ef4444', logo: gf('superex.com') },
+  { name: 'XT Wallet', tagline: 'XT Wallet, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#3b82f6', logo: gf('xt.com') },
+  { name: 'AltCoin Trader', tagline: 'AltCoin Trader, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#60a5fa', logo: gf('altcointrader.co.za') },
+  { name: 'Crypto.com', tagline: 'Crypto at the Speed of Life', badge: 'GOLD WINNER', badgeBg: '#3b82f6', badgeColor: '#fff', topColor: '#3b82f6', logo: gf('crypto.com') },
+  { name: 'Cash App', tagline: 'Cash App, Everyday Crypto', badge: 'GOLD WINNER', badgeBg: '#f05025', badgeColor: '#fff', topColor: '#f05025', logo: gf('cash.app') },
+  { name: 'Zelle', tagline: 'Zelle, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#8b5cf6', badgeColor: '#fff', topColor: '#8b5cf6', logo: gf('zellepay.com') },
+  { name: 'Venmo', tagline: 'Venmo, Crypto for Emerging Markets', badge: 'EMERGENCE', badgeBg: '#1e293b', badgeColor: '#fff', topColor: '#3b82f6', logo: gf('venmo.com') },
+  { name: 'GCash', tagline: 'GCash, Crypto in Your Wallet', badge: 'PHP', badgeBg: '#22d3ee', badgeColor: '#fff', topColor: '#22d3ee', logo: gf('gcash.com') },
 ]
 
 /* â"€â"€ Drawer state â"€â"€ */
-const drawerOpen      = ref(false)
-const activeProvider  = ref(null)
-const sending         = ref(false)
-const showSuccess     = ref(false)
+const drawerOpen = ref(false)
+const activeProvider = ref(null)
+const sending = ref(false)
+const showSuccess = ref(false)
 const lastSentRecipient = ref('')
-const formError       = ref('')
-const sentMails       = ref([])
+const formError = ref('')
+const sentMails = ref([])
 
 const txTypes = ['Deposit', 'Withdrawal', 'Transfer', 'Payment']
 
 const form = reactive({
   recipient: '',
-  sender:    '',
-  amount:    '',
-  currency:  'USD',
-  wallet:    '',
-  note:      '',
-  type:      'Deposit',
+  sender: '',
+  amount: '',
+  currency: 'USD',
+  wallet: '',
+  note: '',
+  type: 'Deposit',
 })
 
 function selectProvider(p) {
@@ -272,22 +272,22 @@ function sendMail() {
   formError.value = ''
   if (!form.recipient.trim()) { formError.value = 'Recipient email is required.'; return }
   if (!form.recipient.includes('@')) { formError.value = 'Please enter a valid email address.'; return }
-  if (!form.sender.trim())    { formError.value = 'Sender name is required.'; return }
+  if (!form.sender.trim()) { formError.value = 'Sender name is required.'; return }
   if (!form.amount || Number(form.amount) <= 0) { formError.value = 'Please enter a valid amount.'; return }
 
   sending.value = true
   setTimeout(() => {
     sentMails.value.unshift({
-      id:        Date.now(),
-      provider:  activeProvider.value.name,
-      logo:      activeProvider.value.logo,
+      id: Date.now(),
+      provider: activeProvider.value.name,
+      logo: activeProvider.value.logo,
       recipient: form.recipient,
-      type:      form.type,
-      amount:    `${form.amount} ${form.currency}`,
-      time:      new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
+      type: form.type,
+      amount: `${form.amount} ${form.currency}`,
+      time: new Date().toLocaleTimeString('en-US', { hour: '2-digit', minute: '2-digit' }),
     })
     lastSentRecipient.value = form.recipient
-    sending.value  = false
+    sending.value = false
     showSuccess.value = true
     closeDrawer()
     setTimeout(() => { showSuccess.value = false }, 3500)
@@ -330,7 +330,7 @@ function onImgError(e) {
 .back-btn:hover { background: var(--bg); color: var(--t1); }
 .cm-header__text { display: flex; flex-direction: column; gap: 4px; }
 .cm-title { font-size: 1.45rem; font-weight: 800; color: var(--t1); letter-spacing: -0.025em; margin: 0; }
-.cm-sub   { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
+.cm-sub { font-size: 0.82rem; color: var(--t1); font-weight: 600; margin: 0; }
 
 /* â"€â"€ Provider Grid â"€â"€ */
 .provider-grid {
@@ -352,13 +352,12 @@ function onImgError(e) {
   border: 1px solid var(--border-soft);
   cursor: pointer;
   overflow: hidden;
-  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease;
   text-align: center;
 }
 .p-card:hover {
   transform: translateY(-4px);
   border-color: var(--border);
-  box-shadow: 0 10px 32px rgba(0,0,0,0.25);
 }
 .p-card__top-bar {
   height: 5px; background: var(--accent-top);
@@ -379,13 +378,13 @@ function onImgError(e) {
 }
 .p-card__logo { width: 52px; height: 52px; object-fit: contain; border-radius: 10px; image-rendering: -webkit-optimize-contrast; }
 .p-card__logo-fallback { font-size: 1rem; font-weight: 800; color: var(--t2); }
-.p-card__name  { font-size: 0.92rem; font-weight: 700; color: var(--t1); margin: 0; }
-.p-card__tag   { font-size: 0.75rem; color: var(--t3); margin: 0; line-height: 1.5; }
-.p-card__cta   { margin-top: auto; font-size: 0.72rem; color: var(--t4); padding-top: 8px; border-top: 1px solid var(--border-soft); width: 100%; text-align: center; }
+.p-card__name { font-size: 0.92rem; font-weight: 700; color: var(--t1); margin: 0; }
+.p-card__tag { font-size: 0.75rem; color: var(--t3); margin: 0; line-height: 1.5; }
+.p-card__cta { margin-top: auto; font-size: 0.72rem; color: var(--t4); padding-top: 8px; border-top: 1px solid var(--border-soft); width: 100%; text-align: center; }
 
 /* â"€â"€ Recently Sent â"€â"€ */
 .recent-section { display: flex; flex-direction: column; gap: 14px; }
-.recent-title   { font-size: 1rem; font-weight: 700; color: var(--t1); margin: 0; }
+.recent-title { font-size: 1rem; font-weight: 700; color: var(--t1); margin: 0; }
 .recent-empty {
   display: flex; flex-direction: column; align-items: center; justify-content: center;
   gap: 8px; padding: 48px 24px;
@@ -397,7 +396,7 @@ function onImgError(e) {
   display: flex; align-items: center; justify-content: center; color: var(--t4);
 }
 .recent-empty__title { font-size: 0.9rem; font-weight: 700; color: var(--t1); margin: 0; }
-.recent-empty__sub   { font-size: 0.78rem; color: var(--t3); margin: 0; max-width: 320px; line-height: 1.55; }
+.recent-empty__sub { font-size: 0.78rem; color: var(--t3); margin: 0; max-width: 320px; line-height: 1.55; }
 
 /* Sent list */
 .sent-list { display: flex; flex-direction: column; gap: 8px; }
@@ -408,7 +407,7 @@ function onImgError(e) {
 }
 .sent-item__logo { width: 28px; height: 28px; border-radius: 6px; object-fit: contain; }
 .sent-item__info { display: flex; flex-direction: column; gap: 2px; flex: 1; min-width: 0; }
-.sent-item__to   { font-size: 0.82rem; font-weight: 600; color: var(--t1); }
+.sent-item__to { font-size: 0.82rem; font-weight: 600; color: var(--t1); }
 .sent-item__meta { font-size: 0.7rem; color: var(--t3); }
 .sent-item__badge {
   font-size: 0.65rem; font-weight: 700; padding: 3px 9px; border-radius: 999px;
@@ -431,7 +430,6 @@ function onImgError(e) {
   display: flex; flex-direction: column;
   background: var(--bg);
   border-left: 1px solid var(--border-soft);
-  box-shadow: -16px 0 48px rgba(0,0,0,0.45);
   overflow: hidden;
 }
 
@@ -442,11 +440,11 @@ function onImgError(e) {
   border-bottom: 1px solid var(--border-soft);
   flex-shrink: 0;
 }
-.drawer-head__left    { display: flex; align-items: center; gap: 12px; }
-.drawer-logo-wrap     { width: 44px; height: 44px; border-radius: 12px; background: var(--glass-hover); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; overflow: hidden; }
-.drawer-logo          { width: 32px; height: 32px; object-fit: contain; border-radius: 6px; }
+.drawer-head__left { display: flex; align-items: center; gap: 12px; }
+.drawer-logo-wrap { width: 44px; height: 44px; border-radius: 12px; background: var(--glass-hover); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; overflow: hidden; }
+.drawer-logo { width: 32px; height: 32px; object-fit: contain; border-radius: 6px; }
 .drawer-provider-name { font-size: 0.95rem; font-weight: 700; color: var(--t1); margin: 0; }
-.drawer-provider-tag  { font-size: 0.7rem; color: var(--t3); margin: 2px 0 0; }
+.drawer-provider-tag { font-size: 0.7rem; color: var(--t3); margin: 2px 0 0; }
 .drawer-close {
   width: 30px; height: 30px; border-radius: 8px;
   border: 1px solid var(--border-soft); background: var(--bg);
@@ -466,11 +464,11 @@ function onImgError(e) {
 }
 
 /* Fields */
-.field-group       { display: flex; flex-direction: column; gap: 7px; }
+.field-group { display: flex; flex-direction: column; gap: 7px; }
 .field-group--flex { flex: 1; }
-.field-row         { display: flex; gap: 12px; }
-.field-label       { font-size: 0.78rem; font-weight: 600; color: var(--t2); }
-.field-optional    { font-weight: 400; color: var(--t4); }
+.field-row { display: flex; gap: 12px; }
+.field-label { font-size: 0.78rem; font-weight: 600; color: var(--t2); }
+.field-optional { font-weight: 400; color: var(--t4); }
 
 .field-input-wrap {
   position: relative; display: flex; align-items: center;
@@ -574,59 +572,58 @@ function onImgError(e) {
   padding: 14px 20px; border-radius: 14px;
   background: var(--accent); color: #fff;
   font-family: 'Plus Jakarta Sans', sans-serif; font-size: 0.85rem; font-weight: 600;
-  box-shadow: 0 8px 28px rgba(22,163,74,0.45);
 }
 
 /* â"€â"€ Animations â"€â"€ */
 .backdrop-fade-enter-active, .backdrop-fade-leave-active { transition: opacity 0.25s ease; }
-.backdrop-fade-enter-from,   .backdrop-fade-leave-to     { opacity: 0; }
+.backdrop-fade-enter-from, .backdrop-fade-leave-to { opacity: 0; }
 
 .drawer-slide-enter-active { transition: transform 0.3s cubic-bezier(0.34, 1.1, 0.64, 1); }
 .drawer-slide-leave-active { transition: transform 0.22s ease; }
 .drawer-slide-enter-from,
-.drawer-slide-leave-to     { transform: translateX(100%); }
+.drawer-slide-leave-to { transform: translateX(100%); }
 
 .toast-pop-enter-active { transition: opacity 0.3s ease, transform 0.3s cubic-bezier(0.34,1.56,0.64,1); }
 .toast-pop-leave-active { transition: opacity 0.2s ease, transform 0.2s ease; }
 .toast-pop-enter-from,
-.toast-pop-leave-to     { opacity: 0; transform: translateY(12px) scale(0.95); }
+.toast-pop-leave-to { opacity: 0; transform: translateY(12px) scale(0.95); }
 
 /* â"€â"€ Responsive â"€â"€ */
 @media (max-width: 1024px) {
   .provider-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
 }
 @media (max-width: 768px) {
-  .cm-page       { gap: 22px; }
-  .cm-header     { flex-direction: column; gap: 10px; margin-top: 10px; }
+  .cm-page { gap: 22px; }
+  .cm-header { flex-direction: column; gap: 10px; margin-top: 10px; }
   .provider-grid { grid-template-columns: repeat(2, 1fr); gap: 12px; }
-  .cm-title      { font-size: 1.25rem; }
-  .cm-sub        { font-size: 0.78rem; }
-  .send-drawer   { width: 100%; }
+  .cm-title { font-size: 1.25rem; }
+  .cm-sub { font-size: 0.78rem; }
+  .send-drawer { width: 100%; }
 }
 @media (max-width: 600px) {
-  .cm-header     { margin-top: 12px; }
+  .cm-header { margin-top: 12px; }
   .provider-grid { gap: 10px; }
-  .p-card        { padding: 0 14px 16px; gap: 8px; border-radius: 14px; }
+  .p-card { padding: 0 14px 16px; gap: 8px; border-radius: 14px; }
   .p-card__top-bar { margin-left: -14px; width: calc(100% + 28px); }
   .p-card__logo-wrap { width: 54px; height: 54px; border-radius: 14px; }
   .p-card__logo-wrap img { width: 32px; height: 32px; }
   .p-card__badge { font-size: 0.58rem; padding: 3px 9px; }
-  .p-card__name  { font-size: 0.82rem; }
-  .p-card__tag   { font-size: 0.68rem; }
-  .p-card__cta   { font-size: 0.65rem; padding-top: 7px; }
+  .p-card__name { font-size: 0.82rem; }
+  .p-card__tag { font-size: 0.68rem; }
+  .p-card__cta { font-size: 0.65rem; padding-top: 7px; }
 }
 @media (max-width: 430px) {
-  .cm-header     { margin-top: 14px; }
+  .cm-header { margin-top: 14px; }
   .provider-grid { gap: 8px; }
-  .p-card        { padding: 0 11px 14px; gap: 7px; border-radius: 12px; }
+  .p-card { padding: 0 11px 14px; gap: 7px; border-radius: 12px; }
   .p-card__top-bar { margin-left: -11px; width: calc(100% + 22px); }
   .p-card__logo-wrap { width: 46px; height: 46px; border-radius: 12px; }
   .p-card__logo-wrap img { width: 28px; height: 28px; }
-  .p-card__name  { font-size: 0.76rem; }
-  .p-card__tag   { font-size: 0.62rem; }
-  .p-card__cta   { font-size: 0.6rem; }
-  .back-btn      { font-size: 0.75rem; padding: 6px 12px; }
-  .cm-title      { font-size: 1.1rem; }
+  .p-card__name { font-size: 0.76rem; }
+  .p-card__tag { font-size: 0.62rem; }
+  .p-card__cta { font-size: 0.6rem; }
+  .back-btn { font-size: 0.75rem; padding: 6px 12px; }
+  .cm-title { font-size: 1.1rem; }
 }
 
 /* â"€â"€ Light mode â"€â"€ */

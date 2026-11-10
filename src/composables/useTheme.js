@@ -17,7 +17,7 @@ function resolve(pref) {
 }
 
 // themePref = what the user picked (light | dark | auto) — drives the checkmark
-// theme     = the actual theme applied right now (light | dark)
+// theme = the actual theme applied right now (light | dark)
 const themePref = ref(readPref())
 const theme = ref(resolve(themePref.value))
 
@@ -57,8 +57,8 @@ function setThemePref(pref) {
 
 export function useTheme() {
   return {
-    theme,          // resolved: 'light' | 'dark'
-    themePref,      // chosen:   'light' | 'dark' | 'auto'
+    theme, // resolved: 'light' | 'dark'
+    themePref, // chosen: 'light' | 'dark' | 'auto'
     setThemePref,
     setTheme: setThemePref, // backward compat
     toggleTheme: () => setThemePref(theme.value === 'dark' ? 'light' : 'dark'),

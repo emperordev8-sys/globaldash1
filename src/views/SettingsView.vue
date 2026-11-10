@@ -395,10 +395,10 @@ const { success: toastSuccess, error: toastError } = useToast()
 
 /* ── Tabs ── */
 const tabs = [
-  { id: 'profile',  label: 'Profile' },
+  { id: 'profile', label: 'Profile' },
   { id: 'security', label: 'Security' },
-  { id: 'login',    label: 'Login history' },
-  { id: 'smtp',     label: 'My SMTP' },
+  { id: 'login', label: 'Login history' },
+  { id: 'smtp', label: 'My SMTP' },
   { id: 'referrals',label: 'Referrals' },
 ]
 const activeTab = ref('profile')
@@ -407,9 +407,9 @@ const activeTab = ref('profile')
 const profile = ref({
   fullName: 'Globalgle',
   username: '@refrer',
-  email:    'globalgle@gmail.com',
+  email: 'globalgle@gmail.com',
   telegram: '@global',
-  phone:    '08000000000',
+  phone: '08000000000',
 })
 
 const initials = computed(() =>
@@ -458,14 +458,14 @@ function saveContactInfo() {
 /* ── Security ── */
 const pwForm = ref({ current: '', new: '', confirm: '' })
 const showPw = ref({ current: false, new: false })
-const twoFA  = ref(false)
+const twoFA = ref(false)
 
 const pwStrength = computed(() => {
   const pw = pwForm.value.new
   let score = 0
-  if (pw.length >= 8)          score++
-  if (/[A-Z]/.test(pw))        score++
-  if (/[0-9]/.test(pw))        score++
+  if (pw.length >= 8) score++
+  if (/[A-Z]/.test(pw)) score++
+  if (/[0-9]/.test(pw)) score++
   if (/[^A-Za-z0-9]/.test(pw)) score++
   const labels = ['', 'Weak', 'Fair', 'Good', 'Strong']
   const colors = ['', '#f87171', '#f59e0b', '#60a5fa', 'var(--accent)']
@@ -485,10 +485,10 @@ function changePassword() {
 
 /* ── Login history ── */
 const loginHistory = ref([
-  { id: 1, date: 'Jun 9, 2026 · 10:24 AM', device: 'Chrome · Windows', location: 'Lagos, NG',  ip: '102.89.23.14',  status: 'current', deviceIcon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
-  { id: 2, date: 'Jun 8, 2026 · 08:11 PM', device: 'Safari · iPhone',  location: 'Abuja, NG',  ip: '102.91.44.20',  status: 'success', deviceIcon: '<rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>' },
-  { id: 3, date: 'Jun 7, 2026 · 03:55 PM', device: 'Firefox · Linux',  location: 'London, UK', ip: '185.220.101.8', status: 'blocked', deviceIcon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
-  { id: 4, date: 'Jun 5, 2026 · 11:00 AM', device: 'Chrome · Android', location: 'Lagos, NG',  ip: '102.89.50.66',  status: 'success', deviceIcon: '<rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>' },
+  { id: 1, date: 'Jun 9, 2026 · 10:24 AM', device: 'Chrome · Windows', location: 'Lagos, NG', ip: '102.89.23.14', status: 'current', deviceIcon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
+  { id: 2, date: 'Jun 8, 2026 · 08:11 PM', device: 'Safari · iPhone', location: 'Abuja, NG', ip: '102.91.44.20', status: 'success', deviceIcon: '<rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>' },
+  { id: 3, date: 'Jun 7, 2026 · 03:55 PM', device: 'Firefox · Linux', location: 'London, UK', ip: '185.220.101.8', status: 'blocked', deviceIcon: '<rect x="2" y="3" width="20" height="14" rx="2"/><line x1="8" y1="21" x2="16" y2="21"/><line x1="12" y1="17" x2="12" y2="21"/>' },
+  { id: 4, date: 'Jun 5, 2026 · 11:00 AM', device: 'Chrome · Android', location: 'Lagos, NG', ip: '102.89.50.66', status: 'success', deviceIcon: '<rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/>' },
 ])
 
 /* ── SMTP ── */
@@ -500,19 +500,19 @@ const referralCode = 'GLOBAL-REFRER'
 const referralLink = 'https://globalgle.app/ref/GLOBAL-REFRER'
 
 const refStats = [
-  { label: 'Total Referrals', val: '0',  color: 'green', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
-  { label: 'Active Plans',    val: '0',  color: 'blue',  icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
-  { label: 'Total Earned',    val: '₦0', color: 'amber', icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
+  { label: 'Total Referrals', val: '0', color: 'green', icon: '<path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/>' },
+  { label: 'Active Plans', val: '0', color: 'blue', icon: '<polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/>' },
+  { label: 'Total Earned', val: '₦0', color: 'amber', icon: '<line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/>' },
 ]
 
 /* ── SMTP save ── */
 function saveSMTP() {
-  if (!smtp.value.host.trim())      { toastError('SMTP Host required', 'Please enter your SMTP host.');        return }
-  if (!smtp.value.port)             { toastError('Port required',      'Please enter the SMTP port number.');  return }
-  if (!smtp.value.username.trim())  { toastError('Username required',  'Please enter your SMTP username.');    return }
-  if (!smtp.value.password)         { toastError('Password required',  'Please enter your SMTP password.');    return }
-  if (!smtp.value.fromName.trim())  { toastError('From Name required', 'Please enter the sender name.');       return }
-  if (!smtp.value.fromEmail.trim()) { toastError('From Email required','Please enter the sender email.');      return }
+  if (!smtp.value.host.trim()) { toastError('SMTP Host required', 'Please enter your SMTP host.'); return }
+  if (!smtp.value.port) { toastError('Port required', 'Please enter the SMTP port number.'); return }
+  if (!smtp.value.username.trim()) { toastError('Username required', 'Please enter your SMTP username.'); return }
+  if (!smtp.value.password) { toastError('Password required', 'Please enter your SMTP password.'); return }
+  if (!smtp.value.fromName.trim()) { toastError('From Name required', 'Please enter the sender name.'); return }
+  if (!smtp.value.fromEmail.trim()) { toastError('From Email required','Please enter the sender email.'); return }
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(smtp.value.fromEmail)) {
     toastError('Invalid email', 'From Email must be a valid email address.')
     return
@@ -567,11 +567,11 @@ function copyText(text) {
 /* ── Overview card (profile) ── */
 .set-content { display: flex; flex-direction: column; gap: 16px; }
 
-.set-ov-card    { padding: 18px 20px 16px; gap: 14px; }
-.set-ov-body    { display: flex; flex-direction: column; gap: 20px; }
-.set-ov-row     { display: flex; flex-direction: column; gap: 7px; }
+.set-ov-card { padding: 18px 20px 16px; gap: 14px; }
+.set-ov-body { display: flex; flex-direction: column; gap: 20px; }
+.set-ov-row { display: flex; flex-direction: column; gap: 7px; }
 
-.set-ov-avatar-row     { display: flex; align-items: center; gap: 14px; }
+.set-ov-avatar-row { display: flex; align-items: center; gap: 14px; }
 .set-ov-avatar-actions { display: flex; flex-direction: column; gap: 5px; align-items: flex-start; }
 .set-avatar--md { width: 48px; height: 48px; font-size: 0.95rem; }
 
@@ -599,18 +599,18 @@ function copyText(text) {
 }
 .set-card--red { border-color: rgba(248,113,113,.2); background: rgba(248,113,113,.03); }
 
-.set-card-hdr   { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.set-card-hdr { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
 .set-card-title { font-size: 0.9rem; font-weight: 700; color: var(--t1); }
-.set-card-desc  { font-size: 0.77rem; color: var(--t3); margin: 0; line-height: 1.5; }
+.set-card-desc { font-size: 0.77rem; color: var(--t3); margin: 0; line-height: 1.5; }
 .set-count-badge {
   font-size: 0.66rem; font-weight: 700; padding: 3px 9px; border-radius: 999px;
   background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);
 }
 
 /* ── Security form ── */
-.set-sec-form  { display: flex; flex-direction: column; gap: 14px; }
-.set-fgroup    { display: flex; flex-direction: column; gap: 6px; }
-.set-label     { font-size: 0.73rem; font-weight: 700; color: var(--t2); }
+.set-sec-form { display: flex; flex-direction: column; gap: 14px; }
+.set-fgroup { display: flex; flex-direction: column; gap: 6px; }
+.set-label { font-size: 0.73rem; font-weight: 700; color: var(--t2); }
 
 .set-input {
   width: 100%; background: var(--glass); border: 1px solid var(--border-soft);
@@ -619,7 +619,7 @@ function copyText(text) {
   transition: border-color 0.2s;
 }
 .set-input:focus { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.4); }
-.set-input--err  { border-color: rgba(248,113,113,.4); }
+.set-input--err { border-color: rgba(248,113,113,.4); }
 .set-input:disabled { opacity: 0.55; cursor: not-allowed; }
 
 .set-err { font-size: 0.7rem; color: #f87171; }
@@ -681,15 +681,15 @@ function copyText(text) {
   background: var(--glass-2); border: 1px solid rgba(248,113,113,.1);
 }
 .set-danger-name { font-size: 0.83rem; font-weight: 700; color: var(--t1); margin-bottom: 3px; }
-.set-danger-sub  { font-size: 0.72rem; color: var(--t1); font-weight: 600; }
+.set-danger-sub { font-size: 0.72rem; color: var(--t1); font-weight: 600; }
 .set-danger-btn {
   flex-shrink: 0; padding: 7px 15px; border-radius: 9px;
   font-size: 0.77rem; font-weight: 700; cursor: pointer; font-family: inherit; transition: all 0.2s;
 }
 .set-danger-btn--amber { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.22); color: #f59e0b; }
 .set-danger-btn--amber:hover { background: rgba(245,158,11,.2); }
-.set-danger-btn--red  { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.22); color: #f87171; }
-.set-danger-btn--red:hover  { background: rgba(248,113,113,.2); }
+.set-danger-btn--red { background: rgba(248,113,113,.1); border: 1px solid rgba(248,113,113,.22); color: #f87171; }
+.set-danger-btn--red:hover { background: rgba(248,113,113,.2); }
 
 /* ── Login history ── */
 .set-login-table { display: flex; flex-direction: column; }
@@ -706,32 +706,32 @@ function copyText(text) {
   border-bottom: 1px solid var(--border-soft);
 }
 .set-login-row:last-child { border-bottom: none; }
-.set-login-date  { font-size: 0.75rem; color: var(--t1); font-weight: 700; }
+.set-login-date { font-size: 0.75rem; color: var(--t1); font-weight: 700; }
 .set-login-device{ font-size: 0.8rem; font-weight: 700; color: var(--t1); display: flex; align-items: center; gap: 6px; }
-.set-login-loc   { font-size: 0.77rem; color: var(--t1); font-weight: 700; }
-.set-login-ip    { font-size: 0.72rem; color: var(--t2); font-weight: 700; font-family: monospace; }
+.set-login-loc { font-size: 0.77rem; color: var(--t1); font-weight: 700; }
+.set-login-ip { font-size: 0.72rem; color: var(--t2); font-weight: 700; font-family: monospace; }
 
 .set-status-tag {
   font-size: 0.63rem; font-weight: 700; text-transform: uppercase;
   padding: 3px 9px; border-radius: 999px; width: fit-content;
 }
-.set-status-tag--current { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1);   color: var(--accent);  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);  }
-.set-status-tag--success { background: rgba(96,165,250,.1);  color: #60a5fa;  border: 1px solid rgba(96,165,250,.2); }
-.set-status-tag--blocked { background: rgba(248,113,113,.1); color: #f87171;  border: 1px solid rgba(248,113,113,.2);}
+.set-status-tag--current { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); color: var(--accent); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); }
+.set-status-tag--success { background: rgba(96,165,250,.1); color: #60a5fa; border: 1px solid rgba(96,165,250,.2); }
+.set-status-tag--blocked { background: rgba(248,113,113,.1); color: #f87171; border: 1px solid rgba(248,113,113,.2);}
 
 /* ── SMTP ── */
-.set-smtp-form  { display: flex; flex-direction: column; gap: 14px; }
-.set-smtp-row   { display: flex; gap: 14px; }
-.set-radio-row  { display: flex; gap: 18px; }
-.set-radio-opt  { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--t2); cursor: pointer; }
+.set-smtp-form { display: flex; flex-direction: column; gap: 14px; }
+.set-smtp-row { display: flex; gap: 14px; }
+.set-radio-row { display: flex; gap: 18px; }
+.set-radio-opt { display: flex; align-items: center; gap: 8px; font-size: 0.82rem; font-weight: 600; color: var(--t2); cursor: pointer; }
 .set-radio {
   width: 16px; height: 16px; border-radius: 50%; flex-shrink: 0;
   border: 2px solid var(--border-soft); display: flex; align-items: center;
   justify-content: center; transition: border-color 0.2s;
 }
-.set-radio--on  { border-color: var(--accent); }
-.set-radio-dot  { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
-.set-smtp-btns  { display: flex; gap: 10px; }
+.set-radio--on { border-color: var(--accent); }
+.set-radio-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--accent); }
+.set-smtp-btns { display: flex; gap: 10px; }
 .set-ghost-btn {
   display: flex; align-items: center; gap: 7px;
   background: var(--glass-hover); border: 1px solid var(--border-soft);
@@ -754,9 +754,9 @@ function copyText(text) {
   width: 38px; height: 38px; border-radius: 11px; flex-shrink: 0;
   display: flex; align-items: center; justify-content: center;
 }
-.set-ref-icon--green { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1);   border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2);   color: var(--accent);  }
-.set-ref-icon--blue  { background: rgba(96,165,250,.1);  border: 1px solid rgba(96,165,250,.2);  color: #60a5fa;  }
-.set-ref-icon--amber { background: rgba(245,158,11,.1);  border: 1px solid rgba(245,158,11,.2);  color: #f59e0b;  }
+.set-ref-icon--green { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.2); color: var(--accent); }
+.set-ref-icon--blue { background: rgba(96,165,250,.1); border: 1px solid rgba(96,165,250,.2); color: #60a5fa; }
+.set-ref-icon--amber { background: rgba(245,158,11,.1); border: 1px solid rgba(245,158,11,.2); color: #f59e0b; }
 .set-ref-val { font-size: 1.35rem; font-weight: 800; color: var(--t1); line-height: 1; }
 .set-ref-lbl { font-size: 0.69rem; color: var(--t3); margin-top: 3px; }
 
@@ -782,67 +782,67 @@ function copyText(text) {
 
 /* ── Toast ── */
 .toast-up-enter-active, .toast-up-leave-active { transition: all 0.3s ease; }
-.toast-up-enter-from, .toast-up-leave-to       { opacity: 0; transform: translateY(18px); }
+.toast-up-enter-from, .toast-up-leave-to { opacity: 0; transform: translateY(18px); }
 .set-toast {
   position: fixed; bottom: 28px; left: 50%; transform: translateX(-50%);
   display: flex; align-items: center; gap: 9px;
   padding: 12px 20px; border-radius: 13px; font-size: 0.83rem; font-weight: 600;
 }
-.set-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18);   border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3);   color: var(--accent);  }
-.set-toast--error   { background: rgba(248,113,113,.18); border: 1px solid rgba(248,113,113,.3); color: #f87171; }
+.set-toast--success { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.18); border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); color: var(--accent); }
+.set-toast--error { background: rgba(248,113,113,.18); border: 1px solid rgba(248,113,113,.3); color: #f87171; }
 
 @media (max-width: 1024px) and (min-width: 769px) {
-  .set-ref-stats   { grid-template-columns: 1fr 1fr; }
+  .set-ref-stats { grid-template-columns: 1fr 1fr; }
 }
 
 @media (max-width: 768px) {
   /* Overview card */
-  .set-ov-card     { padding: 16px 18px; }
-  .set-avatar--md  { width: 44px; height: 44px; font-size: 0.9rem; }
+  .set-ov-card { padding: 16px 18px; }
+  .set-avatar--md { width: 44px; height: 44px; font-size: 0.9rem; }
 
   /* Cards */
-  .set-card        { padding: 18px; gap: 12px; }
+  .set-card { padding: 18px; gap: 12px; }
 
   /* Danger zone — stack on mobile */
   .set-danger-item { flex-direction: column; align-items: flex-start; gap: 12px; }
-  .set-danger-btn  { width: 100%; text-align: center; justify-content: center; display: flex; }
+  .set-danger-btn { width: 100%; text-align: center; justify-content: center; display: flex; }
 
   /* Ref stats */
-  .set-ref-stats   { grid-template-columns: 1fr 1fr; }
+  .set-ref-stats { grid-template-columns: 1fr 1fr; }
 
   /* SMTP */
-  .set-smtp-row    { flex-direction: column; }
-  .set-smtp-btns   { flex-direction: column; }
+  .set-smtp-row { flex-direction: column; }
+  .set-smtp-btns { flex-direction: column; }
   .set-smtp-btns .set-primary-btn { flex: unset; }
 
   /* Login history — card layout instead of table */
-  .set-login-head  { display: none; }
-  .set-login-row   {
+  .set-login-head { display: none; }
+  .set-login-row {
     display: grid;
     grid-template-columns: 1fr auto;
     grid-template-rows: auto auto;
     gap: 4px 10px;
     padding: 12px 0;
   }
-  .set-login-date   { grid-column: 1; grid-row: 1; font-size: 0.72rem; }
+  .set-login-date { grid-column: 1; grid-row: 1; font-size: 0.72rem; }
   .set-login-device { grid-column: 1; grid-row: 2; font-size: 0.77rem; }
-  .set-login-loc    { display: none; }
-  .set-login-ip     { display: none; }
-  .set-status-tag   { grid-column: 2; grid-row: 1 / 3; align-self: center; }
+  .set-login-loc { display: none; }
+  .set-login-ip { display: none; }
+  .set-status-tag { grid-column: 2; grid-row: 1 / 3; align-self: center; }
 }
 
 @media (max-width: 480px) {
   .set-ov-avatar-row { flex-direction: column; align-items: flex-start; gap: 10px; }
 
-  .set-ref-stats    { grid-template-columns: 1fr; }
-  .set-ref-stat     { padding: 14px; }
-  .set-ref-val      { font-size: 1.1rem; }
+  .set-ref-stats { grid-template-columns: 1fr; }
+  .set-ref-stat { padding: 14px; }
+  .set-ref-val { font-size: 1.1rem; }
 
-  .set-ref-row      { flex-direction: column; align-items: stretch; gap: 8px; }
-  .set-copy-btn     { width: 100%; justify-content: center; }
+  .set-ref-row { flex-direction: column; align-items: stretch; gap: 8px; }
+  .set-copy-btn { width: 100%; justify-content: center; }
 
-  .set-card         { padding: 16px; }
-  .set-primary-btn  { width: 100%; }
+  .set-card { padding: 16px; }
+  .set-primary-btn { width: 100%; }
 }
 
 </style>

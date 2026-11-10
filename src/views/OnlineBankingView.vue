@@ -174,7 +174,7 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
 .ob-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
 .ob-head__text { display: flex; flex-direction: column; gap: 6px; min-width: 0; max-width: 640px; }
 .ob-title { margin: 0; font-size: 1.55rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; }
-.ob-sub   { margin: 0; font-size: 0.84rem; color: var(--t2); font-weight: 500; line-height: 1.5; }
+.ob-sub { margin: 0; font-size: 0.84rem; color: var(--t2); font-weight: 500; line-height: 1.5; }
 .ob-head__right { display: flex; align-items: center; gap: 12px; flex-shrink: 0; }
 .ob-count { font-size: 0.78rem; font-weight: 600; color: var(--t3); white-space: nowrap; }
 
@@ -186,10 +186,9 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
   background: linear-gradient(135deg, #22c55e 0%, #16a34a 55%, #0f7a37 100%);
   color: #fff; border: none; cursor: pointer;
   font-family: inherit; font-size: 0.82rem; font-weight: 700;
-  box-shadow: 0 7px 18px rgba(22,163,74,0.32), inset 0 1px 0 rgba(255,255,255,0.28);
-  transition: transform 0.15s ease, box-shadow 0.2s ease;
+  transition: transform 0.15s ease;
 }
-.ob-watch:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(22,163,74,0.42); }
+.ob-watch:hover { transform: translateY(-2px); }
 .ob-watch::after {
   content: ''; position: absolute; top: 0; bottom: 0; left: -75%; width: 45%;
   background: linear-gradient(100deg, transparent 0%, rgba(255,255,255,0.18) 35%, rgba(255,255,255,0.7) 50%, rgba(255,255,255,0.18) 65%, transparent 100%);
@@ -208,7 +207,6 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
   position: relative;
   background: var(--bg); border: 1px solid var(--t4); border-radius: 16px;
   padding: 16px; display: flex; flex-direction: column; gap: 12px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.04);
 }
 .look-badge {
   position: absolute; top: 24px; left: 24px; z-index: 2;
@@ -233,7 +231,7 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
 .look-btn:active { transform: scale(0.98); }
 .look-btn--ghost { background: var(--bg); border: 1px solid var(--border); color: var(--t2); }
 .look-btn--ghost:hover { color: var(--t1); border-color: var(--t3); }
-.look-btn--create { background: #16a34a; border: none; color: #fff; box-shadow: 0 6px 16px rgba(22,163,74,0.3); }
+.look-btn--create { background: #16a34a; border: none; color: #fff; }
 .look-btn--create:hover { background: #15803d; }
 
 /* Expired banner */
@@ -245,7 +243,7 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
 :root:not([data-theme="light"]) .ob-banner { background: rgba(245,158,11,0.08); border-color: rgba(245,158,11,0.3); }
 .ob-banner__msg { display: flex; align-items: center; gap: 10px; min-width: 0; }
 .ob-banner__msg svg { color: #d97706; flex-shrink: 0; }
-.ob-banner__msg p  { margin: 0; font-size: 0.82rem; color: var(--t2); line-height: 1.5; }
+.ob-banner__msg p { margin: 0; font-size: 0.82rem; color: var(--t2); line-height: 1.5; }
 .ob-banner__msg strong { color: var(--t1); font-weight: 700; }
 .ob-renew {
   flex-shrink: 0;
@@ -283,12 +281,12 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
 .ob-table tbody tr:last-child td { border-bottom: none; }
 
 .bk-name { font-size: 0.86rem; font-weight: 700; color: var(--t1); }
-.bk-cur  { font-size: 0.72rem; color: var(--t3); margin-top: 2px; }
+.bk-cur { font-size: 0.72rem; color: var(--t3); margin-top: 2px; }
 .bk-link { display: inline-flex; align-items: center; gap: 6px; color: var(--t2); font-size: 0.82rem; text-decoration: none; }
 .bk-link:hover { color: #16a34a; }
 
 .bk-status { display: inline-block; padding: 4px 12px; border-radius: 999px; font-size: 0.72rem; font-weight: 700; }
-.bk-status--on  { background: rgba(22,163,74,0.12); color: #16a34a; }
+.bk-status--on { background: rgba(22,163,74,0.12); color: #16a34a; }
 .bk-status--off { background: var(--glass-hover); color: var(--t3); border: 1px solid var(--border-soft); }
 
 .bk-action-cell { text-align: right; }
@@ -313,7 +311,6 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
   position: relative; width: 100%; max-width: 420px;
   background: linear-gradient(160deg, #2f6fe4 0%, #2152c9 100%);
   border-radius: 20px; padding: 30px 26px 22px; text-align: center; color: #fff;
-  box-shadow: 0 30px 70px rgba(0,0,0,0.4);
 }
 .up-close {
   position: absolute; top: 14px; right: 14px;
@@ -329,7 +326,7 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
   background: rgba(255,255,255,0.18); color: #fff; margin-bottom: 14px;
 }
 .up-title { margin: 0 0 8px; font-size: 1.3rem; font-weight: 800; }
-.up-text  { margin: 0 0 22px; font-size: 0.86rem; line-height: 1.55; color: rgba(255,255,255,0.9); }
+.up-text { margin: 0 0 22px; font-size: 0.86rem; line-height: 1.55; color: rgba(255,255,255,0.9); }
 .up-btn {
   width: 100%; height: 46px; border-radius: 11px; cursor: pointer;
   font-family: inherit; font-size: 0.9rem; font-weight: 700;
