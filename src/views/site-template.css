@@ -177,6 +177,22 @@
 }
 .bk-renew:hover { background: rgba(22,163,74,0.16); }
 
+/* Full site action row */
+.sp-actions { display: flex; align-items: center; gap: 2px; flex-wrap: wrap; justify-content: flex-end; }
+.sp-act {
+  display: inline-flex; align-items: center; gap: 5px; height: 30px; padding: 0 9px; border-radius: 7px;
+  border: none; background: transparent; color: var(--t3);
+  font-family: inherit; font-size: 0.74rem; font-weight: 600; cursor: pointer; white-space: nowrap;
+  transition: color 0.16s ease, background 0.16s ease;
+}
+.sp-act svg { color: var(--t4); transition: color 0.16s ease; }
+.sp-act:hover { color: var(--t1); background: var(--glass-hover); }
+.sp-act:hover svg { color: currentColor; }
+.sp-act--on svg { color: #16a34a; }
+.sp-act--danger { color: #ef4444; }
+.sp-act--danger svg { color: #ef4444; }
+.sp-act--danger:hover { color: #ef4444; background: rgba(239,68,68,0.1); }
+
 .sp-empty-row { text-align: center; padding: 28px !important; color: var(--t3); font-size: 0.84rem; }
 
 /* Empty state (no sites) */

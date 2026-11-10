@@ -17,34 +17,48 @@
     <!-- Picker -->
     <div class="sv-layout">
       <div class="sv-card">
+        <!-- Country -->
         <div class="sv-field">
           <label class="sv-label">Country</label>
-          <div class="sv-select" :class="{ 'sv-select--open': countryOpen }">
-            <button class="sv-select__btn" @click="countryOpen = !countryOpen">
-              <span v-if="country" class="sv-select__val"><img :src="flag(country.code)" class="sv-flag" :alt="country.name" /> {{ country.name }}</span>
+          <div class="sv-select" :class="{ 'sv-select--open': countryOpen }" v-click-outside="() => countryOpen = false">
+            <button class="sv-select__btn" @click="toggleCountry">
+              <span v-if="country" class="sv-select__val"><img :src="flag(country.code)" class="sv-flag" :alt="country.name" /> {{ country.name }} <span class="sv-dial">{{ country.dial }}</span></span>
               <span v-else class="sv-select__ph">Select a country…</span>
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 12 15 18 9"/></svg>
             </button>
             <div v-if="countryOpen" class="sv-menu">
-              <button v-for="c in countries" :key="c.code" class="sv-menu__item" @click="pickCountry(c)">
-                <img :src="flag(c.code)" class="sv-flag" :alt="c.name" /> {{ c.name }}
-              </button>
+              <div class="sv-menu__search">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+                <input ref="countrySearchEl" v-model="countryQuery" class="sv-menu__searchinput" placeholder="Search countries…" />
+              </div>
+              <div class="sv-menu__scroll">
+                <button v-for="c in filteredCountries" :key="c.code" class="sv-menu__item" @click="pickCountry(c)">
+                  <img :src="flag(c.code)" class="sv-flag" :alt="c.name" /> {{ c.name }} <span class="sv-dial">{{ c.dial }}</span>
+                </button>
+                <p v-if="!filteredCountries.length" class="sv-menu__empty">No countries match “{{ countryQuery }}”.</p>
+              </div>
             </div>
           </div>
         </div>
 
+        <!-- Service -->
         <div class="sv-field">
           <label class="sv-label">Service</label>
           <p v-if="!country" class="sv-hint">Pick a country to see available services.</p>
-          <div v-else class="sv-services">
-            <button v-for="s in services" :key="s.name" class="sv-service" :class="{ 'sv-service--on': service && service.name === s.name }" @click="service = s">
-              <span class="sv-service__ico" :style="s.logo ? {} : { background: s.color }">
-                <img v-if="s.logo" :src="s.logo" :alt="s.name" />
-                <template v-else>{{ s.name.charAt(0) }}</template>
-              </span>
-              <span class="sv-service__name">{{ s.name }}</span>
-              <span class="sv-service__price">{{ money(s.price) }}</span>
-            </button>
+          <div v-else class="sv-select" :class="{ 'sv-select--open': serviceOpen }" v-click-outside="() => serviceOpen = false">
+            <div class="sv-search">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <input v-model="serviceQuery" class="sv-search__input" placeholder="Search services…" @focus="serviceOpen = true" />
+            </div>
+            <div v-if="serviceOpen" class="sv-menu sv-menu--svc">
+              <div class="sv-menu__scroll">
+                <button v-for="s in filteredServices" :key="s.name" class="sv-svc" :class="{ 'sv-svc--on': service && service.name === s.name }" @click="pickService(s)">
+                  <span class="sv-svc__name">{{ s.name }}</span>
+                  <span class="sv-svc__price">— {{ money(s.price) }} <s>(was {{ money(s.was) }})</s></span>
+                </button>
+                <p v-if="!filteredServices.length" class="sv-menu__empty">No services match “{{ serviceQuery }}”.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
@@ -52,15 +66,11 @@
       <!-- Your number -->
       <div class="sv-side">
         <span class="sv-side__label">YOUR NUMBER</span>
-        <template v-if="service">
+        <template v-if="service && country">
           <div class="sv-side__svc">
-            <span class="sv-service__ico" :style="service.logo ? {} : { background: service.color }">
-              <img v-if="service.logo" :src="service.logo" :alt="service.name" />
-              <template v-else>{{ service.name.charAt(0) }}</template>
-            </span>
             <div>
               <div class="sv-side__name">{{ service.name }} <span class="sv-cc">{{ country.code }}</span></div>
-              <div class="sv-side__price">{{ money(service.price) }}</div>
+              <div class="sv-side__price">{{ money(service.price) }} <s class="sv-side__old">was {{ money(service.was) }}</s></div>
             </div>
           </div>
           <button class="sv-buy" @click="buy">
@@ -94,61 +104,73 @@
 </template>
 
 <script setup>
-import { ref, computed } from 'vue'
+import { ref, computed, nextTick } from 'vue'
 import { useToast } from '../composables/useToast.js'
-import logoWhatsapp from '../assets/logo-whatsapp.svg'
-import logoTelegram from '../assets/logo-telegram.svg'
+import { countries } from '../data/countries.js'
+import { services } from '../data/services.js'
 
 const { success, info } = useToast()
 
 const FLAGS = import.meta.glob('../assets/flags/*.svg', { eager: true, import: 'default' })
 const flag = (code) => FLAGS[`../assets/flags/${code.toLowerCase()}.svg`]
-const money = (n) => '₦' + n.toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
+const money = (n) => '₦' + Number(n).toLocaleString('en-NG', { minimumFractionDigits: 2, maximumFractionDigits: 2 })
 
-const countries = [
-  { code: 'US', name: 'United States' },
-  { code: 'GB', name: 'United Kingdom' },
-  { code: 'NG', name: 'Nigeria' },
-  { code: 'CA', name: 'Canada' },
-  { code: 'DE', name: 'Germany' },
-  { code: 'FR', name: 'France' },
-  { code: 'IN', name: 'India' },
-]
-const allServices = [
-  { name: 'WhatsApp', price: 7688.63, logo: logoWhatsapp },
-  { name: 'Telegram', price: 6420.00, logo: logoTelegram },
-  { name: 'Google', price: 4210.50, color: '#ea4335' },
-  { name: 'Facebook', price: 3980.00, color: '#1877f2' },
-  { name: 'Instagram', price: 5120.75, color: '#e4405f' },
-  { name: '1688', price: 842.63, color: '#ff6a00' },
-]
-
-const countryOpen = ref(false)
+/* Country */
 const country = ref(null)
-const service = ref(null)
-const services = computed(() => allServices)
+const countryOpen = ref(false)
+const countryQuery = ref('')
+const countrySearchEl = ref(null)
+const filteredCountries = computed(() => {
+  const q = countryQuery.value.trim().toLowerCase()
+  if (!q) return countries
+  return countries.filter(c => c.name.toLowerCase().includes(q) || c.dial.includes(q) || c.code.toLowerCase() === q)
+})
+function toggleCountry() {
+  countryOpen.value = !countryOpen.value
+  if (countryOpen.value) nextTick(() => countrySearchEl.value?.focus())
+}
+function pickCountry(c) { country.value = c; countryOpen.value = false; countryQuery.value = '' }
 
+/* Service */
+const service = ref(null)
+const serviceOpen = ref(false)
+const serviceQuery = ref('')
+const filteredServices = computed(() => {
+  const q = serviceQuery.value.trim().toLowerCase()
+  if (!q) return services
+  return services.filter(s => s.name.toLowerCase().includes(q))
+})
+function pickService(s) { service.value = s; serviceQuery.value = s.name; serviceOpen.value = false }
+
+/* Your numbers */
 const myNumbers = ref([
-  { service: 'WhatsApp', code: 'US', number: '+12297529669', status: 'refunded', amount: 7688.63 },
-  { service: 'WhatsApp', code: 'US', number: '', status: 'refunded', amount: 7688.63 },
-  { service: 'WhatsApp', code: 'US', number: '+18382967690', status: 'refunded', amount: 7688.63 },
-  { service: '1688', code: 'US', number: '', status: 'refunded', amount: 842.63 },
+  { service: 'WhatsApp', code: 'US', number: '+12297529669', status: 'refunded', amount: 701.12 },
+  { service: 'WhatsApp', code: 'US', number: '', status: 'refunded', amount: 701.12 },
+  { service: 'WhatsApp', code: 'US', number: '+18382967690', status: 'refunded', amount: 701.12 },
+  { service: '1688',     code: 'US', number: '', status: 'refunded', amount: 560.90 },
 ])
 
-function pickCountry(c) { country.value = c; countryOpen.value = false; service.value = null }
-
 function buy() {
-  if (!service.value) return
-  const dial = { US: '+1', GB: '+44', NG: '+234', CA: '+1', DE: '+49', FR: '+33', IN: '+91' }[country.value.code]
-  const num = dial + Math.floor(1000000000 + Math.random() * 8999999999)
+  if (!service.value || !country.value) return
+  const num = country.value.dial + ' ' + Math.floor(1000000000 + Math.random() * 8999999999)
   myNumbers.value.unshift({ service: service.value.name, code: country.value.code, number: num, status: 'waiting', amount: service.value.price })
   success('Number purchased', `${service.value.name} ${country.value.code} · ${num} — waiting for your code.`)
   service.value = null
+  serviceQuery.value = ''
 }
 
 function cancel(n) {
   n.status = 'refunded'
   info('Number cancelled', `${money(n.amount)} has been refunded to your wallet.`)
+}
+
+/* click-outside directive */
+const vClickOutside = {
+  mounted(el, binding) {
+    el._handler = (e) => { if (!el.contains(e.target)) binding.value(e) }
+    setTimeout(() => document.addEventListener('click', el._handler), 0)
+  },
+  unmounted(el) { document.removeEventListener('click', el._handler) },
 }
 </script>
 
@@ -157,7 +179,7 @@ function cancel(n) {
 
 .sv-head { display: flex; flex-direction: column; gap: 6px; }
 .sv-title { margin: 0; font-size: 1.55rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em; }
-.sv-sub { margin: 0; font-size: 0.84rem; color: var(--t2); font-weight: 500; }
+.sv-sub   { margin: 0; font-size: 0.84rem; color: var(--t2); font-weight: 500; }
 
 .sv-promo { display: flex; align-items: center; gap: 10px; background: rgba(22,163,74,0.08); border: 1px solid rgba(22,163,74,0.22); border-radius: 12px; padding: 13px 16px; }
 .sv-promo svg { color: #16a34a; flex-shrink: 0; }
@@ -169,9 +191,10 @@ function cancel(n) {
 
 .sv-field { display: flex; flex-direction: column; gap: 8px; }
 .sv-label { font-size: 0.86rem; font-weight: 800; color: var(--t1); }
-.sv-hint { margin: 0; font-size: 0.8rem; color: var(--t3); }
+.sv-hint  { margin: 0; font-size: 0.8rem; color: var(--t3); }
+.sv-dial { color: var(--t3); font-weight: 600; margin-left: 4px; }
 
-/* Custom select */
+/* Select / combobox */
 .sv-select { position: relative; }
 .sv-select__btn {
   width: 100%; height: 48px; padding: 0 14px; border-radius: 11px; cursor: pointer;
@@ -180,49 +203,58 @@ function cancel(n) {
 }
 .sv-select--open .sv-select__btn, .sv-select__btn:hover { border-color: var(--accent-border); }
 .sv-select__btn svg { color: var(--t3); flex-shrink: 0; }
-.sv-select__val { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; }
+.sv-select__val { display: inline-flex; align-items: center; gap: 10px; font-weight: 600; min-width: 0; }
+.sv-select__val { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
 .sv-select__ph { color: var(--t3); }
-.sv-menu {
-  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 20;
-  background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 6px;
-   max-height: 280px; overflow-y: auto;
+
+/* Search input (service) */
+.sv-search { position: relative; display: flex; align-items: center; }
+.sv-search svg { position: absolute; left: 14px; color: var(--t3); pointer-events: none; }
+.sv-search__input {
+  width: 100%; height: 48px; padding: 0 14px 0 40px; border-radius: 11px;
+  background: var(--bg); border: 1px solid var(--border); color: var(--t1);
+  font-family: inherit; font-size: 0.9rem; outline: none; transition: border-color 0.16s ease;
 }
+.sv-search__input:focus { border-color: var(--accent); }
+
+/* Menu */
+.sv-menu {
+  position: absolute; top: calc(100% + 6px); left: 0; right: 0; z-index: 30;
+  background: var(--bg); border: 1px solid var(--border); border-radius: 12px; padding: 6px;
+  box-shadow: 0 16px 40px rgba(0,0,0,0.14);
+}
+.sv-menu__search { display: flex; align-items: center; gap: 8px; padding: 6px 10px; margin-bottom: 4px; border-bottom: 1px solid var(--border-soft); }
+.sv-menu__search svg { color: var(--t3); flex-shrink: 0; }
+.sv-menu__searchinput { flex: 1; border: none; background: transparent; outline: none; color: var(--t1); font-family: inherit; font-size: 0.86rem; }
+.sv-menu__scroll { max-height: 280px; overflow-y: auto; display: flex; flex-direction: column; }
 .sv-menu__item {
   width: 100%; display: flex; align-items: center; gap: 10px; padding: 10px 12px; border-radius: 8px;
-  border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: 0.88rem; color: var(--t1); font-weight: 600;
+  border: none; background: transparent; cursor: pointer; font-family: inherit; font-size: 0.88rem; color: var(--t1); font-weight: 600; text-align: left;
 }
 .sv-menu__item:hover { background: var(--glass-hover); }
-.sv-flag { width: 22px; height: 16px; border-radius: 3px; object-fit: cover; flex-shrink: 0; }
+.sv-menu__empty { margin: 0; padding: 14px 12px; font-size: 0.82rem; color: var(--t3); }
+.sv-flag { width: 22px; height: 16px; border-radius: 3px; object-fit: cover; flex-shrink: 0; box-shadow: 0 0 0 1px rgba(0,0,0,0.06); }
 
-/* Services */
-.sv-services { display: flex; flex-direction: column; gap: 8px; }
-.sv-service {
-  display: flex; align-items: center; gap: 12px; padding: 12px 14px; border-radius: 12px; cursor: pointer; text-align: left;
-  background: var(--bg); border: 1px solid var(--border); font-family: inherit; transition: border-color 0.16s ease, background 0.16s ease;
-}
-.sv-service:hover { border-color: var(--accent-border); }
-.sv-service--on { border-color: var(--accent); background: var(--accent-dim); }
-.sv-service__ico {
-  width: 36px; height: 36px; border-radius: 10px; flex-shrink: 0; overflow: hidden;
-  display: flex; align-items: center; justify-content: center; background: #fff; color: #fff;
-  font-weight: 800; font-size: 0.95rem; border: 1px solid var(--border-soft);
-}
-.sv-service__ico img { width: 22px; height: 22px; object-fit: contain; }
-.sv-service__name { flex: 1; font-size: 0.88rem; font-weight: 700; color: var(--t1); }
-.sv-service__price { font-size: 0.82rem; font-weight: 700; color: var(--t2); }
+/* Service rows */
+.sv-svc { width: 100%; display: flex; align-items: baseline; gap: 6px; padding: 10px 12px; border-radius: 8px; border: none; background: transparent; cursor: pointer; font-family: inherit; text-align: left; }
+.sv-svc:hover { background: var(--glass-hover); }
+.sv-svc--on { background: var(--accent-dim); }
+.sv-svc__name { font-size: 0.88rem; font-weight: 700; color: var(--t1); flex-shrink: 0; }
+.sv-svc__price { font-size: 0.82rem; color: var(--t2); }
+.sv-svc__price s { color: var(--t3); }
 
 /* Your number side */
 .sv-side { background: var(--bg); border: 1px solid var(--t4); border-radius: 16px; padding: 20px; min-height: 150px; display: flex; flex-direction: column; gap: 14px; }
 .sv-side__label { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: var(--t3); }
 .sv-side__empty { margin: 0; font-size: 0.86rem; color: var(--t3); }
-.sv-side__svc { display: flex; align-items: center; gap: 12px; }
 .sv-side__name { font-size: 0.95rem; font-weight: 700; color: var(--t1); }
 .sv-side__price { font-size: 0.82rem; color: var(--t2); margin-top: 2px; }
+.sv-side__old { color: var(--t3); margin-left: 4px; }
 .sv-cc { font-size: 0.7rem; font-weight: 700; color: var(--t3); background: var(--glass-hover); padding: 2px 7px; border-radius: 6px; margin-left: 4px; }
 .sv-buy {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px; height: 44px; border-radius: 11px; cursor: pointer; border: none;
   background: linear-gradient(135deg, #22c55e 0%, #16a34a 55%, #0f7a37 100%); color: #fff;
-  font-family: inherit; font-size: 0.86rem; font-weight: 700; 
+  font-family: inherit; font-size: 0.86rem; font-weight: 700;
   position: relative; overflow: hidden; isolation: isolate; transition: transform 0.15s ease;
 }
 .sv-buy:hover { transform: translateY(-2px); }
@@ -238,7 +270,7 @@ function cancel(n) {
 .sv-list__title { margin: 4px 0; font-size: 1.05rem; font-weight: 800; color: var(--t1); }
 .sv-num {
   display: flex; align-items: center; justify-content: space-between; gap: 14px;
-  background: var(--bg); border: 1px solid var(--t4); border-radius: 14px; padding: 16px 18px; 
+  background: var(--bg); border: 1px solid var(--t4); border-radius: 14px; padding: 16px 18px;
 }
 .sv-num__name { font-size: 0.9rem; font-weight: 700; color: var(--t1); }
 .sv-num__number { font-size: 0.8rem; color: var(--t3); margin-top: 3px; }

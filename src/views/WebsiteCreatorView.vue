@@ -9,7 +9,7 @@
         <p class="wc-head__sub">Launch and manage the sites you offer your own customers.</p>
       </div>
       <div class="wc-head__actions">
-        <button class="wc-btn" @click="soon('Buy Domain')">
+        <button class="wc-btn" @click="router.push('/tools/buy-domain')">
           <span class="wc-btn__ico">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
               <circle cx="12" cy="12" r="10"/><line x1="2" y1="12" x2="22" y2="12"/><path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
@@ -17,7 +17,7 @@
           </span>
           Buy Domain
         </button>
-        <button class="wc-btn" @click="soon('Buy Webmail')">
+        <button class="wc-btn" @click="router.push('/tools/buy-domain#mailboxes')">
           <span class="wc-btn__ico">
             <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.1" stroke-linecap="round" stroke-linejoin="round">
               <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-10 5L2 7"/>
@@ -73,13 +73,11 @@
 
 <script setup>
 import { useRouter } from 'vue-router'
-import { useToast } from '../composables/useToast.js'
 import tileWebsiteWidgets from '../assets/tile-website-widgets.png'
 import tileSupportPages from '../assets/tile-support-pages.png'
 import tileTransactionsTrackers from '../assets/tile-transactions-trackers.png'
 
 const router = useRouter()
-const { info } = useToast()
 
 const PIC = import.meta.glob('../assets/1000880*.png', { eager: true, import: 'default' })
 const pic = (n) => PIC[`../assets/1000880${n}.png`]
@@ -123,9 +121,6 @@ const tiles = [
 function open(tile) {
   if (tile.route) router.push(tile.route)
   else router.push('/billing')
-}
-function soon(name) {
-  info(`${name} coming soon`, 'This option is not available yet — check back shortly.')
 }
 </script>
 

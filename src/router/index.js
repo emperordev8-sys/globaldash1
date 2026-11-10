@@ -45,6 +45,9 @@ import BuyAccountView from '../views/BuyAccountView.vue'
 import SmsVerificationView from '../views/SmsVerificationView.vue'
 import EsimView from '../views/EsimView.vue'
 import AccountVerificationView from '../views/AccountVerificationView.vue'
+import CallView                 from '../views/CallView.vue'
+import CustomCallerView         from '../views/CustomCallerView.vue'
+import BuyDomainView            from '../views/BuyDomainView.vue'
 
 const routes = [
   { path: '/auth', name: 'Auth', component: AuthView, meta: { public: true } },
@@ -71,6 +74,9 @@ const routes = [
   { path: '/tools/esim', name: 'Esim', component: EsimView },
   { path: '/tools/account-verification', name: 'AccountVerification', component: AccountVerificationView },
   { path: '/tools/spoof-calling', name: 'SpoofCalling', component: SpoofCallingView },
+  { path: '/tools/call', name: 'Call', component: CallView },
+  { path: '/tools/custom-caller', name: 'CustomCaller', component: CustomCallerView },
+  { path: '/tools/buy-domain', name: 'BuyDomain', component: BuyDomainView },
   { path: '/tools/voice-notes', name: 'VoiceNotes', component: VoiceNotesView },
   { path: '/tools/buy-account', name: 'BuyAccount', component: BuyAccountView },
   { path: '/tools/bank-receipt', name: 'BankReceipt', component: BankReceiptView },

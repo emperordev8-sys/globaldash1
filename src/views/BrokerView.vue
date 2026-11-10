@@ -216,33 +216,33 @@ function goPlans() { showUpgrade.value = false; router.push('/billing') }
 .broker-section-label { font-size: 0.68rem; font-weight: 700; letter-spacing: 0.08em; color: var(--t3); }
 
 /* Look cards */
-.look-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.look-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(210px, 240px)); gap: 14px; }
 .look-card {
   position: relative;
-  background: var(--bg); border: 1px solid var(--t4); border-radius: 16px;
-  padding: 16px; display: flex; flex-direction: column; gap: 12px;
+  background: var(--bg); border: 1px solid var(--t4); border-radius: 14px;
+  padding: 12px; display: flex; flex-direction: column; gap: 10px;
 }
 .look-badge {
-  position: absolute; top: 24px; left: 24px; z-index: 2;
-  font-size: 0.62rem; font-weight: 800; letter-spacing: 0.06em;
-  color: #fff; padding: 4px 12px; border-radius: 999px;
+  position: absolute; top: 18px; left: 18px; z-index: 2;
+  font-size: 0.56rem; font-weight: 800; letter-spacing: 0.06em;
+  color: #fff; padding: 3px 9px; border-radius: 999px;
 }
 .look-badge--classic { background: #dc2626; }
 .look-badge--promax { background: #2563eb; }
 
 .look-preview {
-  width: 100%; height: 150px; border-radius: 12px; overflow: hidden;
+  width: 100%; height: 96px; border-radius: 10px; overflow: hidden;
   background: #0b1220;
 }
 .look-preview img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.look-desc { margin: 0; font-size: 0.84rem; color: var(--t2); line-height: 1.5; min-height: 38px; }
+.look-desc { margin: 0; font-size: 0.76rem; color: var(--t2); line-height: 1.45; min-height: 44px; }
 
-.look-actions { display: flex; gap: 10px; }
+.look-actions { display: flex; flex-direction: column; gap: 8px; }
 .look-btn {
-  flex: 1; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
-  height: 44px; border-radius: 10px; cursor: pointer;
-  font-family: inherit; font-size: 0.82rem; font-weight: 700; text-decoration: none;
+  width: 100%; display: inline-flex; align-items: center; justify-content: center; gap: 7px;
+  height: 38px; border-radius: 10px; cursor: pointer;
+  font-family: inherit; font-size: 0.78rem; font-weight: 700; text-decoration: none;
   transition: background 0.18s ease, border-color 0.18s ease, transform 0.12s ease;
 }
 .look-btn:active { transform: scale(0.98); }

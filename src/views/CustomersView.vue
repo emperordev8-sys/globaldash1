@@ -1,160 +1,89 @@
-﻿<!-- src/views/CustomersView.vue â†' Mailing Tools -->
+﻿<!-- src/views/CustomersView.vue → Mailing Tools -->
 <template>
-  <div class="email-page">
+  <div class="mail">
 
-    <!-- Page Header -->
-    <div class="page-header">
-      <h1 class="page-header__title">Mailing <span class="page-header__badge">TOOLS</span></h1>
-      <p class="page-header__sub">Send branded emails, bills and bulk campaigns.</p>
+    <!-- Header -->
+    <div class="mail-head">
+      <h1 class="mail-title">Mailing <span class="mail-badge">TOOLS</span></h1>
+      <p class="mail-sub">Send branded emails, bills and bulk campaigns.</p>
     </div>
 
-    <!-- Service Cards -->
-    <div class="service-grid">
-      <div v-for="s in services" :key="s.title" class="service-card" @click="$router.push(s.route)">
-        <div class="service-card__icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-            stroke="var(--accent)" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round"
-            v-html="s.icon"
-          />
-        </div>
-        <h2 class="service-card__title">{{ s.title }}</h2>
-        <p class="service-card__desc" v-html="s.desc" />
-      </div>
+    <!-- Grid -->
+    <div class="mail-grid">
+      <button v-for="s in services" :key="s.title" class="mail-card" @click="$router.push(s.route)">
+        <span class="mail-medal"><img :src="s.img" :alt="s.title" loading="lazy" /></span>
+        <span class="mail-name">
+          {{ s.title }}
+          <svg class="mail-go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </button>
     </div>
 
   </div>
 </template>
 
 <script setup>
+const PIC = import.meta.glob('../assets/1000880*.png', { eager: true, import: 'default' })
+const pic = (n) => PIC[`../assets/1000880${n}.png`]
+
 const services = [
-  {
-    title: 'Crypto Mails',
-    desc: 'Send branded wallet &amp; transaction <span class="hl">emails</span>.',
-    route: '/email-services/branded-emails',
-    icon: '<path d="M13 2L3 14h9l-1 8 10-12h-9l1-8z"/>',
-  },
-  {
-    title: 'Crypto Bills Mails',
-    desc: 'Generate branded <span class="hl">bills</span> and <span class="hl">invoices</span>.',
-    route: '/email-services/branded-bills',
-    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
-  },
-  {
-    title: 'Email Composer',
-    desc: 'Write and send <span class="hl">single</span> or <span class="hl">bulk</span> email.',
-    route: '/email-services/composer',
-    icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/>',
-  },
-  {
-    title: 'Bank Mailer',
-    desc: 'Send a bank transfer alert to both the <span class="hl">sender</span> and the <span class="hl">receiver</span>.',
-    route: '/email-services/bank-mailer',
-    icon: '<path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/><line x1="12" y1="13" x2="12" y2="19"/><line x1="9" y1="16" x2="15" y2="16"/>',
-  },
+  { title: 'Crypto Mails',       route: '/email-services/branded-emails', img: pic('310') },
+  { title: 'Crypto Bills Mails', route: '/email-services/branded-bills',  img: pic('309') },
+  { title: 'Email Composer',     route: '/email-services/composer',       img: pic('311') },
+  { title: 'Bank Mailer',        route: '/email-services/bank-mailer',     img: pic('312') },
 ]
 </script>
 
 <style scoped>
-.email-page {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
-}
+.mail { display: flex; flex-direction: column; gap: 18px; }
 
 /* Header */
-.page-header { display: flex; flex-direction: column; gap: 6px; }
-.page-header__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--t1);
-  letter-spacing: -0.025em;
-  margin: 0;
+.mail-head { display: flex; flex-direction: column; gap: 6px; }
+.mail-title {
+  display: flex; align-items: center; gap: 10px; margin: 0;
+  font-size: 1.55rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em;
 }
-.page-header__badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-dim);
-  border: 1px solid var(--accent-border);
-  padding: 3px 9px;
-  border-radius: 999px;
-  letter-spacing: 0.05em;
+.mail-badge {
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em;
+  color: #16a34a; background: rgba(22,163,74,0.1);
+  border: 1px solid rgba(22,163,74,0.35); padding: 3px 10px; border-radius: 999px;
 }
-.page-header__sub {
-  font-size: 0.82rem;
-  color: var(--t1); font-weight: 600;
-  margin: 0;
-}
+.mail-sub { margin: 0; font-size: 0.84rem; color: var(--t2); font-weight: 500; }
 
 /* Grid */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
+.mail-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
 
-/* Card */
-.service-card {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  padding: 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  cursor: pointer;
-  transition: border-color 0.22s ease, transform 0.18s ease;
+.mail-card {
+  position: relative;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+  padding: 18px; border-radius: 18px; cursor: pointer; text-align: left; font-family: inherit;
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.03) 40%, transparent 64%),
+    var(--surface-1);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, transform 0.16s ease;
 }
-.service-card:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-3px);
+:root:not([data-theme="light"]) .mail-card {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
+    var(--surface-1);
 }
+.mail-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
 
-.service-card__icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  background: rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.12);
-  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.mail-medal {
+  width: 52px; height: 52px; border-radius: 15px; flex-shrink: 0; overflow: hidden;
+  background: #0b0f0e; display: flex; align-items: center; justify-content: center;
 }
+.mail-medal img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.service-card__title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--t1);
-  margin: 0;
+.mail-name {
+  display: flex; align-items: center; gap: 7px; width: 100%;
+  font-size: 0.95rem; font-weight: 700; color: var(--t1); line-height: 1.3;
 }
+.mail-go { color: var(--t4); opacity: 0; margin-left: auto; transform: translateX(-4px); transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease; }
+.mail-card:hover .mail-go { opacity: 1; transform: translateX(0); color: var(--accent); }
 
-.service-card__desc {
-  font-size: 0.82rem;
-  color: var(--t1);
-  line-height: 1.6;
-  margin: 0;
-}
-
-/* Highlighted words inside descriptions */
-.service-card__desc :deep(.hl) {
-  color: var(--accent);
-  font-weight: 500;
-}
-
-@media (max-width: 1024px) and (min-width: 769px) {
-  .service-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
-}
-@media (max-width: 768px) {
-  .service-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .service-card { padding: 14px 14px; }
-}
-@media (max-width: 480px) {
-  .service-grid { grid-template-columns: 1fr; }
-}
-
+@media (max-width: 1100px) { .mail-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px)  { .mail-grid { grid-template-columns: repeat(2, 1fr); } }
+@media (max-width: 420px)  { .mail-grid { grid-template-columns: 1fr; } }
 </style>

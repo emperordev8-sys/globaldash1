@@ -326,6 +326,8 @@ const pages = {
   '/tools/currency': { title: 'Currency Converter', subtitle: 'Live exchange rates' },
   '/tools/wallet-funding': { title: 'Wallet Funding', subtitle: 'Crypto wallet top-ups' },
   '/tools/sms-sender': { title: 'SMS Sender', subtitle: 'Send SMS messages' },
+  '/tools/call': { title: 'Call', subtitle: 'Place calls with your own caller ID, voice and language' },
+  '/tools/custom-caller': { title: 'Custom Caller', subtitle: 'Place calls with voice replacement, AI, scripts or live typing' },
   '/tools/spoof-calling': { title: 'Spoof Calling', subtitle: 'Place calls with a chosen caller ID' },
   '/tools/voice-notes': { title: 'Voice Notes', subtitle: 'Type it, pick a voice, send it as a voice note' },
   '/tools/buy-account': { title: 'Buy Account', subtitle: 'Ready-made, verified accounts delivered instantly' },

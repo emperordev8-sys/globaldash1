@@ -12,7 +12,7 @@ const store = reactive({
     { id: 1, name: 'dwanfx', currency: 'USD', domain: 'dwanfx.s1g0.com', url: 'https://dwanfx.s1g0.com', status: 'disabled' },
   ],
   giveaway: [
-    { id: 1, name: 'Teslajackpot', currency: 'USD', domain: 'teslajackpot.s1g0.com', url: 'https://teslajackpot.s1g0.com', status: 'disabled' },
+    { id: 1, name: 'Teslawork', currency: 'USD', domain: 'teslawork.kig0.com', url: 'https://teslawork.kig0.com', status: 'active' },
   ],
   investment: [
     { id: 1, name: 'Apex', currency: 'EUR', domain: 'apex1.s1g0.com', url: 'https://apex1.s1g0.com', status: 'disabled' },
