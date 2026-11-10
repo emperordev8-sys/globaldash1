@@ -95,6 +95,43 @@
         </Transition>
       </div>
 
+      <!-- Notifications -->
+      <div class="navbar__icon-btn navbar__notif" ref="notifBtn" @click.stop="toggleNotifications" role="button" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span v-if="unreadCount > 0" class="navbar__notif-dot">{{ unreadCount }}</span>
+
+        <Transition name="profile-chip-drop">
+          <div v-if="showNotifications" class="notif-dropdown" @click.stop>
+            <div class="notif-dropdown__header">
+              <div class="notif-header-left">
+                <span class="notif-dropdown__title">Notifications</span>
+                <span v-if="unreadCount > 0" class="notif-count-pill">{{ unreadCount }} new</span>
+              </div>
+              <span class="notif-dropdown__clear" @click.stop="clearAll">Mark all read</span>
+            </div>
+            <div class="notif-list">
+              <div v-if="notifications.length === 0" class="notif-empty">
+                <p>You're all caught up!</p>
+              </div>
+              <div v-for="notif in notifications" :key="notif.id"
+                :class="['notif-item', `notif-item--${notif.type}`, { 'notif-item--unread': !notif.read }]"
+                @click.stop="markRead(notif.id)">
+                <div :class="['notif-icon', `ni--${notif.type}`]">
+                  <svg v-if="notif.type === 'success'" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg v-else width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="notif-item__content">
+                  <p class="notif-item__title">{{ notif.title }}</p>
+                  <p class="notif-item__message">{{ notif.message }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </div>
+
       <!-- Currency selector -->
       <div class="navbar__pill navbar__pill--currency" ref="currencyRef" @click.stop="currencyOpen = !currencyOpen">
         <span>{{ currency }}</span>
@@ -695,6 +732,14 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
    ══════════════════════════════ */
 .notif-drop-enter-active, .notif-drop-leave-active { transition: opacity 0.18s ease, transform 0.18s ease; }
 .notif-drop-enter-from, .notif-drop-leave-to { opacity: 0; transform: translateY(-6px) scale(0.97); }
+
+.navbar__notif { position: relative; }
+.navbar__notif-dot {
+  position: absolute; top: 2px; right: 2px; min-width: 16px; height: 16px; padding: 0 4px;
+  border-radius: 999px; background: #ef4444; color: #fff;
+  font-size: 0.6rem; font-weight: 800; line-height: 16px; text-align: center;
+  border: 2px solid var(--surface-1); box-sizing: content-box;
+}
 
 .notif-dropdown {
   position: absolute; top: calc(100% + 12px); right: 0;

@@ -58,9 +58,7 @@ onMounted(() => {
   display: flex;
   align-items: center;
   justify-content: center;
-  background:
-    radial-gradient(60% 50% at 50% 42%, rgba(34,197,94,0.14) 0%, transparent 70%),
-    var(--bg);
+  background: var(--bg);
 }
 
 .boot__center {

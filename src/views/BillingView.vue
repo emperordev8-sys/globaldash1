@@ -125,8 +125,13 @@
         <!-- Popular badge -->
         <div v-if="plan.popular" class="bill-plan-popular">Most popular</div>
 
-        <!-- Plan name -->
-        <span class="bill-plan-name">{{ plan.id }}</span>
+        <!-- Plan name + icon -->
+        <div class="bill-plan-top">
+          <span class="bill-plan-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" v-html="plan.icon" />
+          </span>
+          <span class="bill-plan-name">{{ plan.id }}</span>
+        </div>
 
         <!-- Per-card Monthly / Quarterly toggle -->
         <div class="bill-card-cycle">
@@ -386,6 +391,7 @@ const daysLeft = computed(() => {
 const plans = [
   {
     id: 'Basic', price: 25000, quarterlyPrice: 21000, trial: true, popular: false, perks: 5,
+    icon: '<polygon points="12 2 2 7 12 12 22 7 12 2"/><polyline points="2 17 12 22 22 17"/><polyline points="2 12 12 17 22 12"/>',
     features: [
       'Support Pages', 'Online Banking', 'Broker', 'Tracking Pages',
       'Crypto Receipts', 'Transactions Trackers', 'Wallet Funding',
@@ -393,6 +399,7 @@ const plans = [
   },
   {
     id: 'Standard', price: 35000, quarterlyPrice: 29000, trial: false, popular: true, perks: 6,
+    icon: '<polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/>',
     features: [
       'Support Pages', 'Online Banking', 'Broker', 'Tracking Pages',
       'Crypto Receipts', 'Transactions Trackers', 'Bank Receipt',
@@ -402,6 +409,7 @@ const plans = [
   },
   {
     id: 'Premium', price: 50000, quarterlyPrice: 42000, trial: false, popular: false, perks: 8,
+    icon: '<path d="M2 7l5 5 5-8 5 8 5-5-2 12H4L2 7z"/>',
     features: [
       'Support Pages', 'Online Banking', 'Broker', 'Tracking Pages',
       'Wallet Funding', 'SMS Sender', 'Buy Account', 'Crypto Mails',
@@ -508,10 +516,15 @@ function showToast(type, msg) {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
 }
 .bill-stat {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 14px; padding: 12px 14px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 14px; padding: 14px 16px;
   display: flex; flex-direction: column; gap: 6px;
+}
+:root:not([data-theme="light"]) .bill-stat {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.06) 42%, transparent 66%),
+    var(--surface-1);
 }
 .bill-stat__top {
   display: flex; justify-content: space-between; align-items: center;
@@ -575,23 +588,35 @@ function showToast(type, msg) {
 }
 
 .bill-plan-card {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 14px; padding: 14px 16px;
-  display: flex; flex-direction: column; gap: 12px;
+  background: var(--surface-1);
+  border: 1px solid var(--border);
+  border-radius: 18px; padding: 20px;
+  display: flex; flex-direction: column; gap: 14px;
   position: relative; overflow: visible;
   transition: border-color 0.22s, transform 0.22s;
 }
-.bill-plan-card:hover:not(.bill-plan-card--current) {
-  transform: translateY(-3px);
-  border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3);
+:root:not([data-theme="light"]) .bill-plan-card {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.22) 0%, rgba(34,197,94,0.07) 42%, transparent 66%),
+    var(--surface-1);
 }
-.bill-plan-card--current { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.5); background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.04); }
-.bill-plan-card--popular {
-  border: 2px solid var(--accent) !important;
-  background: var(--accent-dim) !important;
+.bill-plan-card--current { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.5); }
+.bill-plan-card--popular { border: 2px solid var(--accent) !important; }
+:root:not([data-theme="light"]) .bill-plan-card--popular {
+  background:
+    radial-gradient(100% 160% at 50% 0%, rgba(34,197,94,0.32) 0%, rgba(34,197,94,0.1) 45%, transparent 70%),
+    var(--surface-1);
 }
+:root[data-theme="light"] .bill-plan-card--popular { background: var(--accent-dim); }
 @media (min-width: 769px) { .bill-plan-card--popular { transform: scale(1.03); } }
+
+/* Plan icon medallion */
+.bill-plan-top { display: flex; align-items: center; gap: 11px; }
+.bill-plan-icon {
+  width: 42px; height: 42px; border-radius: 12px; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent);
+}
 
 .bill-plan-popular {
   position: absolute; top: -12px; left: 50%; transform: translateX(-50%);
@@ -639,7 +664,7 @@ function showToast(type, msg) {
 /* ── Per-card cycle toggle ── */
 .bill-card-cycle {
   display: flex; gap: 4px;
-  background: rgba(255,255,255,.05); border: 1px solid var(--border-soft);
+  background: var(--glass-hover); border: 1px solid var(--border-soft);
   border-radius: 8px; padding: 3px; width: fit-content;
 }
 .bill-card-cycle-btn {
@@ -679,15 +704,26 @@ function showToast(type, msg) {
   cursor: default;
 }
 .bill-plan-btn--select {
-  background: rgba(255,255,255,.07); border: 1px solid var(--border-soft); color: var(--t2);
+  background: var(--glass-hover); border: 1px solid var(--border); color: var(--t2);
 }
-.bill-plan-btn--select:hover { background: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.1); border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.3); color: var(--accent); }
+.bill-plan-btn--select:hover { background: var(--accent-dim); border-color: var(--accent-border); color: var(--accent); }
+/* Popular plan: filled green CTA */
+.bill-plan-card--popular .bill-plan-btn--select {
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 55%, #0f7a37 100%);
+  border: none; color: #fff;
+}
+.bill-plan-card--popular .bill-plan-btn--select:hover { filter: brightness(1.06); transform: translateY(-1px); }
 
 /* ── FAQ ── */
 .bill-notes {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
+  background: var(--surface-1);
+  border: 1px solid var(--border);
   border-radius: 20px; overflow: hidden;
+}
+:root:not([data-theme="light"]) .bill-notes {
+  background:
+    radial-gradient(60% 120% at 0% 0%, rgba(34,197,94,0.12) 0%, transparent 55%),
+    var(--surface-1);
 }
 .bill-note-item {
   padding: 16px 22px; border-bottom: 1px solid var(--border-soft);
