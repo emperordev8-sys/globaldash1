@@ -1,161 +1,114 @@
-﻿<!-- src/views/ToolsView.vue -->
+﻿<!-- src/views/ToolsView.vue → Generator -->
 <template>
-  <div class="tools-page">
+  <div class="gen">
 
-    <!-- Page Header -->
-    <div class="page-header">
-      <h1 class="page-header__title">
-        Generator <span class="page-header__badge">TOOLS</span>
-      </h1>
-      <p class="page-header__sub">Generate branded receipts, trackers and documents.</p>
+    <!-- Mock-up warning -->
+    <div class="gen-warn">
+      <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+      <p>Everything these tools produces is a mock-up — a template generated from the values you type. It is not a real record, and it is not issued or verified by any bank, carrier, retailer or other organisation it may resemble. Use it for design, demos, testing and your own genuine records. Presenting it to anyone as real breaks our terms and, in most places, the law.</p>
     </div>
 
-    <!-- Service Cards -->
-    <div class="service-grid">
-      <div
-        v-for="s in services"
-        :key="s.title"
-        class="service-card"
-        @click="$router.push(s.route)"
-      >
-        <div class="service-card__icon">
-          <svg width="22" height="22" viewBox="0 0 24 24" fill="none"
-            stroke="var(--accent)" stroke-width="1.8"
-            stroke-linecap="round" stroke-linejoin="round"
-            v-html="s.icon"
-          />
-        </div>
-        <h2 class="service-card__title">{{ s.title }}</h2>
-        <p class="service-card__desc" v-html="s.desc" />
-      </div>
+    <!-- Header -->
+    <div class="gen-head">
+      <h1 class="gen-title">Generator <span class="gen-badge">TOOLS</span></h1>
+      <p class="gen-sub">Fill in the details and generate branded documents.</p>
+    </div>
+
+    <!-- Grid -->
+    <div class="gen-grid">
+      <button v-for="s in services" :key="s.title" class="gen-card" @click="open(s)">
+        <span class="gen-medal"><img :src="s.img" :alt="s.title" loading="lazy" /></span>
+        <span class="gen-name">
+          {{ s.title }}
+          <svg class="gen-go" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"/><polyline points="12 5 19 12 12 19"/></svg>
+        </span>
+      </button>
     </div>
 
   </div>
 </template>
 
 <script setup>
+import { useRouter } from 'vue-router'
+import { useToast } from '../composables/useToast.js'
+
+const router = useRouter()
+const { info } = useToast()
+
+const PIC = import.meta.glob('../assets/1000880*.png', { eager: true, import: 'default' })
+const pic = (n) => PIC[`../assets/1000880${n}.png`]
+
 const services = [
-  {
-    title: 'Crypto Receipts',
-    desc: 'Fill in the details and generate a <span class="hl">branded</span> transaction receipt.',
-    route: '/tools/crypto-receipts',
-    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
-  },
-  {
-    title: 'Transactions Trackers',
-    desc: 'Generate a <span class="hl">transaction</span> or <span class="hl">tracking receipt</span> with a <span class="hl">shareable link</span>.',
-    route: '/tools/transactions-tracker',
-    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
-  },
-  {
-    title: 'Bank Receipt',
-    desc: '<span class="hl">Bank-app-styled</span> receipts as <span class="hl">PDF</span> or <span class="hl">image</span>.',
-    route: '/tools/bank-receipt',
-    icon: '<path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/>',
-  },
+  { title: 'Crypto Receipts', route: '/tools/crypto-receipts', img: pic('314') },
+  { title: 'Bank Receipt',    route: '/tools/bank-receipt',    img: pic('313') },
+  { title: 'Store Receipt',                                     img: pic('315') },
 ]
+
+function open(s) {
+  if (s.route) router.push(s.route)
+  else info(`${s.title} coming soon`, 'This generator is not available yet — check back shortly.')
+}
 </script>
 
 <style scoped>
-.tools-page {
-  display: flex;
-  flex-direction: column;
-  gap: 28px;
+.gen { display: flex; flex-direction: column; gap: 18px; }
+
+/* Warning */
+.gen-warn {
+  display: flex; align-items: flex-start; gap: 10px;
+  background: rgba(234,179,8,0.07); border: 1px solid rgba(234,179,8,0.32);
+  border-radius: 12px; padding: 13px 16px;
 }
+.gen-warn svg { color: #a16207; flex-shrink: 0; margin-top: 1px; }
+.gen-warn p { margin: 0; font-size: 0.78rem; color: var(--t2); line-height: 1.55; }
 
 /* Header */
-.page-header { display: flex; flex-direction: column; gap: 6px; }
-.page-header__title {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  font-size: 1.5rem;
-  font-weight: 800;
-  color: var(--t1);
-  letter-spacing: -0.025em;
-  margin: 0;
+.gen-head { display: flex; flex-direction: column; gap: 6px; }
+.gen-title {
+  display: flex; align-items: center; gap: 10px; margin: 0;
+  font-size: 1.55rem; font-weight: 800; color: var(--t1); letter-spacing: -0.02em;
 }
-.page-header__badge {
-  font-size: 0.72rem;
-  font-weight: 700;
-  color: var(--accent);
-  background: var(--accent-dim);
-  border: 1px solid var(--accent-border);
-  padding: 3px 9px;
-  border-radius: 999px;
-  letter-spacing: 0.05em;
+.gen-badge {
+  font-size: 0.68rem; font-weight: 800; letter-spacing: 0.05em;
+  color: #16a34a; background: rgba(22,163,74,0.1);
+  border: 1px solid rgba(22,163,74,0.35); padding: 3px 10px; border-radius: 999px;
 }
-.page-header__sub {
-  font-size: 0.82rem;
-  color: var(--t1); font-weight: 600;
-  margin: 0;
-}
+.gen-sub { margin: 0; font-size: 0.84rem; color: var(--t2); font-weight: 500; }
 
 /* Grid */
-.service-grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 18px;
-}
+.gen-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
 
-/* Card */
-.service-card {
-  background: var(--bg);
-  border: 1px solid var(--border-soft);
-  border-radius: 16px;
-  padding: 18px 18px;
-  display: flex;
-  flex-direction: column;
-  gap: 12px;
-  cursor: pointer;
-  transition: border-color 0.22s ease, transform 0.18s ease;
+.gen-card {
+  position: relative;
+  display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+  padding: 18px; border-radius: 18px; cursor: pointer; text-align: left; font-family: inherit;
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.1) 0%, rgba(34,197,94,0.03) 40%, transparent 64%),
+    var(--surface-1);
+  border: 1px solid var(--border);
+  transition: border-color 0.2s ease, transform 0.16s ease;
 }
-.service-card:hover {
-  border-color: var(--accent-border);
-  transform: translateY(-3px);
+:root:not([data-theme="light"]) .gen-card {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
+    var(--surface-1);
 }
+.gen-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
 
-.service-card__icon {
-  width: 46px;
-  height: 46px;
-  border-radius: 13px;
-  background: rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.12);
-  border: 1px solid rgba(var(--accent-r),var(--accent-g),var(--accent-b), 0.18);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  flex-shrink: 0;
+.gen-medal {
+  width: 52px; height: 52px; border-radius: 15px; flex-shrink: 0; overflow: hidden;
+  background: #0b0f0e; display: flex; align-items: center; justify-content: center;
 }
+.gen-medal img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
-.service-card__title {
-  font-size: 1rem;
-  font-weight: 700;
-  color: var(--t1);
-  margin: 0;
+.gen-name {
+  display: flex; align-items: center; gap: 7px; width: 100%;
+  font-size: 0.95rem; font-weight: 700; color: var(--t1); line-height: 1.3;
 }
+.gen-go { color: var(--t4); opacity: 0; margin-left: auto; transform: translateX(-4px); transition: opacity 0.18s ease, transform 0.18s ease, color 0.18s ease; }
+.gen-card:hover .gen-go { opacity: 1; transform: translateX(0); color: var(--accent); }
 
-.service-card__desc {
-  font-size: 0.82rem;
-  color: var(--t2);
-  line-height: 1.6;
-  margin: 0;
-}
-
-.service-card__desc :deep(.hl) {
-  color: var(--accent);
-  font-weight: 500;
-}
-
-/* Responsive */
-@media (max-width: 1024px) {
-  .service-grid { grid-template-columns: repeat(3, 1fr); gap: 14px; }
-}
-@media (max-width: 768px) {
-  .service-grid { grid-template-columns: 1fr 1fr; gap: 12px; }
-  .service-card { padding: 14px 14px; }
-}
-@media (max-width: 480px) {
-  .service-grid { grid-template-columns: 1fr; }
-}
-
+@media (max-width: 1024px) { .gen-grid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px)  { .gen-grid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 440px)  { .gen-grid { grid-template-columns: 1fr; } }
 </style>

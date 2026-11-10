@@ -95,43 +95,6 @@
         </Transition>
       </div>
 
-      <!-- Notifications -->
-      <div class="navbar__icon-btn navbar__notif" ref="notifBtn" @click.stop="toggleNotifications" role="button" aria-label="Notifications">
-        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
-        </svg>
-        <span v-if="unreadCount > 0" class="navbar__notif-dot">{{ unreadCount }}</span>
-
-        <Transition name="profile-chip-drop">
-          <div v-if="showNotifications" class="notif-dropdown" @click.stop>
-            <div class="notif-dropdown__header">
-              <div class="notif-header-left">
-                <span class="notif-dropdown__title">Notifications</span>
-                <span v-if="unreadCount > 0" class="notif-count-pill">{{ unreadCount }} new</span>
-              </div>
-              <span class="notif-dropdown__clear" @click.stop="clearAll">Mark all read</span>
-            </div>
-            <div class="notif-list">
-              <div v-if="notifications.length === 0" class="notif-empty">
-                <p>You're all caught up!</p>
-              </div>
-              <div v-for="notif in notifications" :key="notif.id"
-                :class="['notif-item', `notif-item--${notif.type}`, { 'notif-item--unread': !notif.read }]"
-                @click.stop="markRead(notif.id)">
-                <div :class="['notif-icon', `ni--${notif.type}`]">
-                  <svg v-if="notif.type === 'success'" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
-                  <svg v-else width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
-                </div>
-                <div class="notif-item__content">
-                  <p class="notif-item__title">{{ notif.title }}</p>
-                  <p class="notif-item__message">{{ notif.message }}</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </Transition>
-      </div>
-
       <!-- Currency selector -->
       <div class="navbar__pill navbar__pill--currency" ref="currencyRef" @click.stop="currencyOpen = !currencyOpen">
         <span>{{ currency }}</span>
@@ -163,6 +126,52 @@
         <span>{{ formattedBalance }}</span>
       </button>
 
+      <!-- Notifications -->
+      <div class="navbar__icon-btn navbar__notif" ref="notifBtn" @click.stop="toggleNotifications" role="button" aria-label="Notifications">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/>
+        </svg>
+        <span v-if="unreadCount > 0" class="navbar__notif-dot">{{ unreadCount }}</span>
+
+        <Transition name="profile-chip-drop">
+          <div v-if="showNotifications" class="notif-dropdown" @click.stop>
+            <div class="notif-dropdown__header">
+              <div class="notif-header-left">
+                <span class="notif-dropdown__title">Notifications</span>
+                <span v-if="unreadCount > 0" class="notif-count-pill">{{ unreadCount }} new</span>
+              </div>
+              <div class="notif-header-right">
+                <span v-if="notifications.length" class="notif-dropdown__clear" @click.stop="clearAll">Mark all read</span>
+                <button class="notif-close" @click.stop="showNotifications = false" aria-label="Close">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="notif-list">
+              <div v-if="notifications.length === 0" class="notif-empty">
+                <div class="notif-empty__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </div>
+                <p class="notif-empty__title">You're all caught up</p>
+                <p class="notif-empty__sub">Updates about your orders, domains and services will show up here.</p>
+              </div>
+              <div v-for="notif in notifications" :key="notif.id"
+                :class="['notif-item', `notif-item--${notif.type}`, { 'notif-item--unread': !notif.read }]"
+                @click.stop="markRead(notif.id)">
+                <div :class="['notif-icon', `ni--${notif.type}`]">
+                  <svg v-if="notif.type === 'success'" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg v-else width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="8" x2="12" y2="12"/><line x1="12" y1="16" x2="12.01" y2="16"/></svg>
+                </div>
+                <div class="notif-item__content">
+                  <p class="notif-item__title">{{ notif.title }}</p>
+                  <p class="notif-item__message">{{ notif.message }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </Transition>
+      </div>
+
       <!-- Profile -->
       <div class="navbar__icon-btn navbar__icon-btn--profile" ref="profileChipRef" @click.stop="toggleProfileDrop" aria-label="Profile menu">
         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"
@@ -173,11 +182,7 @@
         <Transition name="profile-chip-drop">
           <div v-if="profileDropOpen" class="navbar__profile-dropdown" @click.stop>
             <div class="npd-header">
-              <img
-                src="https://api.dicebear.com/7.x/notionists/svg?seed=Daniel"
-                alt="Daniel"
-                class="npd-avatar"
-              />
+              <span class="npd-avatar">D</span>
               <div class="npd-info">
                 <span class="npd-name">Daniel</span>
                 <span class="npd-email">globalgle@gmail.com</span>
@@ -272,11 +277,20 @@
                 <span class="notif-dropdown__title">Notifications</span>
                 <span v-if="unreadCount > 0" class="notif-count-pill">{{ unreadCount }} new</span>
               </div>
-              <span class="notif-dropdown__clear" @click.stop="clearAll">Mark all read</span>
+              <div class="notif-header-right">
+                <span v-if="notifications.length" class="notif-dropdown__clear" @click.stop="clearAll">Mark all read</span>
+                <button class="notif-close" @click.stop="showNotifications = false" aria-label="Close">
+                  <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </button>
+              </div>
             </div>
             <div class="notif-list">
               <div v-if="notifications.length === 0" class="notif-empty">
-                <p>You're all caught up!</p>
+                <div class="notif-empty__icon">
+                  <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M13.73 21a2 2 0 0 1-3.46 0"/><path d="M18.63 13A17.89 17.89 0 0 1 18 8"/><path d="M6.26 6.26A5.86 5.86 0 0 0 6 8c0 7-3 9-3 9h14"/><path d="M18 8a6 6 0 0 0-9.33-5"/><line x1="1" y1="1" x2="23" y2="23"/></svg>
+                </div>
+                <p class="notif-empty__title">You're all caught up</p>
+                <p class="notif-empty__sub">Updates about your orders, domains and services will show up here.</p>
               </div>
               <div v-for="notif in notifications" :key="notif.id"
                 :class="['notif-item', `notif-item--${notif.type}`, { 'notif-item--unread': !notif.read }]"
@@ -311,7 +325,6 @@
 <script setup>
 import { ref, computed, onMounted, onBeforeUnmount } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
-import { notifications as notifData } from '../../data/mockData.js'
 import { useSidebar } from '../../composables/useSidebar.js'
 import { useTheme } from '../../composables/useTheme.js'
 
@@ -377,7 +390,7 @@ const pageTitle = computed(() => currentPage.value.title)
 const showNotifications = ref(false)
 const notifBtn = ref(null)
 const mobileNotifBtn = ref(null)
-const notifications = ref(notifData)
+const notifications = ref([])
 
 /* ── Profile chip dropdown ── */
 const profileDropOpen = ref(false)
@@ -637,37 +650,43 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 .navbar__profile-dropdown {
   position: absolute;
   top: calc(100% + 10px); right: 0;
-  min-width: 210px;
-  background: linear-gradient(160deg, var(--surface-raised) 0%, var(--surface-sunken) 100%);
-  backdrop-filter: blur(24px) saturate(160%);
-  -webkit-backdrop-filter: blur(24px) saturate(160%);
+  min-width: 248px;
+  background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 16px; padding: 6px;
-   z-index: 200;
+  border-radius: 18px; padding: 8px;
+  z-index: 200;
   transform-origin: top right;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.14);
 }
-.npd-header { display: flex; align-items: center; gap: 10px; padding: 10px 10px 8px; }
-.npd-avatar { width: 36px; height: 36px; border-radius: 50%; object-fit: cover; border: 2px solid var(--border); flex-shrink: 0; }
-.npd-info { display: flex; flex-direction: column; gap: 2px; }
-.npd-name { font-size: 0.82rem; font-weight: 800; color: var(--t1); }
-.npd-email { font-size: 0.67rem; color: var(--t1); font-weight: 700; }
-.npd-divider { height: 1px; background: var(--border-soft); margin: 4px 0; }
+.npd-header { display: flex; align-items: center; gap: 12px; padding: 12px 10px; }
+.npd-avatar {
+  width: 42px; height: 42px; border-radius: 50%; flex-shrink: 0;
+  display: flex; align-items: center; justify-content: center;
+  background: linear-gradient(135deg, #22c55e 0%, #16a34a 55%, #0f7a37 100%);
+  color: #fff; font-size: 1.05rem; font-weight: 800;
+}
+.npd-info { display: flex; flex-direction: column; gap: 2px; min-width: 0; }
+.npd-name { font-size: 0.9rem; font-weight: 800; color: var(--t1); }
+.npd-email { font-size: 0.72rem; color: var(--t3); font-weight: 500; overflow: hidden; text-overflow: ellipsis; }
+.npd-divider { height: 1px; background: var(--border-soft); margin: 4px 0 6px; }
 .npd-item {
-  display: flex; align-items: center; gap: 10px;
-  width: 100%; padding: 9px 10px;
-  border-radius: 10px; border: none;
+  display: flex; align-items: center; gap: 11px;
+  width: 100%; padding: 10px 10px;
+  border-radius: 11px; border: none;
   background: transparent; color: var(--t1);
-  font-family: 'Plus Jakarta Sans', sans-serif;
-  font-size: 0.8rem; font-weight: 700;
+  font-family: inherit;
+  font-size: 0.85rem; font-weight: 700;
   cursor: pointer; text-align: left;
+  transition: background 0.16s ease, color 0.16s ease;
 }
-.npd-item:hover { color: var(--t2); }
-.npd-item:focus,
-.npd-item:active { outline: none; }
-.npd-icon { width: 28px; height: 28px; border-radius: 8px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-.npd-icon--green { background: var(--glass-hover); color: var(--t1); }
+.npd-item:hover { background: var(--accent-dim); color: var(--accent); }
+.npd-item:focus, .npd-item:active { outline: none; }
+.npd-icon { width: 30px; height: 30px; border-radius: 9px; display: flex; align-items: center; justify-content: center; flex-shrink: 0; transition: background 0.16s ease, color 0.16s ease; }
+.npd-icon--green { background: var(--glass-hover); color: var(--t2); }
+.npd-item:hover .npd-icon--green { background: var(--accent-border); color: var(--accent); }
 .npd-label { flex: 1; }
-.npd-arrow { color: var(--t3); flex-shrink: 0; }
+.npd-arrow { color: var(--t4); flex-shrink: 0; transition: color 0.16s ease, transform 0.16s ease; }
+.npd-item:hover .npd-arrow { color: var(--accent); transform: translateX(2px); }
 
 .profile-chip-drop-enter-active { transition: opacity 0.2s ease, transform 0.2s cubic-bezier(0.34, 1.56, 0.64, 1); }
 .profile-chip-drop-leave-active { transition: opacity 0.14s ease, transform 0.14s ease; }
@@ -743,12 +762,13 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 
 .notif-dropdown {
   position: absolute; top: calc(100% + 12px); right: 0;
-  width: 340px;
+  width: 360px;
   background: var(--bg);
   border: 1px solid var(--border);
-  border-radius: 18px;
+  border-radius: 20px;
   overflow: hidden;
   z-index: 200;
+  box-shadow: 0 18px 44px rgba(0,0,0,0.14);
 }
 .notif-dropdown--mobile {
   position: fixed;
@@ -760,9 +780,17 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 }
 .notif-dropdown__header {
   display: flex; justify-content: space-between; align-items: center;
-  padding: 14px 16px 12px; border-bottom: 1px solid var(--border-soft);
+  padding: 16px 18px; border-bottom: 1px solid var(--border-soft);
 }
 .notif-header-left { display: flex; align-items: center; gap: 8px; }
+.notif-header-right { display: flex; align-items: center; gap: 10px; }
+.notif-close {
+  width: 28px; height: 28px; border-radius: 8px; flex-shrink: 0;
+  border: 1px solid var(--border); background: var(--bg); color: var(--t3);
+  cursor: pointer; display: flex; align-items: center; justify-content: center;
+  transition: color 0.16s ease, border-color 0.16s ease;
+}
+.notif-close:hover { color: var(--t1); border-color: var(--accent-border); }
 .notif-dropdown__title { font-size: 0.88rem; font-weight: 700; color: var(--t1); }
 .notif-count-pill {
   font-size: 0.65rem; font-weight: 700;
@@ -776,7 +804,10 @@ onBeforeUnmount(() => document.removeEventListener('click', handleOutsideClick))
 .notif-list::-webkit-scrollbar { width: 3px; }
 .notif-list::-webkit-scrollbar-thumb { background: var(--border); border-radius: 99px; }
 
-.notif-empty { display: flex; flex-direction: column; align-items: center; gap: 8px; padding: 28px 16px; color: var(--t3); font-size: 0.8rem; }
+.notif-empty { display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 40px 26px; text-align: center; }
+.notif-empty__icon { width: 54px; height: 54px; border-radius: 15px; background: var(--glass-hover); border: 1px solid var(--border-soft); display: flex; align-items: center; justify-content: center; color: var(--t3); }
+.notif-empty__title { margin: 2px 0 0; font-size: 0.95rem; font-weight: 700; color: var(--t1); }
+.notif-empty__sub { margin: 0; font-size: 0.8rem; color: var(--t3); line-height: 1.5; max-width: 250px; }
 .notif-item {
   display: flex; align-items: flex-start; gap: 10px;
   padding: 11px 16px; border-bottom: 1px solid var(--border-soft);
