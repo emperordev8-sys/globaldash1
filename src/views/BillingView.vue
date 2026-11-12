@@ -516,14 +516,16 @@ function showToast(type, msg) {
   display: grid; grid-template-columns: repeat(4, 1fr); gap: 14px;
 }
 .bill-stat {
-  background: var(--surface-1);
+  background:
+    radial-gradient(80% 120% at 0% 100%, rgba(34,197,94,0.1) 0%, transparent 58%),
+    var(--surface-1);
   border: 1px solid var(--border);
   border-radius: 14px; padding: 14px 16px;
   display: flex; flex-direction: column; gap: 6px;
 }
 :root:not([data-theme="light"]) .bill-stat {
   background:
-    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
+    radial-gradient(80% 120% at 0% 100%, rgba(34,197,94,0.24) 0%, transparent 60%),
     var(--surface-1);
 }
 .bill-stat__top {
@@ -588,7 +590,9 @@ function showToast(type, msg) {
 }
 
 .bill-plan-card {
-  background: var(--surface-1);
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.12) 0%, rgba(34,197,94,0.03) 38%, transparent 62%),
+    var(--surface-1);
   border: 1px solid var(--border);
   border-radius: 18px; padding: 20px;
   display: flex; flex-direction: column; gap: 14px;
@@ -597,7 +601,7 @@ function showToast(type, msg) {
 }
 :root:not([data-theme="light"]) .bill-plan-card {
   background:
-    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 40%, transparent 64%),
     var(--surface-1);
 }
 .bill-plan-card--current { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.5); }
