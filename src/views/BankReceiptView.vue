@@ -16,7 +16,7 @@
       <div class="br-bankgrid">
         <button v-for="b in banks" :key="b.name" class="br-bankcard" @click="pickBank(b)">
           <span class="br-bankcard__icon">
-            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" v-html="b.icon"></svg>
           </span>
           <span class="br-bankcard__name">{{ b.name }}</span>
           <span class="br-bankcard__desc">{{ b.name }}-styled transaction receipt — deposit, withdrawal or transfer.</span>
@@ -439,10 +439,10 @@ setInterval(() => { clockTime.value = formatClock() }, 10000)
 
 /* â"€â"€ Banks â"€â"€ */
 const banks = [
-  { name: 'Chase', color: '#1565C0', symbol: '+', legal: 'JPMorgan Chase Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 JPMorgan Chase & Co.' },
-  { name: 'Citi', color: '#056dae', symbol: 'â—Ž', template: 'citi', legal: 'Citibank, N.A. Member FDIC.', sub: '© 2026 Citigroup Inc.' },
-  { name: 'Varo', color: '#592EE5', symbol: 'V', legal: 'Varo Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Varo Bank, N.A.' },
-  { name: 'USAA', color: '#1b2a48', symbol: 'â˜…', template: 'usaa', legal: 'USAA Federal Savings Bank · Member FDIC', sub: '© 2026 USAA. All rights reserved.' },
+  { name: 'Chase', color: '#1565C0', symbol: '+', icon: '<line x1="3" y1="21" x2="21" y2="21"/><line x1="3" y1="10" x2="21" y2="10"/><polyline points="5 6 12 3 19 6"/><line x1="4" y1="10" x2="4" y2="21"/><line x1="20" y1="10" x2="20" y2="21"/><line x1="8" y1="14" x2="8" y2="17"/><line x1="12" y1="14" x2="12" y2="17"/><line x1="16" y1="14" x2="16" y2="17"/>', legal: 'JPMorgan Chase Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 JPMorgan Chase & Co.' },
+  { name: 'Citi', color: '#056dae', symbol: 'â—Ž', template: 'citi', icon: '<rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/>', legal: 'Citibank, N.A. Member FDIC.', sub: '© 2026 Citigroup Inc.' },
+  { name: 'Varo', color: '#592EE5', symbol: 'V', icon: '<path d="M20 7H5a2 2 0 0 1 0-4h13v4"/><path d="M3 5v14a2 2 0 0 0 2 2h15V7"/><path d="M16 14h.01"/>', legal: 'Varo Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Varo Bank, N.A.' },
+  { name: 'USAA', color: '#1b2a48', symbol: 'â˜…', template: 'usaa', icon: '<path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><polyline points="9 12 11 14 15 10"/>', legal: 'USAA Federal Savings Bank · Member FDIC', sub: '© 2026 USAA. All rights reserved.' },
 ]
 
 /* â"€â"€ Transaction types â"€â"€ */
