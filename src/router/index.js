@@ -28,6 +28,7 @@ import WalletView from '../views/WalletView.vue'
 import BillingView from '../views/BillingView.vue'
 import TutorialsView from '../views/TutorialsView.vue'
 import BankReceiptView from '../views/BankReceiptView.vue'
+import StoreReceiptView from '../views/StoreReceiptView.vue'
 import SupportPagesView from '../views/SupportPagesView.vue'
 import OnlineBankingView from '../views/OnlineBankingView.vue'
 import BrokerView from '../views/BrokerView.vue'
@@ -80,6 +81,7 @@ const routes = [
   { path: '/tools/voice-notes', name: 'VoiceNotes', component: VoiceNotesView },
   { path: '/tools/buy-account', name: 'BuyAccount', component: BuyAccountView },
   { path: '/tools/bank-receipt', name: 'BankReceipt', component: BankReceiptView },
+  { path: '/tools/store-receipt', name: 'StoreReceipt', component: StoreReceiptView },
   { path: '/wallet', name: 'Wallet', component: WalletView },
   { path: '/billing', name: 'Billing', component: BillingView },
   { path: '/tutorials', name: 'Tutorials', component: TutorialsView },

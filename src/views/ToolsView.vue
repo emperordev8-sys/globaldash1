@@ -41,7 +41,7 @@ const pic = (n) => PIC[`../assets/1000880${n}.png`]
 const services = [
   { title: 'Crypto Receipts', route: '/tools/crypto-receipts', img: pic('314') },
   { title: 'Bank Receipt',    route: '/tools/bank-receipt',    img: pic('313') },
-  { title: 'Store Receipt',                                     img: pic('315') },
+  { title: 'Store Receipt',       route: '/tools/store-receipt',  img: pic('315') },
 ]
 
 function open(s) {
@@ -93,7 +93,6 @@ function open(s) {
     radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
     var(--surface-1);
 }
-.gen-card:hover { border-color: var(--accent-border); transform: translateY(-3px); }
 
 .gen-medal {
   width: 52px; height: 52px; border-radius: 15px; flex-shrink: 0; overflow: hidden;
