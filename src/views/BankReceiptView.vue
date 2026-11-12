@@ -2,14 +2,37 @@
 <template>
   <div class="br-page">
 
-    <!-- Page Header -->
+    <!-- ══════════ BANK PICKER ══════════ -->
+    <template v-if="!picked">
+      <div class="br-header">
+        <button class="br-back" @click="router.push('/tools')">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
+          Back
+        </button>
+        <h1 class="br-title">Bank Receipt</h1>
+        <p class="br-sub">Pick a bank, fill in the details, and generate a bank-app-styled receipt to download as a PDF or image.</p>
+      </div>
+
+      <div class="br-bankgrid">
+        <button v-for="b in banks" :key="b.name" class="br-bankcard" @click="pickBank(b)">
+          <span class="br-bankcard__icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+          </span>
+          <span class="br-bankcard__name">{{ b.name }}</span>
+          <span class="br-bankcard__desc">{{ b.name }}-styled transaction receipt — deposit, withdrawal or transfer.</span>
+        </button>
+      </div>
+    </template>
+
+    <!-- ══════════ FORM + PREVIEW ══════════ -->
+    <template v-else>
     <div class="br-header">
-      <button class="br-back" @click="router.back()">
+      <button class="br-back" @click="picked = false">
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><polyline points="15 18 9 12 15 6"/></svg>
-        Back
+        All banks
       </button>
-      <h1 class="br-title">Bank Receipt</h1>
-      <p class="br-sub">Fill in the details and generate a bank-app-styled receipt â€" download it as a <span class="br-hl">PDF</span> or an <span class="br-hl">image</span>.</p>
+      <h1 class="br-title">{{ form.bank }} Receipt</h1>
+      <p class="br-sub">Fill in the details and generate a {{ form.bank }}-app-styled receipt — download it as a <span class="br-hl">PDF</span> or an <span class="br-hl">image</span>.</p>
     </div>
 
     <!-- Two-column layout -->
@@ -142,7 +165,7 @@
           <div ref="receiptEl" class="br-receipt">
 
             <!-- Status bar -->
-            <div class="br-status-bar">
+            <div class="br-status-bar" :style="statusBarStyle">
               <span class="br-sb-time">{{ clockTime }}</span>
               <div class="br-sb-icons">
                 <svg width="16" height="10" viewBox="0 0 24 14" fill="currentColor">
@@ -161,6 +184,157 @@
               </div>
             </div>
 
+            <!-- ══ Citi template ══ -->
+            <template v-if="activeBank.template === 'citi'">
+              <div class="br-citi-head">
+                <span class="br-citi-logo">
+                  <svg class="br-citi-arc" width="40" height="13" viewBox="0 0 40 13" fill="none"><path d="M6 12 C 13 1, 31 1, 37 7" stroke="#ed1c24" stroke-width="2.6" stroke-linecap="round"/></svg>
+                  <span class="br-citi-word">citi</span>
+                </span>
+                <span class="br-citi-rx">Transaction Receipt</span>
+              </div>
+              <div class="br-citi-body">
+                <div class="br-citi-tx">{{ form.txType.replace(/-/g,' ').toUpperCase() }}</div>
+                <div class="br-citi-amount" :class="amountClass">{{ formattedAmount }}</div>
+                <div class="br-citi-stat">
+                  <span class="br-citi-stat__ico" :style="{ background: statusColor }">
+                    <svg v-if="form.status !== 'Failed'" width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                    <svg v-else width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  </span>
+                  <span :style="{ color: statusColor }">{{ form.status }}</span>
+                </div>
+
+                <div class="br-details">
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">To</span>
+                    <div class="br-dv"><strong>{{ form.toName || 'â€"' }}</strong><small>{{ form.toAccount || '' }}</small></div>
+                  </div>
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">From</span>
+                    <div class="br-dv"><strong>{{ form.fromName || 'â€"' }}</strong><small>{{ form.fromAccount || '' }}</small></div>
+                  </div>
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">Date &amp; time</span>
+                    <div class="br-dv"><strong>{{ shortDate }}</strong><small>{{ displayTime }}</small></div>
+                  </div>
+                  <div v-if="form.method" class="br-dr">
+                    <span class="br-dl br-dl--citi">Method</span>
+                    <strong class="br-dv-single">{{ form.method }}</strong>
+                  </div>
+                  <div v-if="form.memo" class="br-dr">
+                    <span class="br-dl br-dl--citi">Memo</span>
+                    <strong class="br-dv-single">{{ form.memo }}</strong>
+                  </div>
+                  <div v-if="form.reference" class="br-dr">
+                    <span class="br-dl br-dl--citi">Confirmation #</span>
+                    <strong class="br-dv-single">{{ form.reference }}</strong>
+                  </div>
+                </div>
+
+                <div class="br-citi-foot">{{ activeBank.legal }} {{ activeBank.sub }}</div>
+              </div>
+            </template>
+
+            <!-- ══ Varo template ══ -->
+            <template v-else-if="activeBank.template === 'varo'">
+              <div class="br-varo-head">
+                <div class="br-varo-logo">
+                  <span class="br-varo-v">V</span>
+                  <span class="br-varo-name">Varo</span>
+                </div>
+                <div class="br-varo-tx">{{ form.txType.replace(/-/g,' ').toUpperCase() }}</div>
+                <div class="br-varo-amount">{{ formattedAmount }}</div>
+              </div>
+              <div class="br-varo-body">
+                <div class="br-varo-pill">
+                  <svg v-if="form.status !== 'Failed'" width="12" height="12" viewBox="0 0 24 24" fill="none" :stroke="statusColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg v-else width="12" height="12" viewBox="0 0 24 24" fill="none" :stroke="statusColor" stroke-width="3.2" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                  <span :style="{ color: statusColor }">{{ form.status }}</span>
+                </div>
+
+                <div class="br-details">
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">From</span>
+                    <div class="br-dv"><strong>{{ form.fromName || 'â€"' }}</strong><small>{{ form.fromAccount || '' }}</small></div>
+                  </div>
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">To</span>
+                    <div class="br-dv"><strong>{{ form.toName || 'â€"' }}</strong><small>{{ form.toAccount || '' }}</small></div>
+                  </div>
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">Date</span>
+                    <div class="br-dv"><strong>{{ shortDate }}</strong><small>{{ displayTime }}</small></div>
+                  </div>
+                  <div v-if="form.method" class="br-dr">
+                    <span class="br-dl br-dl--citi">Method</span>
+                    <strong class="br-dv-single">{{ form.method }}</strong>
+                  </div>
+                  <div v-if="form.memo" class="br-dr">
+                    <span class="br-dl br-dl--citi">Note</span>
+                    <strong class="br-dv-single">{{ form.memo }}</strong>
+                  </div>
+                  <div v-if="form.reference" class="br-dr">
+                    <span class="br-dl br-dl--citi">Reference ID</span>
+                    <strong class="br-dv-single">{{ form.reference }}</strong>
+                  </div>
+                </div>
+
+                <div class="br-varo-foot">{{ activeBank.legal }}</div>
+              </div>
+            </template>
+
+            <!-- ══ USAA template ══ -->
+            <template v-else-if="activeBank.template === 'usaa'">
+              <div class="br-usaa-head">
+                <div class="br-usaa-logo">
+                  <span class="br-usaa-badge">USAA</span>
+                  <span class="br-usaa-name">USAA</span>
+                </div>
+                <span class="br-usaa-rx">Receipt</span>
+              </div>
+              <div class="br-usaa-body">
+                <div class="br-usaa-check">
+                  <svg v-if="form.status !== 'Failed'" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c6a15c" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+                  <svg v-else width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#c6a15c" stroke-width="2.8" stroke-linecap="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+                </div>
+                <div class="br-usaa-title">{{ txTitle }}</div>
+                <div class="br-usaa-date">{{ formattedDateOnly }} · {{ displayTime }}</div>
+                <div class="br-usaa-tx">{{ form.txType.replace(/-/g,' ').toUpperCase() }}</div>
+                <div class="br-usaa-amount" :class="amountClass">{{ formattedAmount }}</div>
+
+                <div class="br-details">
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">To</span>
+                    <div class="br-dv"><strong>{{ form.toName || 'â€"' }}</strong><small>{{ form.toAccount || '' }}</small></div>
+                  </div>
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">From</span>
+                    <div class="br-dv"><strong>{{ form.fromName || 'â€"' }}</strong><small>{{ form.fromAccount || '' }}</small></div>
+                  </div>
+                  <div class="br-dr">
+                    <span class="br-dl br-dl--citi">Date</span>
+                    <div class="br-dv"><strong>{{ formattedDateOnly }}</strong><small>{{ displayTime }}</small></div>
+                  </div>
+                  <div v-if="form.method" class="br-dr">
+                    <span class="br-dl br-dl--citi">Method</span>
+                    <strong class="br-dv-single">{{ form.method }}</strong>
+                  </div>
+                  <div v-if="form.memo" class="br-dr">
+                    <span class="br-dl br-dl--citi">Memo</span>
+                    <strong class="br-dv-single">{{ form.memo }}</strong>
+                  </div>
+                  <div v-if="form.reference" class="br-dr">
+                    <span class="br-dl br-dl--citi">Confirmation #</span>
+                    <strong class="br-dv-single">{{ form.reference }}</strong>
+                  </div>
+                </div>
+
+                <div class="br-usaa-foot">{{ activeBank.legal }}<br>{{ activeBank.sub }}</div>
+              </div>
+            </template>
+
+            <!-- ══ Standard template ══ -->
+            <template v-else>
             <!-- Bank header -->
             <div class="br-bank-head" :style="{ background: activeBank.color }">
               <div class="br-bank-left">
@@ -233,11 +407,13 @@
               </div>
 
             </div>
+            </template>
           </div>
         </div>
       </div>
 
     </div>
+    </template>
   </div>
 </template>
 
@@ -250,6 +426,8 @@ import { jsPDF } from 'jspdf'
 const router = useRouter()
 const receiptEl = ref(null)
 const downloading = ref(null)
+const picked = ref(false)
+function pickBank(b) { form.bank = b.name; picked.value = true }
 
 /* â"€â"€ Clock â"€â"€ */
 const clockTime = ref(formatClock())
@@ -262,17 +440,9 @@ setInterval(() => { clockTime.value = formatClock() }, 10000)
 /* â"€â"€ Banks â"€â"€ */
 const banks = [
   { name: 'Chase', color: '#1565C0', symbol: '+', legal: 'JPMorgan Chase Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 JPMorgan Chase & Co.' },
-  { name: 'Bank of America',color: '#E31837', symbol: 'â¬¡', legal: 'Bank of America, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Bank of America Corp.' },
-  { name: 'Wells Fargo', color: '#CC0000', symbol: 'âœ¦', legal: 'Wells Fargo Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Wells Fargo & Company' },
-  { name: 'Citibank', color: '#003B8E', symbol: 'â—Ž', legal: 'Citibank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Citigroup Inc.' },
-  { name: 'Capital One', color: '#C8102E', symbol: 'â—†', legal: 'Capital One, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Capital One Financial Corp.' },
-  { name: 'TD Bank', color: '#34A853', symbol: 'â—‰', legal: 'TD Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 TD Bank Group.' },
-  { name: 'US Bank', color: '#002B5C', symbol: 'â˜…', legal: 'U.S. Bank National Association, Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 U.S. Bancorp' },
-  { name: 'PNC Bank', color: '#EF3E42', symbol: 'â– ', legal: 'PNC Bank, National Association, Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 The PNC Financial Services Group' },
-  { name: 'Ally Bank', color: '#7C4DFF', symbol: 'A', legal: 'Ally Bank, Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Ally Financial Inc.' },
-  { name: 'Chime', color: '#00B894', symbol: 'âœ¦', legal: 'Banking services provided by The Bancorp Bank', sub: 'Member FDIC Â· Â© 2026 Chime Financial Inc.' },
-  { name: 'Cash App', color: '#00D64F', symbol: '$', legal: 'Cash App is a product of Block, Inc.', sub: 'Investing in stocks via Cash App Investing LLC. Â© 2026 Block Inc.' },
-  { name: 'Zelle', color: '#6C1CD3', symbol: 'Z', legal: 'ZelleÂ® and the ZelleÂ® related marks are wholly owned by Early Warning Services, LLC', sub: 'Â© 2026 Early Warning Services, LLC' },
+  { name: 'Citi', color: '#056dae', symbol: 'â—Ž', template: 'citi', legal: 'Citibank, N.A. Member FDIC.', sub: '© 2026 Citigroup Inc.' },
+  { name: 'Varo', color: '#592EE5', symbol: 'V', legal: 'Varo Bank, N.A. Member FDIC', sub: 'Equal Housing Lender Â· Â© 2026 Varo Bank, N.A.' },
+  { name: 'USAA', color: '#1b2a48', symbol: 'â˜…', template: 'usaa', legal: 'USAA Federal Savings Bank · Member FDIC', sub: '© 2026 USAA. All rights reserved.' },
 ]
 
 /* â"€â"€ Transaction types â"€â"€ */
@@ -337,6 +507,22 @@ const formattedDateOnly = computed(() => {
 })
 
 const displayTime = computed(() => form.time || '')
+
+const shortDate = computed(() => {
+  if (!form.date) return 'â€"'
+  const d = new Date(form.date + 'T00:00:00')
+  return d.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' })
+})
+
+const statusColor = computed(() => ({ Failed: '#ef4444', Pending: '#f59e0b', Processing: '#3b82f6' }[form.status] || '#16a34a'))
+
+const statusBarStyle = computed(() => {
+  const t = activeBank.value.template
+  if (t === 'citi') return { background: '#ffffff', color: '#111111' }
+  if (t === 'varo') return { background: '#16233f', color: '#ffffff' }
+  if (t === 'usaa') return { background: '#1b2a48', color: '#ffffff' }
+  return { background: '#111111', color: '#ffffff' }
+})
 
 const isDebit = computed(() => ['transfer-sent','payment','withdrawal','purchase'].includes(form.txType))
 
@@ -431,6 +617,27 @@ async function downloadPDF() {
 }
 .br-sub { font-size: 0.85rem; color: var(--t1); font-weight: 600; margin: 0 0 24px; }
 .br-hl { color: var(--accent); font-weight: 600; }
+
+/* ── Bank picker grid ── */
+.br-bankgrid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+.br-bankcard {
+  display: flex; flex-direction: column; align-items: flex-start; gap: 12px;
+  padding: 18px; border-radius: 16px; cursor: pointer; text-align: left; font-family: inherit;
+  background: var(--surface-1); border: 1px solid var(--border);
+  transition: border-color 0.2s ease, transform 0.16s ease;
+}
+:root:not([data-theme="light"]) .br-bankcard {
+  background:
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.22) 0%, rgba(34,197,94,0.07) 42%, transparent 66%),
+    var(--surface-1);
+}
+.br-bankcard:hover { border-color: var(--accent-border); transform: translateY(-3px); }
+.br-bankcard__icon { width: 44px; height: 44px; border-radius: 12px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; background: var(--accent-dim); border: 1px solid var(--accent-border); color: var(--accent); }
+.br-bankcard__name { font-size: 0.95rem; font-weight: 700; color: var(--t1); }
+.br-bankcard__desc { font-size: 0.78rem; color: var(--t3); line-height: 1.5; }
+@media (max-width: 1024px) { .br-bankgrid { grid-template-columns: repeat(3, 1fr); } }
+@media (max-width: 760px)  { .br-bankgrid { grid-template-columns: 1fr 1fr; } }
+@media (max-width: 440px)  { .br-bankgrid { grid-template-columns: 1fr; } }
 
 /* â"€â"€ Layout â"€â"€ */
 .br-layout {
@@ -702,6 +909,54 @@ async function downloadPDF() {
   color: #aaa;
   line-height: 1.6;
 }
+
+/* ── Citi template ── */
+.br-citi-head {
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 16px 18px; background: #fff; border-bottom: 1px solid #eee;
+}
+.br-citi-logo { position: relative; display: inline-block; padding-top: 7px; }
+.br-citi-arc { position: absolute; top: 0; right: 2px; }
+.br-citi-word { font-size: 1.45rem; font-weight: 700; color: #056dae; letter-spacing: -0.03em; font-family: Arial, Helvetica, sans-serif; }
+.br-citi-rx { font-size: 0.82rem; font-weight: 700; color: #333; }
+.br-citi-body { padding: 26px 22px 22px; display: flex; flex-direction: column; align-items: center; }
+.br-citi-tx { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.12em; color: #8a8a8a; margin-bottom: 10px; }
+.br-citi-amount { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 14px; }
+.br-citi-stat { display: flex; align-items: center; gap: 7px; font-size: 0.86rem; font-weight: 700; margin-bottom: 20px; }
+.br-citi-stat__ico { width: 18px; height: 18px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+.br-dl--citi { color: #888; font-weight: 500; }
+.br-citi-foot { margin-top: 18px; text-align: center; font-size: 0.6rem; color: #aaa; line-height: 1.6; }
+
+/* ── Varo template ── */
+.br-varo-head { background: #16233f; padding: 18px 20px 26px; color: #fff; }
+.br-varo-logo { display: flex; align-items: center; gap: 9px; margin-bottom: 18px; }
+.br-varo-v { width: 26px; height: 26px; border-radius: 50%; background: #17b26a; color: #fff; display: flex; align-items: center; justify-content: center; font-weight: 800; font-size: 0.85rem; }
+.br-varo-name { font-size: 1.15rem; font-weight: 800; }
+.br-varo-tx { font-size: 0.66rem; font-weight: 700; letter-spacing: 0.1em; color: rgba(255,255,255,0.65); margin-bottom: 8px; }
+.br-varo-amount { font-size: 2.1rem; font-weight: 800; letter-spacing: -0.03em; color: #fff; }
+.br-varo-body { background: #fff; padding: 0 20px 20px; display: flex; flex-direction: column; align-items: center; }
+.br-varo-pill {
+  display: inline-flex; align-items: center; gap: 6px;
+  background: #fff; border-radius: 999px; padding: 8px 16px;
+  font-size: 0.82rem; font-weight: 800;
+  box-shadow: 0 4px 14px rgba(0,0,0,0.12);
+  position: relative; top: -18px; margin-bottom: -6px;
+}
+.br-varo-foot { margin-top: 18px; text-align: center; font-size: 0.62rem; font-weight: 600; color: #17b26a; }
+
+/* ── USAA template ── */
+.br-usaa-head { background: #1b2a48; padding: 16px 20px; display: flex; align-items: center; justify-content: space-between; }
+.br-usaa-logo { display: flex; align-items: center; gap: 9px; }
+.br-usaa-badge { width: 26px; height: 26px; border-radius: 50%; background: #1b2a48; border: 1.5px solid #c6a15c; color: #c6a15c; display: flex; align-items: center; justify-content: center; font-size: 0.42rem; font-weight: 800; letter-spacing: 0.02em; }
+.br-usaa-name { font-size: 1.15rem; font-weight: 800; color: #fff; letter-spacing: 0.02em; }
+.br-usaa-rx { font-size: 0.86rem; font-weight: 700; color: #fff; }
+.br-usaa-body { background: #fff; padding: 24px 20px 20px; display: flex; flex-direction: column; align-items: center; }
+.br-usaa-check { width: 58px; height: 58px; border-radius: 50%; background: #1b2a48; border: 2px solid #c6a15c; display: flex; align-items: center; justify-content: center; margin-bottom: 14px; }
+.br-usaa-title { font-size: 1.05rem; font-weight: 800; color: #111; margin-bottom: 4px; }
+.br-usaa-date { font-size: 0.72rem; color: #777; margin-bottom: 14px; }
+.br-usaa-tx { font-size: 0.64rem; font-weight: 700; letter-spacing: 0.1em; color: #8a8a8a; margin-bottom: 6px; }
+.br-usaa-amount { font-size: 2rem; font-weight: 800; letter-spacing: -0.03em; margin-bottom: 18px; }
+.br-usaa-foot { margin-top: 18px; text-align: center; font-size: 0.6rem; color: #aaa; line-height: 1.7; }
 
 
 /* â"€â"€ Responsive â"€â"€ */

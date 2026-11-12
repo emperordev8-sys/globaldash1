@@ -523,7 +523,7 @@ function showToast(type, msg) {
 }
 :root:not([data-theme="light"]) .bill-stat {
   background:
-    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.2) 0%, rgba(34,197,94,0.06) 42%, transparent 66%),
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
     var(--surface-1);
 }
 .bill-stat__top {
@@ -597,7 +597,7 @@ function showToast(type, msg) {
 }
 :root:not([data-theme="light"]) .bill-plan-card {
   background:
-    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.22) 0%, rgba(34,197,94,0.07) 42%, transparent 66%),
+    radial-gradient(95% 150% at 0% 50%, rgba(34,197,94,0.26) 0%, rgba(34,197,94,0.08) 42%, transparent 66%),
     var(--surface-1);
 }
 .bill-plan-card--current { border-color: rgba(var(--accent-r),var(--accent-g),var(--accent-b),.5); }
